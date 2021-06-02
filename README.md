@@ -6,9 +6,11 @@
 
 ### Также не забудьте проверить, что репозиторий публичный.
 ---
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0b689e0a-1271-4ef1-83e5-642126976924/deploy-status)](https://app.netlify.com/sites/inspiring-mestorf-5ea442/deploys)
 
 Figma: https://www.figma.com/file/v4ByQpTajwEHITYEQo4emI/Untitled?node-id=8%3A78
-Netlify: 
+
+Netlify: https://inspiring-mestorf-5ea442.netlify.app
 
 
 Даже законченный проект остаётся только заготовкой, пока им не начнут пользоваться. Но сначала пользователь должен понять, зачем ему пользоваться вашим кодом. В этом помогает файл README.
