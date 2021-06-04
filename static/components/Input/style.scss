@@ -1,0 +1,18 @@
+.input-component {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  font-size: 13px;
+
+  &__input {
+    border: 1px solid #E6E8E9;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-top: 5px;
+    font-size: 14px;
+
+    &:focus {
+      border-color: #105FD4;
+    }
+  }
+}

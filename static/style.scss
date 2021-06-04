@@ -1,0 +1,111 @@
+html {
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+}
+html,
+body {
+	height: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.link {
+  color: #105FD4;
+
+  &:hover {
+    color: darken(#105FD4, 2%)
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.header {
+  padding: 15px;
+  min-height: 30px;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 0 auto;
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 30px;
+  padding: 15px;
+	flex: 0 0 auto;
+
+  &-links {
+    display: flex;
+    gap: 30px;
+  }
+}
+
+.logo {
+  margin: 0;
+  color: #0E84F0;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  min-width: 278px;
+  // gap: 20px;
+
+  &__title {
+    text-align: center;
+    margin: 0 0 30px 0;
+  }
+
+  &__button {
+    margin: 10px 0 15px 0;
+  }
+
+  &__create-account {
+    text-align: center;
+  }
+}
+
+.input-component {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+  font-size: 13px;
+
+  &__input {
+    border: 1px solid #E6E8E9;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-top: 5px;
+    font-size: 14px;
+
+    &:focus {
+      border-color: #105FD4;
+    }
+  }
+}
+
+.button {
+  font-size: 18px;
+  color: #fff;
+  text-align: center;
+  background: #105FD4;
+  padding: 10px 0;
+  border-radius: 5px;
+
+  &:hover {
+    background: darken(#105FD4, 2%);
+  }
+
+  &:active {
+    background: darken(#105FD4, 3%);
+  } 
+}

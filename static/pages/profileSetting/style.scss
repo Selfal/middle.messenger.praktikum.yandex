@@ -1,0 +1,125 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont,
+    'Roboto','Helvetica Neue', Geneva, "Noto Sans Armenian", "Noto Sans Bengali",
+    "Noto Sans Cherokee", "Noto Sans Devanagari","Noto Sans Ethiopic", 
+    "Noto Sans Georgian", "Noto Sans Hebrew", "Noto Sans Kannada", "Noto Sans Khmer",
+    "Noto Sans Lao", "Noto Sans Osmanya", "Noto Sans Tamil", "Noto Sans Telugu", "Noto Sans Thai",
+    sans-serif, arial, Tahoma, verdana;
+}
+
+.wrapper {
+  display: flex;
+  height: 100vh;
+}
+
+.avatar {
+  position: relative;
+  background: red;
+  width: 125px;
+  height: 125px;
+  position: relative;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  cursor: pointer;
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    background: #5c5c5c;
+    border-radius: inherit;
+  }
+
+  &__input {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  } 
+}
+
+.button-back {
+  width: 50px;
+  height: 100%;
+  border-right: 1px solid #ececec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 0 auto;
+  padding-top: 50px;
+  background: #fbfcff;
+}
+
+.button__icon {
+  width: 30px;
+  fill: #3369F3;
+}
+
+.name {
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.input-component {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  font-size: 13px;
+
+  &__input {
+    border: 1px solid #E6E8E9;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-top: 5px;
+    font-size: 14px;
+
+    &:focus {
+      border-color: #105FD4;
+    }
+  }
+}
+
+.user-info {
+  margin-top: 30px;
+  width: 30%;
+}
+
+.user-info-bottom {
+  width: 30%;
+}
+
+.link {
+  text-decoration: none;
+  color: #105FD4;
+  margin-bottom: 20px;
+  cursor: pointer;
+
+  &:hover {
+    color: darken(#105FD4, 2%)
+  }
+
+  &--exit {
+    color: red;
+
+    &:hover {
+      color: darken(red, 2%)
+
+    }
+  }
+}
+
+.user-info-bottom {
+  display: flex;
+  flex-direction: column;
+  
+}

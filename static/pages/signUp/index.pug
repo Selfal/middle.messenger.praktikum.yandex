@@ -1,0 +1,44 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="../../utils/normalize.css")
+    link(rel="stylesheet", href="./style.scss")
+    title Create an account
+  body 
+    div.wrapper
+      header.header 
+        a(href="/") 
+          h2.logo Chatao
+      main.main 
+        div.auth-form
+          div.auth-form__header
+            h2.auth-form__title Create an account
+
+          div.auth-form__body
+            label.input-component Email
+              input(type="email" placeholder="Enter youre email" name="email").input-component__input
+            label.input-component Login
+              input(type="text" placeholder="Enter youre login" name="login").input-component__input
+            label.input-component Phone
+              input(type="phone" placeholder="Enter youre phone" name="phone").input-component__input
+            label.input-component First name
+              input(type="text" placeholder="Enter youre first name", name="first_name").input-component__input
+            label.input-component Second name 
+              input(type="text" placeholder="Enter youre second name" name="last_name").input-component__input
+            label.input-component Password
+              input(type="password" placeholder="Enter youre password" name="password").input-component__input
+            label.input-component Repeat password
+              input(type="password" placeholder="Repeat password" name="repeat_password").input-component__input
+
+          div.auth-form__footer 
+            a.button.button--primary.auth-form__button(href="#") Create
+            a.auth-form__create-account.link(href="../../index.pug") Log In
+      footer.footer 
+        div.footer-links
+          a.footer__link.link(href="#") Vk
+          a.footer__link.link(href="#") Telegramm
+          a.footer__link.link(href="#") GiHub
+    script(src="../../login.js") 
