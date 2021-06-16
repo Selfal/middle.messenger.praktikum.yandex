@@ -5,14 +5,29 @@
   font-size: 13px;
 
   &__input {
-    border: 1px solid #E6E8E9;
+    border: 1px solid #e6e8e9;
     border-radius: 5px;
     padding: 10px 15px;
     margin-top: 5px;
     font-size: 14px;
+    outline: none;
 
     &:focus {
-      border-color: #105FD4;
+      // border-color: #105fd4;
+      // background-color: inherit;
     }
+
+    &--error {
+      border-color: #ef8484;
+    }
+
+    &--success {
+      border-color: #29ce29;
+    }
+  }
+
+  &__warning {
+    margin-top: 5px;
+    color: #e61515;
   }
 }

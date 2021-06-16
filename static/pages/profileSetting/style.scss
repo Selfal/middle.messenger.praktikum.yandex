@@ -1,12 +1,13 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont,
-    'Roboto','Helvetica Neue', Geneva, "Noto Sans Armenian", "Noto Sans Bengali",
-    "Noto Sans Cherokee", "Noto Sans Devanagari","Noto Sans Ethiopic", 
-    "Noto Sans Georgian", "Noto Sans Hebrew", "Noto Sans Kannada", "Noto Sans Khmer",
-    "Noto Sans Lao", "Noto Sans Osmanya", "Noto Sans Tamil", "Noto Sans Telugu", "Noto Sans Thai",
-    sans-serif, arial, Tahoma, verdana;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto',
+    'Helvetica Neue', Geneva, 'Noto Sans Armenian',
+    'Noto Sans Bengali', 'Noto Sans Cherokee', 'Noto Sans Devanagari',
+    'Noto Sans Ethiopic', 'Noto Sans Georgian', 'Noto Sans Hebrew',
+    'Noto Sans Kannada', 'Noto Sans Khmer', 'Noto Sans Lao',
+    'Noto Sans Osmanya', 'Noto Sans Tamil', 'Noto Sans Telugu',
+    'Noto Sans Thai', sans-serif, arial, Tahoma, verdana;
 }
 
 .wrapper {
@@ -39,7 +40,7 @@ body {
     width: 100%;
     height: 100%;
     opacity: 0;
-  } 
+  }
 }
 
 .button-back {
@@ -62,7 +63,7 @@ body {
 
 .button__icon {
   width: 30px;
-  fill: #3369F3;
+  fill: #3369f3;
 }
 
 .name {
@@ -77,14 +78,14 @@ body {
   font-size: 13px;
 
   &__input {
-    border: 1px solid #E6E8E9;
+    border: 1px solid #e6e8e9;
     border-radius: 5px;
     padding: 10px 15px;
     margin-top: 5px;
     font-size: 14px;
 
     &:focus {
-      border-color: #105FD4;
+      border-color: #105fd4;
     }
   }
 }
@@ -100,20 +101,20 @@ body {
 
 .link {
   text-decoration: none;
-  color: #105FD4;
-  margin-bottom: 20px;
+  color: #105fd4;
+  margin-bottom: 10px;
   cursor: pointer;
+  width: fit-content;
 
   &:hover {
-    color: darken(#105FD4, 2%)
+    color: darken(#105fd4, 2%);
   }
 
   &--exit {
     color: red;
 
     &:hover {
-      color: darken(red, 2%)
-
+      color: darken(red, 2%);
     }
   }
 }
@@ -121,5 +122,4 @@ body {
 .user-info-bottom {
   display: flex;
   flex-direction: column;
-  
 }

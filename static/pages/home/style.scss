@@ -1,10 +1,11 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont,
-    'Roboto','Helvetica Neue', Geneva, "Noto Sans Armenian", "Noto Sans Bengali",
-    "Noto Sans Cherokee", "Noto Sans Devanagari","Noto Sans Ethiopic", 
-    "Noto Sans Georgian", "Noto Sans Hebrew", "Noto Sans Kannada", "Noto Sans Khmer",
-    "Noto Sans Lao", "Noto Sans Osmanya", "Noto Sans Tamil", "Noto Sans Telugu", "Noto Sans Thai",
-    sans-serif, arial, Tahoma, verdana;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto',
+    'Helvetica Neue', Geneva, 'Noto Sans Armenian',
+    'Noto Sans Bengali', 'Noto Sans Cherokee', 'Noto Sans Devanagari',
+    'Noto Sans Ethiopic', 'Noto Sans Georgian', 'Noto Sans Hebrew',
+    'Noto Sans Kannada', 'Noto Sans Khmer', 'Noto Sans Lao',
+    'Noto Sans Osmanya', 'Noto Sans Tamil', 'Noto Sans Telugu',
+    'Noto Sans Thai', sans-serif, arial, Tahoma, verdana;
 }
 
 .wrapper {
@@ -168,7 +169,7 @@ body {
   right: 50%;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 4px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 4px rgba(0, 0, 0, 0.2);
   z-index: 1;
   font-size: 12px;
   text-align: left;
