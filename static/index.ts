@@ -5,6 +5,7 @@ import { Input } from './components/Input';
 import { Button } from './components/Button';
 import validate from './utils/validate';
 import { render } from './utils/renderDOM';
+import HTTPTool from './utils/HTTPtool';
 
 const inputEmail: Input = new Input({
   label: 'Email',
@@ -124,3 +125,22 @@ render('.footer-links', buttonVk);
 render('.footer-links', buttonTg);
 render('.footer-links', buttonGitHub);
 render('.footer-links', buttonPageList);
+
+// Test запросов
+new HTTPTool()
+  .get('https://jsonplaceholder.typicode.com/posts', {
+    data: { userId: 3 },
+  })
+  .then(({ response }) =>
+    console.log('Ответ userId 3:', JSON.parse(response)),
+  )
+  .catch(console.log);
+
+new HTTPTool()
+  .get('https://jsonplaceholder.typicode.com/posts', {
+    data: { userId: 1 },
+  })
+  .then(({ response }) =>
+    console.log('Ответ userId 1:', JSON.parse(response)),
+  )
+  .catch(console.log);
