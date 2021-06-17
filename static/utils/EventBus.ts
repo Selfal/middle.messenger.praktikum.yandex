@@ -5,7 +5,7 @@ export default class EventBus {
     this.listeners = {};
   }
 
-  on(event: string | number, callback: any): void {
+  on(event: string | number, callback: Function): void {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
@@ -13,13 +13,13 @@ export default class EventBus {
     this.listeners[event].push(callback);
   }
 
-  off(event: string | number, callback: any): void {
+  off(event: string | number, callback: Function): void {
     if (!this.listeners[event]) {
       throw new Error(`Нет события: ${event}`);
     }
 
     this.listeners[event] = this.listeners[event].filter(
-      (listener) => listener !== callback,
+      (listener: Function) => listener !== callback,
     );
   }
 
@@ -28,7 +28,7 @@ export default class EventBus {
       throw new Error(`Нет события: ${event}`);
     }
 
-    this.listeners[event].forEach((listener) => {
+    this.listeners[event].forEach((listener: Function) => {
       listener(...args);
     });
   }

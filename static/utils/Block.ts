@@ -13,15 +13,18 @@ export default class Block {
 
   private _element: HTMLElement | null = null;
 
-  readonly _meta: {
+  private _meta: {
     tagName: string;
     props: Object;
   };
 
   props: Object;
 
-  constructor(tagName = 'div', props = {}) {
-    const eventBus = new EventBus();
+  constructor(
+    tagName: string = 'div',
+    props: Record<string, any> = {},
+  ) {
+    const eventBus: EventBus = new EventBus();
     this._meta = {
       tagName,
       props,
@@ -35,7 +38,7 @@ export default class Block {
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  private _registerEvents(eventBus): void {
+  private _registerEvents(eventBus: EventBus): void {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(
       Block.EVENTS.FLOW_CDM,
@@ -53,7 +56,7 @@ export default class Block {
     this._element = this._createDocumentElement(tagName);
   }
 
-  init(): void {
+  protected init(): void {
     this._createResources();
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
@@ -63,20 +66,33 @@ export default class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  componentDidMount() {}
+  componentDidMount(): void {}
 
-  private _componentDidUpdate(oldProps, newProps): void {
-    const response = this.componentDidUpdate(oldProps, newProps);
-    if (!response) {
-      return;
+  private _componentDidUpdate(
+    oldProps: Record<string, any>,
+    newProps: Record<string, any>,
+  ): void {
+    const response: boolean = this.componentDidUpdate(
+      oldProps,
+      newProps,
+    );
+    if (response) {
+      this._render();
     }
   }
 
-  componentDidUpdate(oldProps, newProps) {
-    return true;
+  protected componentDidUpdate(
+    oldProps: Record<string, any>,
+    newProps: Record<string, any>,
+  ): boolean {
+    if (oldProps !== newProps) {
+      return true;
+    }
+
+    return false;
   }
 
-  setProps = (nextProps) => {
+  protected setProps = (nextProps: Record<string, any>): void => {
     if (!nextProps) {
       return;
     }
@@ -92,28 +108,9 @@ export default class Block {
     return this._element;
   }
 
-  // _addEvents() {
-  //   if (this.props.events) {
-  //     const events = this.props.events;
-  //     Object.keys(events).forEach((eventName) => {
-  //       if (eventName === 'blur' || eventName === 'focus') {
-  //         this._element
-  //           .querySelector('input')
-  //           .addEventListener(eventName, events[eventName]);
-  //       }
-
-  //       if (this._element) {
-  //         this._element
-  //           .querySelector('input')
-  //           .addEventListener(eventName, events[eventName]);
-  //       }
-  //     });
-  //   }
-  // }
-
-  _addEvents() {
+  private _addEvents(): void {
     if (this.props) {
-      const { events = {} } = this.props;
+      const { events = {} } = this.props as Record<string, any>;
       Object.keys(events).forEach((eventName) => {
         if (this._element) {
           const isFocusOrBlur: boolean =
@@ -128,10 +125,10 @@ export default class Block {
     }
   }
 
-  _removeEvents() {
-    const { events = {} } = this.props;
+  private _removeEvents(): void {
+    const { events = {} } = this.props as Record<string, any>;
 
-    Object.keys(events).forEach((eventName) => {
+    Object.keys(events).forEach((eventName: string) => {
       if (this._element) {
         const isFocusOrBlur: boolean =
           eventName === 'focus' || eventName === 'blur';
@@ -153,7 +150,7 @@ export default class Block {
     const block = this.render();
     this._removeEvents();
 
-    const template = migrateHtmlAtribute(block);
+    const template = <HTMLElement>migrateHtmlAtribute(block);
     template.getAttributeNames().forEach((name) => {
       this._element.setAttribute(
         name,
@@ -161,15 +158,16 @@ export default class Block {
       );
     });
 
-    const childNodes = template.childNodes;
+    const childNodes = <NodeList>template.childNodes;
 
     let str: string = '';
     for (let i = 0; i <= childNodes.length - 1; i++) {
-      const item = childNodes[i];
-      str +=
-        item.outerHTML !== undefined
-          ? item.outerHTML
-          : item.textContent;
+      const item = <HTMLElement>childNodes[i];
+      if (item.outerHTML !== undefined) {
+        str += item.outerHTML;
+      } else if (item.outerHTML === undefined) {
+        str += item.textContent;
+      }
     }
 
     this._element.innerHTML = str;
@@ -177,16 +175,19 @@ export default class Block {
     this._addEvents();
   }
 
-  render() {}
+  protected render(): void {}
 
-  getContent() {
+  protected getContent(): HTMLElement {
     return this.element;
   }
 
-  private _makePropsProxy(props) {
-    const self = this;
+  private _makePropsProxy(props: Record<string, any>) {
     return new Proxy(props, {
-      set: (target, prop, value) => {
+      set: (
+        target: Record<string, any>,
+        prop: string,
+        value: unknown,
+      ) => {
         target[prop] = value;
         this._meta.props = this.props;
         this.eventBus().emit(
@@ -202,16 +203,17 @@ export default class Block {
     });
   }
 
-  private _createDocumentElement(tagName) {
-    const componentWrapper = document.createElement(tagName);
+  private _createDocumentElement(tagName: string): HTMLElement {
+    const componentWrapper: HTMLElement =
+      document.createElement(tagName);
     return componentWrapper;
   }
 
-  show(type?: 'flex' | 'div'): void {
+  protected show(type?: 'flex' | 'div'): void {
     this.getContent().style.display = type ? type : 'block';
   }
 
-  hide(): void {
+  protected hide(): void {
     this.getContent().style.display = 'none';
   }
 }

@@ -1,8 +1,6 @@
-import './style.scss';
-
-import IButton from './interface';
 import pug from 'pug';
-
+import './style.scss';
+import IButton from './interface';
 import Block from '../../utils/Block';
 
 export class Button extends Block {
@@ -12,20 +10,24 @@ export class Button extends Block {
     super('a', props);
   }
 
-  render() {
-    const { text, link = '#', primary = false }: IButton = this.props;
+  render(): string {
+    const {
+      text,
+      link = '#',
+      primary = false,
+    } = this.props as IButton;
 
-    let { className }: IButton = this.props;
+    let { className } = this.props as IButton;
 
     if (className[0] !== '.') {
       className = `.${className}`;
     }
 
-    const node = pug.compile(
+    const component = pug.compile(
       `a.button.${
         primary ? 'button--primary' : 'button--secondary'
       }${className}(href="${link}") ${text}`,
     );
-    return node(this.props);
+    return component(this.props);
   }
 }

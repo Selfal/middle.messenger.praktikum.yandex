@@ -1,8 +1,6 @@
-import './style.scss';
-
-import IMessage from './interface';
 import pug from 'pug';
-
+import './style.scss';
+import IMessage from './interface';
 import Block from '../../utils/Block';
 
 export class Message extends Block {
@@ -13,11 +11,11 @@ export class Message extends Block {
   }
 
   render() {
-    const imgTmp = this.props.img
+    const imgTmp: string | boolean = this.props.img
       ? `img.message__img(src="${this.props.img}")`
       : false;
 
-    const test = pug.compile(`div.message
+    const component: pug.compileTemplate = pug.compile(`div.message
     div.message-container 
       img.message__avatar(src="${this.props.userAvatar}")
       div.message__body 
@@ -26,7 +24,7 @@ export class Message extends Block {
           div.message__time ${this.props.time}
         ${this.props.img ? imgTmp : ''} 
         div.message__content ${this.props.messageText}`);
-    console.log('Input: ', test());
-    return test();
+
+    return component(this.props);
   }
 }

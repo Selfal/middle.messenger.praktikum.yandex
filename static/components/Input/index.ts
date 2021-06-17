@@ -1,17 +1,14 @@
-import './style.scss';
-
-import IInput from './interface';
 import pug from 'pug';
-import validate from '../../utils/validate';
-
+import './style.scss';
+import IInput from './interface';
 import Block from '../../utils/Block';
+import validate from '../../utils/validate';
 
 export class Input extends Block {
   readonly props: IInput;
 
   constructor(props: IInput) {
     super('label', {
-      // ...props,
       label: props.label,
       type: props.type,
       placeholder: props.placeholder,
@@ -22,11 +19,12 @@ export class Input extends Block {
       re: props.re,
       events: {
         ...props.events,
-        blur: (e) => {
-          this.props.value = e.target.value;
+        blur: (e: Event) => {
+          const element = e.target as HTMLInputElement;
+          this.props.value = element.value;
 
           const validateResult = validate(
-            e.target.value,
+            element.value,
             this.props.re,
           );
           console.log('validate: ', validateResult);
@@ -43,9 +41,10 @@ export class Input extends Block {
             });
           }
         },
-        focus: (e) => {
-          e.target.classList.remove('input-component__input--error');
-          e.target.parentNode.querySelector(
+        focus: (e: Event) => {
+          const element = e.target as HTMLInputElement;
+          element.classList.remove('input-component__input--error');
+          element.parentNode.querySelector(
             '.input-component__warning',
           ).innerHTML = '';
         },
@@ -68,21 +67,24 @@ export class Input extends Block {
       disabled = false,
     } = this.props;
 
-    let statusClass = '';
+    let statusClass: string;
     if (type === 'success') {
       statusClass = '.input-component__input--success';
     } else if (type === 'error') {
       statusClass = '.input-component__input--error';
+    } else {
+      statusClass = '';
     }
 
-    const test = pug.compile(`label.input-component
+    const component: pug.compileTemplate =
+      pug.compile(`label.input-component
     span ${label}
     input(placeholder="${placeholder}" name="${name}" value="${
-      value ? value : ''
-    }" disabled=${disabled}).input-component__input${statusClass}
+        value ? value : ''
+      }" disabled=${disabled}).input-component__input${statusClass}
     span.input-component__warning ${type === 'error' ? warning : ''}
     `);
 
-    return test();
+    return component(this.props);
   }
 }
