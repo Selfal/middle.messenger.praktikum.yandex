@@ -5,7 +5,7 @@ import { Input } from './components/Input';
 import { Button } from './components/Button';
 import validate from './utils/validate';
 import { render } from './utils/renderDOM';
-import HTTPTool from './utils/HTTPtool';
+import HTTPTool from './utils/HTTPTool';
 
 const inputEmail: Input = new Input({
   label: 'Email',
