@@ -1,6 +1,5 @@
-import './style.scss';
 import pug from 'pug';
-
+import './style.scss';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 import { render } from '../../utils/renderDOM';
@@ -21,16 +20,16 @@ export const profileSetting = (): string => {
             
         .user-info-bottom `;
 
-  const result: string = pug.render(template, {}, undefined);
+  const result: string = pug.render(template);
 
-  const app = document.querySelector('.app');
+  const app: HTMLElement = document.querySelector('.app');
   app.innerHTML = result;
   return result;
 };
 
 profileSetting();
 
-const dataInputs = [
+const dataInputsProfile: Array<Input> = [
   new Input({
     label: 'Логин',
     placeholder: 'Начните ввод',
@@ -65,7 +64,7 @@ const dataInputs = [
     label: 'Имя в чате',
     placeholder: 'Начните ввод',
     name: 'username',
-    value: 'Антимонов Олег',
+    value: 'Олег',
     disabled: true,
     warning: 'Невалидное имя в чате',
     re: /^[A-zА-я]{1}[A-zА-я]{2,20}$/,
@@ -78,18 +77,21 @@ const dataInputs = [
     value: '+79998781414',
     disabled: true,
     warning: 'Невалидный номер телефона',
-    re: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
+    re: /^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{4,6}$/im,
   }),
 ];
 
-const dataInputsPassword = [
+const dataInputsPassword: Array<Input> = [
   new Input({
     label: 'Старый пароль',
     placeholder: 'Начните ввод',
     name: 'old-password',
     value: '',
     events: {
-      input: (e) => e.target.value,
+      input: (e: Event): string => {
+        const item = e.target as HTMLInputElement;
+        return item.value;
+      },
     },
     warning: 'Пароль неверный',
     re: /qwerty/,
@@ -100,11 +102,12 @@ const dataInputsPassword = [
     name: 'new-password',
     value: '',
     events: {
-      input: (e) => {
-        e.target.value;
+      input: (e: Event): string => {
+        const item = e.target as HTMLInputElement;
         dataInputsPassword[2].setProps({
-          re: new RegExp(`${e.target.value}`),
+          re: new RegExp(`${item.value}`),
         });
+        return item.value;
       },
     },
     warning: 'Пароль не соответствует требованиям',
@@ -116,26 +119,30 @@ const dataInputsPassword = [
     name: 're-password',
     value: '',
     events: {
-      input: (e) => e.target.value,
+      input: (e: Event) => {
+        const item = e.target as HTMLInputElement;
+        return item.value;
+      },
     },
     warning: 'Пароли не совпадают',
     re: / /,
   }),
 ];
 
-const cachDataInputProfile = [];
-for (let i = 0; i < dataInputs.length; i++) {
-  const item = dataInputs[i];
+const cachDataInputProfile: Array<string> = [];
+
+for (let i = 0; i < dataInputsProfile.length; i++) {
+  const item: Input = dataInputsProfile[i];
   cachDataInputProfile.push(item.value);
 }
 
-const editProfileButton = new Button({
+const editProfileButton: Button = new Button({
   text: 'Редактировать профиль',
   className: '.link.link--edit-profile',
   events: {
-    click: () => {
-      for (let i = 0; i < dataInputs.length; i++) {
-        const item = dataInputs[i];
+    click: (): void => {
+      for (let i = 0; i < dataInputsProfile.length; i++) {
+        const item: Input = dataInputsProfile[i];
         cachDataInputProfile.push(item.value);
       }
 
@@ -144,26 +151,31 @@ const editProfileButton = new Button({
       exitButton.hide();
       saveProfileButton.show();
       canceleButton.show();
-      disabledElement(dataInputs, false);
+      disabledElement(dataInputsProfile, false);
     },
   },
 });
 
-const saveProfileButton = new Button({
+const saveProfileButton: Button = new Button({
   text: 'Сохранить изменения',
   className: '.link.link--save-profile',
   events: {
-    click: () => {
+    click: (): void => {
       let validateForm: boolean = true;
-      for (let i = 0; i < dataInputs.length; i++) {
-        if (!validate(dataInputs[i].value, dataInputs[i].props.re)) {
+      for (let i = 0; i < dataInputsProfile.length; i++) {
+        if (
+          !validate(
+            dataInputsProfile[i].value,
+            dataInputsProfile[i].props.re,
+          )
+        ) {
           validateForm = false;
         }
       }
 
       if (validateForm) {
-        for (let i = 0; i < dataInputs.length; i++) {
-          const item = dataInputs[i];
+        for (let i = 0; i < dataInputsProfile.length; i++) {
+          const item: Input = dataInputsProfile[i];
           item.setProps({ type: 'normal' });
           cachDataInputProfile.push(item.value);
           console.log(item);
@@ -174,21 +186,21 @@ const saveProfileButton = new Button({
         editProfileButton.show();
         editPasswordButton.show();
         exitButton.show();
-        disabledElement(dataInputs, true);
+        disabledElement(dataInputsProfile, true);
       }
     },
   },
 });
 
-const editPasswordButton = new Button({
+const editPasswordButton: Button = new Button({
   text: 'Изменить пароль',
   className: '.link.link--edit-password',
   events: {
-    click: () => {
+    click: (): void => {
       editProfileButton.hide();
       editPasswordButton.hide();
       exitButton.hide();
-      hideElements(dataInputs);
+      hideElements(dataInputsProfile);
       showElements(dataInputsPassword, 'flex');
       savePasswordButton.show();
       canceleButton.show();
@@ -196,14 +208,14 @@ const editPasswordButton = new Button({
   },
 });
 
-const savePasswordButton = new Button({
+const savePasswordButton: Button = new Button({
   text: 'Сохранить пароль',
   className: '.link.link--save-password',
   events: {
-    click: () => {
+    click: (): void => {
       let validateForm: boolean = true;
       for (let i = 0; i < dataInputsPassword.length; i++) {
-        const item = dataInputsPassword[i];
+        const item: Input = dataInputsPassword[i];
         if (!validate(item.value, item.props.re)) {
           validateForm = false;
           item.setProps({ type: 'error' });
@@ -214,14 +226,14 @@ const savePasswordButton = new Button({
 
       if (validateForm) {
         for (let i = 0; i < dataInputsPassword.length; i++) {
-          const item = dataInputsPassword[i];
+          const item: Input = dataInputsPassword[i];
           item.setProps({ type: 'normal', value: '' });
           cachDataInputProfile.push(item.value);
           console.log(item);
         }
 
         hideElements(dataInputsPassword);
-        showElements(dataInputs, 'flex');
+        showElements(dataInputsProfile, 'flex');
 
         savePasswordButton.hide();
         canceleButton.hide();
@@ -233,26 +245,26 @@ const savePasswordButton = new Button({
   },
 });
 
-const exitButton = new Button({
+const exitButton: Button = new Button({
   text: 'Выход',
   className: '.link.link--exit',
   link: '../../index.html',
 });
 
-const canceleButton = new Button({
+const canceleButton: Button = new Button({
   text: 'Отмена',
   className: '.link.link--back',
   events: {
-    click: () => {
-      disabledElement(dataInputs, true);
+    click: (): void => {
+      disabledElement(dataInputsProfile, true);
       hideElements(dataInputsPassword);
-      showElements(dataInputs, 'flex');
+      showElements(dataInputsProfile, 'flex');
       canceleButton.hide();
       editProfileButton.hide();
       savePasswordButton.hide();
       saveProfileButton.hide();
-      for (let i = 0; i < dataInputs.length; i++) {
-        dataInputs[i].setProps({
+      for (let i = 0; i < dataInputsProfile.length; i++) {
+        dataInputsProfile[i].setProps({
           value: cachDataInputProfile[i],
           type: 'normal',
         });
@@ -272,27 +284,27 @@ const canceleButton = new Button({
   },
 });
 
-const showElements = (elements, showType?: 'flex' | 'div') => {
+const showElements = (elements, showType?: 'flex' | 'div'): void => {
   for (let i = 0; i < elements.length; i++) {
     elements[i].show(showType);
   }
 };
 
-const hideElements = (elements) => {
+const hideElements = (elements): void => {
   for (let i = 0; i < elements.length; i++) {
     elements[i].hide();
   }
 };
 
-const disabledElement = (elements, disabled) => {
+const disabledElement = (elements, disabled): void => {
   for (let i = 0; i < elements.length; i++) {
     const item = elements[i];
-    item.setProps({ disabled: disabled });
+    item.setProps({ disabled });
   }
 };
 
-for (let i = 0; i < dataInputs.length; i++) {
-  render('.user-info', dataInputs[i]);
+for (let i = 0; i < dataInputsProfile.length; i++) {
+  render('.user-info', dataInputsProfile[i]);
 }
 
 for (let i = 0; i < dataInputsPassword.length; i++) {

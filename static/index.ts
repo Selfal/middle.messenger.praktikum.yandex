@@ -6,85 +6,91 @@ import { Button } from './components/Button';
 import validate from './utils/validate';
 import { render } from './utils/renderDOM';
 
-const inputEmail = new Input({
+const inputEmail: Input = new Input({
   label: 'Email',
   placeholder: 'Введите свой email',
   className: '.input-component__input',
   name: 'email',
   warning: 'Невалидный email',
   events: {
-    input: (e) => e.target.value,
+    input: (e: Event): string => {
+      const item = e.target as HTMLInputElement;
+      return item.value;
+    },
   },
-  re: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  re: /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 });
 
-const inputPassword = new Input({
+const inputPassword: Input = new Input({
   label: 'Пароль',
   placeholder: 'Введите свой пароль',
   className: '.input-component__input',
   name: 'password',
   warning: 'Пароль не соответствует требованиям',
   events: {
-    input: (e) => e.target.value;
+    input: (e: Event): string => {
+      const item = e.target as HTMLInputElement;
+      return item.value;
+    },
   },
   re: /[A-Za-z0-9]{6,}/,
 });
 
-const buttonSignIn = new Button({
+const buttonSignIn: Button = new Button({
   text: 'Войти',
   link: './pages/home/index.html',
   className: 'auth-form__button',
   primary: true,
   events: {
-    click: (e) => {
-      const email = validate(
+    click: (e: Event) => {
+      const email: boolean = validate(
         inputEmail.element.querySelector('input').value,
         inputEmail.props.re,
       );
 
-      const password = validate(
+      const password: boolean = validate(
         inputPassword.element.querySelector('input').value,
         inputPassword.props.re,
       );
 
       if (!email) {
-        e.preventDefault()
+        e.preventDefault();
         inputEmail.setProps({ type: 'error' });
       }
 
       if (!password) {
-        e.preventDefault()
+        e.preventDefault();
         inputPassword.setProps({ type: 'error' });
       }
     },
   },
 });
 
-const buttonCreate = new Button({
+const buttonCreate: Button = new Button({
   text: 'Создать аккаунт',
   link: './pages/signUp/index.html',
   className: '.auth-form__create-account.link',
 });
 
-const buttonVk = new Button({
+const buttonVk: Button = new Button({
   text: 'Vk',
   link: '#',
   className: '.footer__link.link',
 });
 
-const buttonTg = new Button({
+const buttonTg: Button = new Button({
   text: 'Telegramm',
   link: './pages/404/index.html',
   className: '.footer__link.link',
 });
 
-const buttonGitHub = new Button({
+const buttonGitHub: Button = new Button({
   text: 'GitHub',
   link: './pages/500/index.html',
   className: '.footer__link.link',
 });
 
-const buttonPageList = new Button({
+const buttonPageList: Button = new Button({
   text: 'Список всех страниц',
   link: './pages/pagesList/index.html',
   className: '.footer__link.link',
@@ -101,14 +107,14 @@ export const signIn = (): string => {
     div.footer-links
 `;
 
-  const result: string = pug.render(template, {}, undefined);
+  const result: string = pug.render(template);
 
-  const app = document.querySelector('.app');
+  const app: HTMLLIElement = document.querySelector('.app');
   app.innerHTML = result;
   return result;
 };
 
-signIn()
+signIn();
 render('.auth-form', inputEmail);
 render('.auth-form', inputPassword);
 render('.auth-form', buttonSignIn);
@@ -118,8 +124,3 @@ render('.footer-links', buttonVk);
 render('.footer-links', buttonTg);
 render('.footer-links', buttonGitHub);
 render('.footer-links', buttonPageList);
-
-
-
-
-

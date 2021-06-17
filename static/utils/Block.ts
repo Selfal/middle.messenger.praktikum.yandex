@@ -92,7 +92,7 @@ export default class Block {
     return false;
   }
 
-  protected setProps = (nextProps: Record<string, any>): void => {
+  public setProps = (nextProps: Record<string, any>): void => {
     if (!nextProps) {
       return;
     }
@@ -209,11 +209,11 @@ export default class Block {
     return componentWrapper;
   }
 
-  protected show(type?: 'flex' | 'div'): void {
+  public show(type?: 'flex' | 'div'): void {
     this.getContent().style.display = type ? type : 'block';
   }
 
-  protected hide(): void {
+  public hide(): void {
     this.getContent().style.display = 'none';
   }
 }

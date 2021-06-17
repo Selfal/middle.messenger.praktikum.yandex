@@ -6,38 +6,38 @@ import { Input } from '../../components/Input';
 import validate from '../../utils/validate';
 import { render } from '../../utils/renderDOM';
 
-const buttonCreate = new Button({
+const buttonCreate: Button = new Button({
   text: 'Создать аккаунт',
   link: '#',
   className: 'auth-form__button-create',
   primary: true,
   events: {
-    click: () => {
-      const email = validate(
+    click: (): void => {
+      const email: boolean = validate(
         inputEmail.element.querySelector('input').value,
         inputEmail.props.re,
       );
-      const login = validate(
+      const login: boolean = validate(
         inputLogin.element.querySelector('input').value,
         inputLogin.props.re,
       );
-      const phone = validate(
+      const phone: boolean = validate(
         inputPhone.element.querySelector('input').value,
         inputPhone.props.re,
       );
-      const firstName = validate(
+      const firstName: boolean = validate(
         inputFirstName.element.querySelector('input').value,
         inputFirstName.props.re,
       );
-      const lastName = validate(
+      const lastName: boolean = validate(
         inputLastName.element.querySelector('input').value,
         inputLastName.props.re,
       );
-      const password = validate(
+      const password: boolean = validate(
         inputPassword.element.querySelector('input').value,
         inputPassword.props.re,
       );
-      const repeatPassword = validate(
+      const repeatPassword: boolean = validate(
         inputRepeatPassword.element.querySelector('input').value,
         inputRepeatPassword.props.re,
       );
@@ -73,101 +73,115 @@ const buttonCreate = new Button({
   },
 });
 
-const buttonLogIn = new Button({
+const buttonLogIn: Button = new Button({
   text: 'Войти',
   link: '../../index.html',
   className: '.auth-form__create-account.link',
-  events: {
-    click: () => console.log(buttonLogIn),
-  },
 });
 
-const inputEmail = new Input({
+const inputEmail: Input = new Input({
   label: 'Email',
   placeholder: 'Введите свой email',
   className: '.input-component__input',
   name: 'email',
   warning: 'Невалидный email',
   events: {
-    input: (e) => e.target.value,
+    input: (e: Event): string => {
+      const item = e.target as HTMLInputElement;
+      return item.value;
+    },
   },
-  re: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  re: /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 });
 
-const inputLogin = new Input({
+const inputLogin: Input = new Input({
   label: 'Логин',
   placeholder: 'Введите свой логин',
   className: '.input-component__input',
   name: 'login',
   warning: 'Невалидный логин',
   events: {
-    input: (e) => e.target.value,
+    input: (e: Event): string => {
+      const item = e.target as HTMLInputElement;
+      return item.value;
+    },
   },
   re: /^[A-zА-я]{1}[A-zА-я1-9]{2,20}$/,
 });
 
-const inputPhone = new Input({
+const inputPhone: Input = new Input({
   label: 'Телефон',
   placeholder: 'Введите свой телефон',
   className: '.input-component__input',
   name: 'phone',
   warning: 'Невалидный номер телефона',
   events: {
-    input: (e) => e.target.value,
+    input: (e: Event): string => {
+      const item = e.target as HTMLInputElement;
+      return item.value;
+    },
   },
-  re: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
+  re: /^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{4,6}$/im,
 });
 
-const inputFirstName = new Input({
+const inputFirstName: Input = new Input({
   label: 'Имя',
   placeholder: 'Ведите свой телефон',
   className: '.input-component__input',
   name: 'first_name',
   warning: 'Невалидное имя',
   events: {
-    input: (e) => e.target.value,
+    input: (e: Event): string => {
+      const item = e.target as HTMLInputElement;
+      return item.value;
+    },
   },
   re: /^[A-zА-я]{1}[A-zА-я]{2,20}$/,
 });
 
-const inputLastName = new Input({
+const inputLastName: Input = new Input({
   label: 'Фамилия',
   placeholder: 'Введите свю фамилию',
   className: '.input-component__input',
   name: 'last_name',
   warning: 'Невалидная фамилия',
   events: {
-    input: (e) => e.target.value,
+    input: (e: Event): string => {
+      const item = e.target as HTMLInputElement;
+      return item.value;
+    },
   },
   re: /^[A-zА-я]{1}[A-zА-я]{2,20}$/,
 });
 
-const inputPassword = new Input({
+const inputPassword: Input = new Input({
   label: 'Пароль',
   placeholder: 'Введите свой пароль',
   className: '.input-component__input',
   name: 'password',
   warning: 'Пароль не соответствует требованиям',
   events: {
-    input: (e) => {
-      e.target.value;
+    input: (e: Event): string => {
+      const item = e.target as HTMLInputElement;
       inputRepeatPassword.setProps({
-        re: new RegExp(`${e.target.value}`),
+        re: new RegExp(`${item.value}`),
       });
+      return item.value;
     },
   },
   re: /[A-Za-z0-9]{6,}/,
 });
 
-const inputRepeatPassword = new Input({
+const inputRepeatPassword: Input = new Input({
   label: 'Повторите пароль',
   placeholder: 'Введите повторно пароль',
   className: '.input-component__input',
   name: 'repeat_password',
   warning: 'Пароли не совпадают',
   events: {
-    input: (e) => {
-      e.target.value;
+    input: (e: Event): string => {
+      const item = e.target as HTMLInputElement;
+      return item.value;
     },
   },
   re: / /,
@@ -195,9 +209,9 @@ export const signUp = (): string => {
                           a.footer__link.link(href="#") GiHub
 `;
 
-  const result: string = pug.render(template, {}, undefined);
+  const result: string = pug.render(template);
 
-  const app = document.querySelector('.app');
+  const app: HTMLElement = document.querySelector('.app');
   app.innerHTML = result;
   return result;
 };

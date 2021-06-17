@@ -50,39 +50,17 @@ export const home = (): string => {
         div.menu-chat__body 
         div.menu-chat__footer`;
 
-  const result: string = pug.render(template, {}, undefined);
+  const result: string = pug.render(template);
 
-  const app = document.querySelector('.app');
+  const app: HTMLLIElement = document.querySelector('.app');
   app.innerHTML = result;
+
   return result;
 };
 
 home();
 
-const messagesWrapper = document.querySelector('.main__body');
-messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
-
-const messageArea = document.querySelector('.message-input');
-messageArea.addEventListener('input', () => {
-  messageArea.style.height = '5px';
-  messageArea.style.height = `${messageArea.scrollHeight}px`;
-});
-
-const addUser = document.querySelector(
-  '.dropdown-content__item--add-user',
-);
-const deleteUser = document.querySelector(
-  '.dropdown-content__item--delete-user',
-);
-addUser.addEventListener('click', () => {
-  console.log('popup add');
-});
-
-deleteUser.addEventListener('click', () => {
-  console.log('popup delete');
-});
-
-const dialogsArr = [
+const dialogsArr: Array<Object> = [
   {
     dialogName: 'Сергеева Елизавета Ярославовна',
     dateLastMessage: '14.05.2021',
@@ -162,7 +140,7 @@ const dialogsArr = [
   },
 ];
 
-const messagesArr = [
+const messagesArr: Array<Object> = [
   {
     userAvatar: '../../assets/img/message-img.jpeg',
     userName: 'Сергеева Елизавета',
@@ -251,10 +229,41 @@ const messagesArr = [
   },
 ];
 
+const messagesWrapper: HTMLLIElement =
+  document.querySelector('.main__body');
+
+messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+
+const messageArea: HTMLLIElement =
+  document.querySelector('.message-input');
+
+messageArea.addEventListener('input', () => {
+  messageArea.style.height = '5px';
+  messageArea.style.height = `${messageArea.scrollHeight}px`;
+});
+
+const addUser: HTMLLIElement = document.querySelector(
+  '.dropdown-content__item--add-user',
+);
+
+const deleteUser: HTMLLIElement = document.querySelector(
+  '.dropdown-content__item--delete-user',
+);
+
+addUser.addEventListener('click', () => {
+  console.log('popup add');
+});
+
+deleteUser.addEventListener('click', () => {
+  console.log('popup delete');
+});
+
 for (let i = 0; i < dialogsArr.length; i++) {
-  render('.chat-menu__body', new DialogPreview(dialogsArr[i]));
+  const item: Object = dialogsArr[i];
+  render('.chat-menu__body', new DialogPreview(item));
 }
 
 for (let i = 0; i < messagesArr.length; i++) {
-  render('.main__body', new Message(messagesArr[i]));
+  const item: Object = messagesArr[i];
+  render('.main__body', new Message(item));
 }
