@@ -30,6 +30,21 @@ body {
   height: 100vh;
 }
 
+.button {
+  display: flex;
+  background: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 3px;
+
+  &__icon {
+    height: 20px;
+    width: 20px;
+    fill: #b5b5b5;
+  }
+}
+
 .chat-menu {
   width: 320px;
   overflow: hidden;
@@ -44,22 +59,6 @@ body {
     border-bottom: 1px solid #ececec;
     padding: 10px;
     margin-bottom: 10px;
-
-    .button {
-      margin-left: 10px;
-      display: flex;
-      background: inherit;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      padding: 3px;
-
-      &__icon {
-        height: 20px;
-        width: 20px;
-        fill: #b5b5b5;
-      }
-    }
   }
 
   &__body {
@@ -140,6 +139,7 @@ body {
   display: flex;
   align-items: center;
   padding-left: 10px;
+  width: 80%;
 
   &__icon {
     height: 20px;

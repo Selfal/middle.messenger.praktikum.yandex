@@ -13,6 +13,7 @@ const inputEmail: Input = new Input({
   className: '.input-component__input',
   name: 'email',
   warning: 'Невалидный email',
+  type: 'email',
   events: {
     input: (e: Event): string => {
       const item = e.target as HTMLInputElement;
@@ -27,6 +28,7 @@ const inputPassword: Input = new Input({
   placeholder: 'Введите свой пароль',
   className: '.input-component__input',
   name: 'password',
+  type: 'password',
   warning: 'Пароль не соответствует требованиям',
   events: {
     input: (e: Event): string => {
@@ -56,12 +58,12 @@ const buttonSignIn: Button = new Button({
 
       if (!email) {
         e.preventDefault();
-        inputEmail.setProps({ type: 'error' });
+        inputEmail.setProps({ status: 'error' });
       }
 
       if (!password) {
         e.preventDefault();
-        inputPassword.setProps({ type: 'error' });
+        inputPassword.setProps({ status: 'error' });
       }
     },
   },
@@ -110,7 +112,7 @@ export const signIn = (): string => {
 
   const result: string = pug.render(template);
 
-  const app: HTMLLIElement = document.querySelector('.app');
+  const app: HTMLElement = document.querySelector('.app');
   app.innerHTML = result;
   return result;
 };

@@ -52,7 +52,9 @@ export const home = (): string => {
 
   const result: string = pug.render(template);
 
-  const app: HTMLLIElement = document.querySelector('.app');
+  const app: HTMLElement = document.querySelector(
+    '.app',
+  ) as HTMLElement;
   app.innerHTML = result;
 
   return result;
@@ -229,26 +231,28 @@ const messagesArr: Array<Object> = [
   },
 ];
 
-const messagesWrapper: HTMLLIElement =
-  document.querySelector('.main__body');
+const messagesWrapper = document.querySelector(
+  '.main__body',
+) as HTMLElement;
 
 messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
 
-const messageArea: HTMLLIElement =
-  document.querySelector('.message-input');
+const messageArea = document.querySelector(
+  '.message-input',
+) as HTMLElement;
 
 messageArea.addEventListener('input', () => {
   messageArea.style.height = '5px';
   messageArea.style.height = `${messageArea.scrollHeight}px`;
 });
 
-const addUser: HTMLLIElement = document.querySelector(
+const addUser = document.querySelector(
   '.dropdown-content__item--add-user',
-);
+) as HTMLElement;
 
-const deleteUser: HTMLLIElement = document.querySelector(
+const deleteUser = document.querySelector(
   '.dropdown-content__item--delete-user',
-);
+) as HTMLElement;
 
 addUser.addEventListener('click', () => {
   console.log('popup add');

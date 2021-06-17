@@ -10,12 +10,13 @@ export class Input extends Block {
   constructor(props: IInput) {
     super('label', {
       label: props.label,
-      type: props.type,
+      status: props.status,
       placeholder: props.placeholder,
       name: props.name,
       value: props.value,
       warning: props.warning,
       disabled: props.disabled,
+      type: props.type,
       re: props.re,
       events: {
         ...props.events,
@@ -31,12 +32,12 @@ export class Input extends Block {
 
           if (validateResult) {
             this.setProps({
-              type: 'success',
+              status: 'success',
               warning: '',
             });
           } else if (!validateResult) {
             this.setProps({
-              type: 'error',
+              status: 'error',
               warning: props.warning,
             });
           }
@@ -59,18 +60,19 @@ export class Input extends Block {
   render() {
     const {
       label,
-      type = 'normal',
+      status = 'normal',
       placeholder,
       name,
       value,
       warning = '',
       disabled = false,
+      type = 'text',
     } = this.props;
 
     let statusClass: string;
-    if (type === 'success') {
+    if (status === 'success') {
       statusClass = '.input-component__input--success';
-    } else if (type === 'error') {
+    } else if (status === 'error') {
       statusClass = '.input-component__input--error';
     } else {
       statusClass = '';
@@ -79,10 +81,10 @@ export class Input extends Block {
     const component: pug.compileTemplate =
       pug.compile(`label.input-component
     span ${label}
-    input(placeholder="${placeholder}" name="${name}" value="${
+    input(type="${type}" placeholder="${placeholder}" name="${name}" value="${
         value ? value : ''
       }" disabled=${disabled}).input-component__input${statusClass}
-    span.input-component__warning ${type === 'error' ? warning : ''}
+    span.input-component__warning ${status === 'error' ? warning : ''}
     `);
 
     return component(this.props);

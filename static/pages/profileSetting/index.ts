@@ -22,7 +22,7 @@ export const profileSetting = (): string => {
 
   const result: string = pug.render(template);
 
-  const app: HTMLElement = document.querySelector('.app');
+  const app = document.querySelector('.app') as HTMLElement;
   app.innerHTML = result;
   return result;
 };
@@ -34,6 +34,7 @@ const dataInputsProfile: Array<Input> = [
     label: 'Логин',
     placeholder: 'Начните ввод',
     name: 'login',
+    type: 'text',
     value: 'Selfal',
     disabled: true,
     warning: 'Невалидный логин',
@@ -44,6 +45,7 @@ const dataInputsProfile: Array<Input> = [
     label: 'Имя',
     placeholder: 'Начните ввод',
     name: 'name',
+    type: 'text',
     value: 'Олег',
     disabled: true,
     warning: 'Невалидное имя',
@@ -54,6 +56,7 @@ const dataInputsProfile: Array<Input> = [
     label: 'Фамилия',
     placeholder: 'Начните ввод',
     name: 'last-name',
+    type: 'text',
     value: 'Антимонов',
     disabled: true,
     warning: 'Невалидная фамилия',
@@ -64,6 +67,7 @@ const dataInputsProfile: Array<Input> = [
     label: 'Имя в чате',
     placeholder: 'Начните ввод',
     name: 'username',
+    type: 'text',
     value: 'Олег',
     disabled: true,
     warning: 'Невалидное имя в чате',
@@ -74,6 +78,7 @@ const dataInputsProfile: Array<Input> = [
     label: 'Телефон',
     placeholder: 'Начните ввод',
     name: 'tel',
+    type: 'phone',
     value: '+79998781414',
     disabled: true,
     warning: 'Невалидный номер телефона',
@@ -86,6 +91,7 @@ const dataInputsPassword: Array<Input> = [
     label: 'Старый пароль',
     placeholder: 'Начните ввод',
     name: 'old-password',
+    type: 'password',
     value: '',
     events: {
       input: (e: Event): string => {
@@ -100,6 +106,7 @@ const dataInputsPassword: Array<Input> = [
     label: 'Новый пароль',
     placeholder: 'Начните ввод',
     name: 'new-password',
+    type: 'password',
     value: '',
     events: {
       input: (e: Event): string => {
@@ -117,6 +124,7 @@ const dataInputsPassword: Array<Input> = [
     label: 'Повторите пароль',
     placeholder: 'Начните ввод',
     name: 're-password',
+    type: 'password',
     value: '',
     events: {
       input: (e: Event) => {
@@ -167,19 +175,18 @@ const saveProfileButton: Button = new Button({
         const check: boolean = validate(item.value, item.props.re);
 
         if (!check) {
-          item.setProps({ type: 'error' });
+          item.setProps({ status: 'error' });
           validateForm = false;
         } else if (check) {
-          item.setProps({ type: 'success' });
+          item.setProps({ status: 'success' });
         }
       }
 
       if (validateForm) {
         for (let i = 0; i < dataInputsProfile.length; i++) {
           const item: Input = dataInputsProfile[i];
-          item.setProps({ type: 'normal' });
+          item.setProps({ status: 'normal' });
           cachDataInputProfile.push(item.value);
-          console.log(item);
         }
 
         saveProfileButton.hide();
@@ -219,17 +226,16 @@ const savePasswordButton: Button = new Button({
         const item: Input = dataInputsPassword[i];
         if (!validate(item.value, item.props.re)) {
           validateForm = false;
-          item.setProps({ type: 'error' });
+          item.setProps({ status: 'error' });
         } else if (validate(item.value, item.props.re)) {
-          item.setProps({ type: 'success' });
+          item.setProps({ status: 'success' });
         }
       }
 
       if (validateForm) {
         for (let i = 0; i < dataInputsPassword.length; i++) {
           const item: Input = dataInputsPassword[i];
-          item.setProps({ type: 'normal', value: '' });
-          cachDataInputProfile.push(item.value);
+          item.setProps({ status: 'normal', value: '' });
           console.log(item);
         }
 
@@ -267,14 +273,14 @@ const canceleButton: Button = new Button({
       for (let i = 0; i < dataInputsProfile.length; i++) {
         dataInputsProfile[i].setProps({
           value: cachDataInputProfile[i],
-          type: 'normal',
+          status: 'normal',
         });
       }
 
       for (let i = 0; i < dataInputsPassword.length; i++) {
         dataInputsPassword[i].setProps({
           value: '',
-          type: 'normal',
+          status: 'normal',
         });
       }
 
@@ -297,7 +303,7 @@ const hideElements = (elements): void => {
   }
 };
 
-const disabledElement = (elements, disabled): void => {
+const disabledElement = (elements, disabled: boolean): void => {
   for (let i = 0; i < elements.length; i++) {
     const item = elements[i];
     item.setProps({ disabled });

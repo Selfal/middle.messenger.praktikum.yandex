@@ -43,31 +43,31 @@ const buttonCreate: Button = new Button({
       );
 
       if (!email) {
-        inputEmail.setProps({ type: 'error' });
+        inputEmail.setProps({ status: 'error' });
       }
 
       if (!login) {
-        inputLogin.setProps({ type: 'error' });
+        inputLogin.setProps({ status: 'error' });
       }
 
       if (!phone) {
-        inputPhone.setProps({ type: 'error' });
+        inputPhone.setProps({ status: 'error' });
       }
 
       if (!firstName) {
-        inputFirstName.setProps({ type: 'error' });
+        inputFirstName.setProps({ status: 'error' });
       }
 
       if (!lastName) {
-        inputLastName.setProps({ type: 'error' });
+        inputLastName.setProps({ status: 'error' });
       }
 
       if (!password) {
-        inputPassword.setProps({ type: 'error' });
+        inputPassword.setProps({ status: 'error' });
       }
 
       if (!repeatPassword) {
-        inputRepeatPassword.setProps({ type: 'error' });
+        inputRepeatPassword.setProps({ status: 'error' });
       }
     },
   },
@@ -84,6 +84,7 @@ const inputEmail: Input = new Input({
   placeholder: 'Введите свой email',
   className: '.input-component__input',
   name: 'email',
+  type: 'email',
   warning: 'Невалидный email',
   events: {
     input: (e: Event): string => {
@@ -99,6 +100,7 @@ const inputLogin: Input = new Input({
   placeholder: 'Введите свой логин',
   className: '.input-component__input',
   name: 'login',
+  type: 'text',
   warning: 'Невалидный логин',
   events: {
     input: (e: Event): string => {
@@ -114,6 +116,7 @@ const inputPhone: Input = new Input({
   placeholder: 'Введите свой телефон',
   className: '.input-component__input',
   name: 'phone',
+  type: 'phone',
   warning: 'Невалидный номер телефона',
   events: {
     input: (e: Event): string => {
@@ -129,6 +132,7 @@ const inputFirstName: Input = new Input({
   placeholder: 'Ведите свой телефон',
   className: '.input-component__input',
   name: 'first_name',
+  type: 'text',
   warning: 'Невалидное имя',
   events: {
     input: (e: Event): string => {
@@ -144,6 +148,7 @@ const inputLastName: Input = new Input({
   placeholder: 'Введите свю фамилию',
   className: '.input-component__input',
   name: 'last_name',
+  type: 'text',
   warning: 'Невалидная фамилия',
   events: {
     input: (e: Event): string => {
@@ -159,6 +164,7 @@ const inputPassword: Input = new Input({
   placeholder: 'Введите свой пароль',
   className: '.input-component__input',
   name: 'password',
+  type: 'password',
   warning: 'Пароль не соответствует требованиям',
   events: {
     input: (e: Event): string => {
@@ -177,6 +183,7 @@ const inputRepeatPassword: Input = new Input({
   placeholder: 'Введите повторно пароль',
   className: '.input-component__input',
   name: 'repeat_password',
+  type: 'password',
   warning: 'Пароли не совпадают',
   events: {
     input: (e: Event): string => {
