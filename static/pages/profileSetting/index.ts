@@ -163,13 +163,14 @@ const saveProfileButton: Button = new Button({
     click: (): void => {
       let validateForm: boolean = true;
       for (let i = 0; i < dataInputsProfile.length; i++) {
-        if (
-          !validate(
-            dataInputsProfile[i].value,
-            dataInputsProfile[i].props.re,
-          )
-        ) {
+        const item: Input = dataInputsProfile[i];
+        const check: boolean = validate(item.value, item.props.re);
+
+        if (!check) {
+          item.setProps({ type: 'error' });
           validateForm = false;
+        } else if (check) {
+          item.setProps({ type: 'success' });
         }
       }
 
