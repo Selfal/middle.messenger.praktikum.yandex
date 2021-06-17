@@ -4,11 +4,13 @@
   "description": "### Откройте pull request в ветку main из ветки, где вы разрабатывали проект, и добавьте ссылку на этот pr в README.md в ветке main. Название pull request может быть любое.",
   "main": "index.js",
   "scripts": {
-    "start": "parcel ./static/**/*.html --port 3000 --open ",
+    "watch": "parcel watch build ./static/**/*.html",
     "build": "parcel build ./static/**/*.html",
-    "server": "node server.js",
-    "eslint": "eslint",
-    "prettier": "prettier"
+    "start": "npm run build && node ./server.js",
+    "dev": "parcel ./static/**/*.html --port 3000 --open",
+    "eslint": "eslint ./static/**/*.ts",
+    "stylelint": "stylelint './static/**/*.scss' --fix",
+    "prettier": "prettier ./static"
   },
   "repository": {
     "type": "git",
@@ -40,6 +42,7 @@
     "prettier": "^2.3.1",
     "sass": "^1.34.1",
     "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
     "typescript": "^4.3.2"
   },
   "dependencies": {

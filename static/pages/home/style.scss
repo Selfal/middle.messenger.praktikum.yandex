@@ -1,11 +1,28 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Roboto',
-    'Helvetica Neue', Geneva, 'Noto Sans Armenian',
-    'Noto Sans Bengali', 'Noto Sans Cherokee', 'Noto Sans Devanagari',
-    'Noto Sans Ethiopic', 'Noto Sans Georgian', 'Noto Sans Hebrew',
-    'Noto Sans Kannada', 'Noto Sans Khmer', 'Noto Sans Lao',
-    'Noto Sans Osmanya', 'Noto Sans Tamil', 'Noto Sans Telugu',
-    'Noto Sans Thai', sans-serif, arial, Tahoma, verdana;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    'Roboto',
+    'Helvetica Neue',
+    Geneva,
+    'Noto Sans Armenian',
+    'Noto Sans Bengali',
+    'Noto Sans Cherokee',
+    'Noto Sans Devanagari',
+    'Noto Sans Ethiopic',
+    'Noto Sans Georgian',
+    'Noto Sans Hebrew',
+    'Noto Sans Kannada',
+    'Noto Sans Khmer',
+    'Noto Sans Lao',
+    'Noto Sans Osmanya',
+    'Noto Sans Tamil',
+    'Noto Sans Telugu',
+    'Noto Sans Thai',
+    sans-serif,
+    arial,
+    Tahoma,
+    verdana;
 }
 
 .wrapper {
@@ -30,6 +47,18 @@ body {
 
     .button {
       margin-left: 10px;
+      display: flex;
+      background: inherit;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 3px;
+
+      &__icon {
+        height: 20px;
+        width: 20px;
+        fill: #b5b5b5;
+      }
     }
   }
 
@@ -68,12 +97,14 @@ body {
     display: flex;
     align-items: center;
   }
+
   &__header-middle {
     display: flex;
     align-items: center;
     margin: 0 10px;
     width: 100%;
   }
+
   &__header-right {
     display: flex;
     align-items: center;
@@ -125,7 +156,7 @@ body {
   outline: none;
   padding: 10px;
   font-size: 14px;
-  background: #ffffff;
+  background: #fff;
   box-sizing: border-box;
 }
 
@@ -136,26 +167,11 @@ body {
   outline: none;
   padding: 7px 10px;
   font-size: 14px;
-  background: #ffffff;
+  background: #fff;
   box-sizing: border-box;
   resize: none;
   height: 30px;
   max-height: 5em;
-}
-
-.button {
-  display: flex;
-  background: inherit;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 3px;
-
-  &__icon {
-    height: 20px;
-    width: 20px;
-    fill: #b5b5b5;
-  }
 }
 
 .dropdown {
@@ -169,11 +185,12 @@ body {
   right: 50%;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px 4px rgba(0, 0, 0, 0.2);
   z-index: 1;
   font-size: 12px;
   text-align: left;
   border-radius: 5px;
+
   &__item {
     padding: 10px 10px;
     cursor: pointer;

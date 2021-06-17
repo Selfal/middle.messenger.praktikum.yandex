@@ -1,13 +1,30 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Roboto',
-    'Helvetica Neue', Geneva, 'Noto Sans Armenian',
-    'Noto Sans Bengali', 'Noto Sans Cherokee', 'Noto Sans Devanagari',
-    'Noto Sans Ethiopic', 'Noto Sans Georgian', 'Noto Sans Hebrew',
-    'Noto Sans Kannada', 'Noto Sans Khmer', 'Noto Sans Lao',
-    'Noto Sans Osmanya', 'Noto Sans Tamil', 'Noto Sans Telugu',
-    'Noto Sans Thai', sans-serif, arial, Tahoma, verdana;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    'Roboto',
+    'Helvetica Neue',
+    Geneva,
+    'Noto Sans Armenian',
+    'Noto Sans Bengali',
+    'Noto Sans Cherokee',
+    'Noto Sans Devanagari',
+    'Noto Sans Ethiopic',
+    'Noto Sans Georgian',
+    'Noto Sans Hebrew',
+    'Noto Sans Kannada',
+    'Noto Sans Khmer',
+    'Noto Sans Lao',
+    'Noto Sans Osmanya',
+    'Noto Sans Tamil',
+    'Noto Sans Telugu',
+    'Noto Sans Thai',
+    sans-serif,
+    arial,
+    Tahoma,
+    verdana;
 }
 
 .wrapper {
@@ -20,7 +37,6 @@ body {
   background: red;
   width: 125px;
   height: 125px;
-  position: relative;
   border-radius: 5px;
   margin-bottom: 15px;
   cursor: pointer;
@@ -96,6 +112,8 @@ body {
 }
 
 .user-info-bottom {
+  display: flex;
+  flex-direction: column;
   width: 30%;
 }
 
@@ -117,9 +135,4 @@ body {
       color: darken(red, 2%);
     }
   }
-}
-
-.user-info-bottom {
-  display: flex;
-  flex-direction: column;
 }
