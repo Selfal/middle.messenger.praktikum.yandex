@@ -104,7 +104,7 @@ export default class Block {
     }
   };
 
-  get element(): HTMLElement | null {
+  get element(): HTMLElement {
     return this._element;
   }
 
