@@ -1,7 +1,7 @@
 {
   "extends": "stylelint-config-standard",
   "rules": {
-    "color-hex-case": "lower"
+    "declaration-colon-space-after": "always-single-line"
   },
-  "ignoreFiles": ["dist/*"]
+  "ignoreFiles": [".cache/*", "dist/*"]
 }
