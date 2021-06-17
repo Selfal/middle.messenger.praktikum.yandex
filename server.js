@@ -4,12 +4,12 @@ const app = express();
 
 const PORT = 3000;
 
-app.use(express.static(`${__dirname}/dist`));
+app.use(express.static(__dirname + '/dist'));
 
 app.get('/', (request, response) => {
-	response.sendFile('index.html');
+  response.sendFile('index.html');
 });
 
 app.listen(PORT, () => {
-	console.log(`Example app listening on port ${PORT}!`);
+  console.log(`Example app listening on port ${PORT}!`);
 });
