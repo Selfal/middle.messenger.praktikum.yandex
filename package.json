@@ -47,7 +47,6 @@
     "typescript": "^4.3.2"
   },
   "dependencies": {
-    "fs": "*",
     "pug": "^3.0.2"
   },
   "staticFiles": {
