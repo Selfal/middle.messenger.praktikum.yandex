@@ -4,6 +4,8 @@ Figma: https://www.figma.com/file/v4ByQpTajwEHITYEQo4emI/Untitled?node-id=8%3A78
 
 Netlify: https://inspiring-mestorf-5ea442.netlify.app
 
+PR Sprint_2: https://github.com/Selfal/middle.messenger.praktikum.yandex/pull/3
+
 ## Установка
 
 - `npm install` — установка стабильной версии,
