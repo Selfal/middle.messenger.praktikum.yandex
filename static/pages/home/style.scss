@@ -1,28 +1,11 @@
 body {
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    'Roboto',
-    'Helvetica Neue',
-    Geneva,
-    'Noto Sans Armenian',
-    'Noto Sans Bengali',
-    'Noto Sans Cherokee',
-    'Noto Sans Devanagari',
-    'Noto Sans Ethiopic',
-    'Noto Sans Georgian',
-    'Noto Sans Hebrew',
-    'Noto Sans Kannada',
-    'Noto Sans Khmer',
-    'Noto Sans Lao',
-    'Noto Sans Osmanya',
-    'Noto Sans Tamil',
-    'Noto Sans Telugu',
-    'Noto Sans Thai',
-    sans-serif,
-    arial,
-    Tahoma,
-    verdana;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto',
+    'Helvetica Neue', Geneva, 'Noto Sans Armenian',
+    'Noto Sans Bengali', 'Noto Sans Cherokee', 'Noto Sans Devanagari',
+    'Noto Sans Ethiopic', 'Noto Sans Georgian', 'Noto Sans Hebrew',
+    'Noto Sans Kannada', 'Noto Sans Khmer', 'Noto Sans Lao',
+    'Noto Sans Osmanya', 'Noto Sans Tamil', 'Noto Sans Telugu',
+    'Noto Sans Thai', sans-serif, arial, Tahoma, verdana;
 }
 
 .wrapper {
@@ -34,7 +17,6 @@ body {
   display: flex;
   background: inherit;
   border: none;
-  outline: none;
   cursor: pointer;
   padding: 3px;
 
@@ -154,10 +136,15 @@ body {
   border-radius: 5px;
   border: none;
   outline: none;
-  padding: 10px;
+  padding: 5px 10px;
   font-size: 14px;
   background: #fff;
   box-sizing: border-box;
+  margin-left: 5px;
+
+  &:focus {
+    background: #e9f9ff;
+  }
 }
 
 .message-input {
@@ -172,6 +159,10 @@ body {
   resize: none;
   height: 30px;
   max-height: 5em;
+
+  &:focus {
+    background: #e9f9ff;
+  }
 }
 
 .dropdown {

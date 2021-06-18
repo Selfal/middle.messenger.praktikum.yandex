@@ -19,7 +19,7 @@ export class Button extends Block {
 
     let { className } = this.props as IButton;
 
-    if (className[0] !== '.') {
+    if (!className?.startsWith('.')) {
       className = `.${className}`;
     }
 

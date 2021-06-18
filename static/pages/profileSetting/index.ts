@@ -1,7 +1,7 @@
 import pug from 'pug';
 import './style.scss';
-import { Input } from '../../components/Input';
-import { Button } from '../../components/Button';
+import { Input } from '../../components/Input/index';
+import { Button } from '../../components/Button/index';
 import { render } from '../../utils/renderDOM';
 import validate from '../../utils/validate';
 
@@ -16,7 +16,7 @@ export const profileSetting = (): string => {
           input.avatar__input(type="file")
         .name Антимонов Олег
 
-        .user-info
+        form.user-info
             
         .user-info-bottom `;
 
@@ -29,6 +29,17 @@ export const profileSetting = (): string => {
 
 profileSetting();
 
+const regExpList = {
+  login: /^[A-zА-я]{1}[A-zА-я1-9]{2,20}$/,
+  firstName: /^[A-zА-я]{1}[A-zА-я]{2,20}$/,
+  lastName: /^[A-zА-я]{1}[A-zА-я]{2,20}$/,
+  userName: /^[A-zА-я]{1}[A-zА-я]{2,20}$/,
+  phone:
+    /^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{4,6}$/im,
+  oldPassword: /qwerty/,
+  newPassword: /[A-Za-z0-9]{6,64}/,
+};
+
 const dataInputsProfile: Array<Input> = [
   new Input({
     label: 'Логин',
@@ -38,7 +49,7 @@ const dataInputsProfile: Array<Input> = [
     value: 'Selfal',
     disabled: true,
     warning: 'Невалидный логин',
-    re: /^[A-zА-я]{1}[A-zА-я1-9]{2,20}$/,
+    re: regExpList.login,
   }),
 
   new Input({
@@ -49,7 +60,7 @@ const dataInputsProfile: Array<Input> = [
     value: 'Олег',
     disabled: true,
     warning: 'Невалидное имя',
-    re: /^[A-zА-я]{1}[A-zА-я]{2,20}$/,
+    re: regExpList.firstName,
   }),
 
   new Input({
@@ -60,7 +71,7 @@ const dataInputsProfile: Array<Input> = [
     value: 'Антимонов',
     disabled: true,
     warning: 'Невалидная фамилия',
-    re: /^[A-zА-я]{1}[A-zА-я]{2,20}$/,
+    re: regExpList.lastName,
   }),
 
   new Input({
@@ -71,7 +82,7 @@ const dataInputsProfile: Array<Input> = [
     value: 'Олег',
     disabled: true,
     warning: 'Невалидное имя в чате',
-    re: /^[A-zА-я]{1}[A-zА-я]{2,20}$/,
+    re: regExpList.userName,
   }),
 
   new Input({
@@ -82,7 +93,7 @@ const dataInputsProfile: Array<Input> = [
     value: '+79998781414',
     disabled: true,
     warning: 'Невалидный номер телефона',
-    re: /^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{4,6}$/im,
+    re: regExpList.phone,
   }),
 ];
 
@@ -100,7 +111,7 @@ const dataInputsPassword: Array<Input> = [
       },
     },
     warning: 'Пароль неверный',
-    re: /qwerty/,
+    re: regExpList.oldPassword,
   }),
   new Input({
     label: 'Новый пароль',
@@ -118,7 +129,7 @@ const dataInputsPassword: Array<Input> = [
       },
     },
     warning: 'Пароль не соответствует требованиям',
-    re: /[A-Za-z0-9]{6,64}/,
+    re: regExpList.newPassword,
   }),
   new Input({
     label: 'Повторите пароль',
@@ -133,7 +144,6 @@ const dataInputsPassword: Array<Input> = [
       },
     },
     warning: 'Пароли не совпадают',
-    re: / /,
   }),
 ];
 

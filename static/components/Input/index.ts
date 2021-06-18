@@ -28,7 +28,6 @@ export class Input extends Block {
             element.value,
             this.props.re,
           );
-          console.log('validate: ', validateResult);
 
           if (validateResult) {
             this.setProps({

@@ -9,5 +9,5 @@ export default interface IInput {
   disabled?: boolean;
   warning?: string;
   events?: Object;
-  re: RegExp;
+  re?: RegExp | unknown;
 }

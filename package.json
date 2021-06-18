@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "parcel watch build ./static/**/*.html",
     "build": "parcel build ./static/**/*.html",
-    "start": "concurrently \"parcel build ./static/**/*.html\" \"node ./server.js\"",
+    "start": "concurrently \"npm run build\" \"node ./server.js\"",
     "dev": "npm run build && parcel ./static/index.html --port 3000 --open",
     "eslint": "eslint ./static/**/*.ts",
     "stylelint": "stylelint './static/**/*.scss' --fix",

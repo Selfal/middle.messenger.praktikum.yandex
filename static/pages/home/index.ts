@@ -1,7 +1,7 @@
 import pug from 'pug';
 
-import { DialogPreview } from '../../components/DialogPreview';
-import { Message } from '../../components/Message';
+import { DialogPreview } from '../../components/DialogPreview/index';
+import { Message } from '../../components/Message/index';
 import { render } from '../../utils/renderDOM';
 
 export const home = (): string => {
@@ -62,13 +62,23 @@ export const home = (): string => {
 
 home();
 
-const dialogsArr: Array<Object> = [
+const dialogsArr: Array<
+  Record<
+    | 'dialogName'
+    | 'dateLastMessage'
+    | 'lastMessage'
+    | 'missedNum'
+    | 'active'
+    | 'avatar',
+    unknown
+  >
+> = [
   {
     dialogName: 'Сергеева Елизавета Ярославовна',
     dateLastMessage: '14.05.2021',
     lastMessage:
       'Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции обеспечивает широкому кругу (специалистов) участие в формировании направлений прогрессивного развития. С другой стороны постоянное информационно-пропагандистское обеспечение нашей деятельности играет важную роль в формировании форм развития. Разнообразный и богатый опыт укрепление и развитие структуры играет важную роль в формировании новых предложений.',
-    missedNum: '12',
+    missedNum: 12,
     active: true,
     avatar: '../../assets/img/message-img.jpeg',
   },
@@ -77,77 +87,105 @@ const dialogsArr: Array<Object> = [
     dateLastMessage: '12.05.2021',
     lastMessage:
       'Разнообразный и богатый опыт сложившаяся структура организации требуют от нас анализа систем массового участия. Товарищи! дальнейшее развитие различных форм деятельности позволяет оценить значение существенных финансовых и административных условий. Не следует, однако забывать, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации новых предложений. Повседневная практика показывает, что реализация намеченных плановых заданий представляет собой интересный эксперимент проверки дальнейших направлений развития. С другой стороны сложившаяся структура организации обеспечивает широкому кругу (специалистов) участие в формировании форм развития. Значимость этих проблем настолько очевидна, что консультация с широким активом требуют определения и уточнения форм развития.',
-    missedNum: '3',
+    missedNum: 3,
+    active: false,
+    avatar: '',
   },
   {
     dialogName: 'Озеров Михаил Робертович',
     dateLastMessage: '10.05.2021',
     lastMessage:
       'Таким образом реализация намеченных плановых заданий способствует подготовки и реализации соответствующий условий активизации. С другой стороны консультация с широким активом играет важную роль в формировании модели развития.',
-    missedNum: '1',
+    missedNum: 1,
+    active: false,
+    avatar: '',
   },
   {
     dialogName: 'Игнатов Артём Анатольевич',
     dateLastMessage: '04.04.2021',
     lastMessage: 'Hello',
-    missedNum: false,
+    missedNum: 0,
+    active: false,
+    avatar: '',
   },
   {
     dialogName: 'Карпова Дарья Данисовна',
     dateLastMessage: '04.04.2021',
     lastMessage: 'Hello',
-    missedNum: false,
+    missedNum: 0,
+    active: false,
+    avatar: '',
   },
   {
     dialogName: 'Матвеев Ярослав Даниилович',
     dateLastMessage: '04.04.2021',
     lastMessage: 'Hello',
-    missedNum: false,
+    missedNum: 0,
+    active: false,
+    avatar: '',
   },
   {
     dialogName: 'Чернышев Николай Саввич',
     dateLastMessage: '04.04.2021',
     lastMessage: 'Hello',
-    missedNum: false,
+    missedNum: 0,
+    active: false,
+    avatar: '',
   },
   {
     dialogName: 'Афанасьева Виктория Тимофеевна',
     dateLastMessage: '04.04.2021',
     lastMessage: 'Hello',
-    missedNum: false,
+    missedNum: 0,
+    active: false,
+    avatar: '',
   },
   {
     dialogName: 'Зайцев Константин Михайлович',
     dateLastMessage: '04.04.2021',
     lastMessage: 'Hello',
-    missedNum: false,
+    missedNum: 0,
+    active: false,
+    avatar: '',
   },
   {
     dialogName: 'Кузнецова Ксения Тимофеевна',
     dateLastMessage: '04.04.2021',
     lastMessage: 'Hello',
-    missedNum: false,
+    missedNum: 0,
+    active: false,
+    avatar: '',
   },
   {
     dialogName: 'Грачева Екатерина Николаевна',
     dateLastMessage: '04.04.2021',
     lastMessage: 'Hello',
-    missedNum: false,
+    missedNum: 0,
+    active: false,
+    avatar: '',
   },
   {
     dialogName: 'Кочетова Алина Артёмовна',
     dateLastMessage: '04.04.2021',
     lastMessage: 'Hello',
-    missedNum: false,
+    missedNum: 0,
+    active: false,
+    avatar: '',
   },
 ];
 
-const messagesArr: Array<Object> = [
+const messagesArr: Array<
+  Record<
+    'userAvatar' | 'userName' | 'messageText' | 'time' | 'img',
+    unknown
+  >
+> = [
   {
     userAvatar: '../../assets/img/message-img.jpeg',
     userName: 'Сергеева Елизавета',
     messageText:
       'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
+    img: '',
     time: '06:59',
   },
   {
@@ -155,6 +193,7 @@ const messagesArr: Array<Object> = [
     userName: 'Антимонов Олег',
     messageText:
       'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
+    img: '',
     time: '06:59',
   },
   {
@@ -162,6 +201,7 @@ const messagesArr: Array<Object> = [
     userName: 'Сергеева Елизавета',
     messageText:
       'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
+    img: '',
     time: '06:59',
   },
   {
@@ -169,49 +209,7 @@ const messagesArr: Array<Object> = [
     userName: 'Антимонов Олег',
     messageText:
       'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-    time: '06:59',
-  },
-  {
-    userAvatar: '../../assets/img/message-img.jpeg',
-    userName: 'Сергеева Елизавета',
-    messageText:
-      'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-    img: '../../assets/img/message-img.jpeg',
-    time: '06:59',
-  },
-  {
-    userAvatar: '../../assets/img/my-avatar.jpeg',
-    userName: 'Антимонов Олег',
-    messageText:
-      'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-    time: '06:59',
-  },
-  {
-    userAvatar: '../../assets/img/message-img.jpeg',
-    userName: 'Сергеева Елизавета',
-    messageText:
-      'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-    time: '06:59',
-  },
-  {
-    userAvatar: '../../assets/img/my-avatar.jpeg',
-    userName: 'Антимонов Олег',
-    messageText:
-      'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-    time: '06:59',
-  },
-  {
-    userAvatar: '../../assets/img/message-img.jpeg',
-    userName: 'Сергеева Елизавета',
-    messageText:
-      'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-    time: '06:59',
-  },
-  {
-    userAvatar: '../../assets/img/my-avatar.jpeg',
-    userName: 'Антимонов Олег',
-    messageText:
-      'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
+    img: '',
     time: '06:59',
   },
   {
@@ -227,6 +225,55 @@ const messagesArr: Array<Object> = [
     userName: 'Антимонов Олег',
     messageText:
       'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
+    img: '',
+    time: '06:59',
+  },
+  {
+    userAvatar: '../../assets/img/message-img.jpeg',
+    userName: 'Сергеева Елизавета',
+    messageText:
+      'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
+    img: '',
+    time: '06:59',
+  },
+  {
+    userAvatar: '../../assets/img/my-avatar.jpeg',
+    userName: 'Антимонов Олег',
+    messageText:
+      'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
+    img: '',
+    time: '06:59',
+  },
+  {
+    userAvatar: '../../assets/img/message-img.jpeg',
+    userName: 'Сергеева Елизавета',
+    messageText:
+      'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
+    img: '',
+    time: '06:59',
+  },
+  {
+    userAvatar: '../../assets/img/my-avatar.jpeg',
+    userName: 'Антимонов Олег',
+    messageText:
+      'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
+    img: '',
+    time: '06:59',
+  },
+  {
+    userAvatar: '../../assets/img/message-img.jpeg',
+    userName: 'Сергеева Елизавета',
+    messageText:
+      'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
+    img: '../../assets/img/message-img.jpeg',
+    time: '06:59',
+  },
+  {
+    userAvatar: '../../assets/img/my-avatar.jpeg',
+    userName: 'Антимонов Олег',
+    messageText:
+      'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
+    img: '',
     time: '06:59',
   },
 ];

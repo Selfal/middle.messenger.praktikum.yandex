@@ -1,11 +1,17 @@
 import pug from 'pug';
 import './style.scss';
 
-import { Input } from './components/Input';
-import { Button } from './components/Button';
+import { Input } from './components/Input/index';
+import { Button } from './components/Button/index';
 import validate from './utils/validate';
 import { render } from './utils/renderDOM';
 import HTTPTool from './utils/HTTPTool';
+
+const regExpList = {
+  email:
+    /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  password: /[A-Za-z0-9]{6,}/,
+};
 
 const inputEmail: Input = new Input({
   label: 'Email',
@@ -20,7 +26,7 @@ const inputEmail: Input = new Input({
       return item.value;
     },
   },
-  re: /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  re: regExpList.email,
 });
 
 const inputPassword: Input = new Input({
@@ -36,7 +42,7 @@ const inputPassword: Input = new Input({
       return item.value;
     },
   },
-  re: /[A-Za-z0-9]{6,}/,
+  re: regExpList.password,
 });
 
 const buttonSignIn: Button = new Button({
@@ -104,7 +110,7 @@ export const signIn = (): string => {
   header.header 
     h2.logo Chatao
   main.main 
-    div.auth-form
+    form.auth-form
       h2.auth-form__title Вход 
   footer.footer 
     div.footer-links
