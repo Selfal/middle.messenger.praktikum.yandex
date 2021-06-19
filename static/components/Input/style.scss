@@ -1,3 +1,5 @@
+@import '../../style/variables.scss';
+
 .input-component {
   display: flex;
   flex-direction: column;
@@ -12,16 +14,16 @@
     font-size: 14px;
 
     &--error {
-      border-color: #ef8484;
+      border-color: $error;
     }
 
     &--success {
-      border-color: #29ce29;
+      border-color: $success;
     }
   }
 
   &__warning {
     margin-top: 5px;
-    color: #e61515;
+    color: $warning;
   }
 }

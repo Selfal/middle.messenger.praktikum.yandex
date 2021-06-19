@@ -310,11 +310,11 @@ deleteUser.addEventListener('click', () => {
 });
 
 for (let i = 0; i < dialogsArr.length; i++) {
-  const item: Object = dialogsArr[i];
+  const item: Record<string, unknown> = dialogsArr[i];
   render('.chat-menu__body', new DialogPreview(item));
 }
 
 for (let i = 0; i < messagesArr.length; i++) {
-  const item: Object = messagesArr[i];
+  const item: Record<string, unknown> = messagesArr[i];
   render('.main__body', new Message(item));
 }

@@ -15,10 +15,10 @@ export default class Block {
 
   private _meta: {
     tagName: string;
-    props: Object;
+    props: Record<string, unknown>;
   };
 
-  props: Object;
+  props: Record<string, unknown>;
 
   constructor(
     tagName: string = 'div',
@@ -105,7 +105,8 @@ export default class Block {
   };
 
   get element(): HTMLElement {
-    return this._element;
+    const element = this._element as HTMLElement;
+    return element;
   }
 
   private _addEvents(): void {
@@ -130,12 +131,18 @@ export default class Block {
 
     Object.keys(events).forEach((eventName: string) => {
       if (this._element) {
+        const inputElement = this._element.querySelector(
+          'input',
+        ) as HTMLInputElement;
+
         const isFocusOrBlur: boolean =
           eventName === 'focus' || eventName === 'blur';
-        if (isFocusOrBlur && this._element.querySelector('input')) {
-          this._element
-            .querySelector('input')
-            .removeEventListener(eventName, events[eventName]);
+
+        if (isFocusOrBlur && inputElement) {
+          inputElement.removeEventListener(
+            eventName,
+            events[eventName],
+          );
         } else {
           this._element.removeEventListener(
             eventName,
@@ -150,9 +157,9 @@ export default class Block {
     const block = this.render();
     this._removeEvents();
 
-    const template = <HTMLElement>migrateHtmlAtribute(block);
+    const template = migrateHtmlAtribute(block) as HTMLElement;
     template.getAttributeNames().forEach((name) => {
-      this._element.setAttribute(
+      this._element?.setAttribute(
         name,
         template.getAttribute(name) || '',
       );
@@ -170,9 +177,10 @@ export default class Block {
       }
     }
 
-    this._element.innerHTML = str;
-
-    this._addEvents();
+    if (this._element) {
+      this._element.innerHTML = str;
+      this._addEvents();
+    }
   }
 
   protected render(): void {}

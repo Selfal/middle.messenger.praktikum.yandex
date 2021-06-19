@@ -6,12 +6,7 @@ import { Button } from './components/Button/index';
 import validate from './utils/validate';
 import { render } from './utils/renderDOM';
 import HTTPTool from './utils/HTTPTool';
-
-const regExpList = {
-  email:
-    /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  password: /[A-Za-z0-9]{6,}/,
-};
+import { regExpList } from './constants';
 
 const inputEmail: Input = new Input({
   label: 'Email',
@@ -53,12 +48,12 @@ const buttonSignIn: Button = new Button({
   events: {
     click: (e: Event) => {
       const email: boolean = validate(
-        inputEmail.element.querySelector('input').value,
+        inputEmail.element.querySelector('input')?.value,
         inputEmail.props.re,
       );
 
       const password: boolean = validate(
-        inputPassword.element.querySelector('input').value,
+        inputPassword.element.querySelector('input')?.value,
         inputPassword.props.re,
       );
 
@@ -118,7 +113,8 @@ export const signIn = (): string => {
 
   const result: string = pug.render(template);
 
-  const app: HTMLElement = document.querySelector('.app');
+  const app = document.querySelector('.app') as HTMLElement;
+
   app.innerHTML = result;
   return result;
 };
@@ -136,7 +132,7 @@ render('.footer-links', buttonPageList);
 
 // Test запросов
 new HTTPTool()
-  .get('https://jsonplaceholder.typicode.com/posts', {
+  .get('https://jsonplaceholder.typicode.com', {
     data: { userId: 3 },
   })
   .then(({ response }) =>

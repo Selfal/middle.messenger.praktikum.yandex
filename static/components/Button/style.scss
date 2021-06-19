@@ -1,29 +1,31 @@
+@import '../../style/variables.scss';
+
 .button {
-  color: #105fd4;
+  color: $blue;
   text-align: center;
   padding: calc(1em / 2) calc(1em * 2);
   box-sizing: border-box;
   border-radius: 5px;
 
   &--secondary {
-    color: #105fd4;
+    color: $blue;
     padding: 5px 0;
 
     &:hover {
-      color: darken(#105fd4, 2%);
+      color: darken($blue, 2%);
     }
   }
 
   &--primary {
-    background: #105fd4;
-    color: #fff;
+    background: $blue;
+    color: $white;
 
     &:hover {
-      background: darken(#105fd4, 2%);
+      background: darken($blue, 2%);
     }
 
     &:active {
-      background: darken(#105fd4, 3%);
+      background: darken($blue, 3%);
     }
   }
 }

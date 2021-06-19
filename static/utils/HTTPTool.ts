@@ -13,7 +13,7 @@ type TOptions = {
   data?: unknown;
 };
 
-function queryStringify(data: Object) {
+function queryStringify(data: Record<string, unknown>) {
   if (typeof data !== 'object') {
     throw new Error('Data must be object');
   }
@@ -87,7 +87,16 @@ export default class HTTPTool {
       });
 
       xhr.onload = function () {
-        resolve(xhr);
+        const { status } = xhr;
+        if (
+          status === 200 &&
+          xhr.readyState === 4 &&
+          JSON.parse(xhr.responseText)
+        ) {
+          resolve(xhr);
+        }
+
+        reject(xhr);
       };
 
       xhr.onabort = reject;

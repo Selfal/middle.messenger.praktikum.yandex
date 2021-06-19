@@ -44,9 +44,12 @@ export class Input extends Block {
         focus: (e: Event) => {
           const element = e.target as HTMLInputElement;
           element.classList.remove('input-component__input--error');
-          element.parentNode.querySelector(
+
+          const warningElement = element.parentNode?.querySelector(
             '.input-component__warning',
-          ).innerHTML = '';
+          ) as HTMLElement;
+
+          warningElement.innerHTML = '';
         },
       },
     });

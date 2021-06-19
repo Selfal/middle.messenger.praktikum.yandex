@@ -8,6 +8,6 @@ export default interface IInput {
   value?: string;
   disabled?: boolean;
   warning?: string;
-  events?: Object;
-  re?: RegExp | unknown;
+  events?: Record<string, unknown>;
+  re?: RegExp;
 }

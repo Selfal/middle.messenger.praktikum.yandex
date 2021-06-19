@@ -1,3 +1,5 @@
+@import '../../style/variables.scss';
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Roboto',
     'Helvetica Neue', Geneva, 'Noto Sans Armenian',
@@ -70,7 +72,7 @@ body {
     display: flex;
     align-items: center;
     padding: 10px;
-    background: #fff;
+    background: $white;
     border-bottom: 1px solid #ececec;
   }
 
@@ -106,7 +108,7 @@ body {
   &__footer {
     display: flex;
     align-items: center;
-    background: #fff;
+    background: $white;
     border-top: 1px solid#ececec;
     padding: 0 10px;
   }
@@ -138,7 +140,7 @@ body {
   outline: none;
   padding: 5px 10px;
   font-size: 14px;
-  background: #fff;
+  background: $white;
   box-sizing: border-box;
   margin-left: 5px;
 
@@ -154,7 +156,7 @@ body {
   outline: none;
   padding: 7px 10px;
   font-size: 14px;
-  background: #fff;
+  background: $white;
   box-sizing: border-box;
   resize: none;
   height: 30px;
@@ -174,7 +176,7 @@ body {
   position: absolute;
   top: 60%;
   right: 50%;
-  background-color: #f9f9f9;
+  background-color: $gray;
   min-width: 160px;
   box-shadow: 0 8px 16px 4px rgba(0, 0, 0, 0.2);
   z-index: 1;

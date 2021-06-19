@@ -5,29 +5,7 @@ import { Button } from '../../components/Button/index';
 import { Input } from '../../components/Input/index';
 import validate from '../../utils/validate';
 import { render } from '../../utils/renderDOM';
-
-const regExpList: Record<
-  | 'email'
-  | 'login'
-  | 'firstName'
-  | 'lastName'
-  | 'userName'
-  | 'phone'
-  | 'oldPassword'
-  | 'newPassword',
-  unknown
-> = {
-  email:
-    /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  login: /^[A-zА-я]{1}[A-zА-я1-9]{2,20}$/,
-  firstName: /^[A-zА-я]{1}[A-zА-я]{2,20}$/,
-  lastName: /^[A-zА-я]{1}[A-zА-я]{2,20}$/,
-  userName: /^[A-zА-я]{1}[A-zА-я]{2,20}$/,
-  phone:
-    /^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{4,6}$/im,
-  oldPassword: /qwerty/,
-  newPassword: /[A-Za-z0-9]{6,64}/,
-};
+import { regExpList } from '../../constants';
 
 const inputEmail: Input = new Input({
   label: 'Email',
@@ -151,31 +129,31 @@ const buttonCreate: Button = new Button({
   events: {
     click: (): void => {
       const email: boolean = validate(
-        inputEmail.element.querySelector('input').value,
+        inputEmail.element.querySelector('input')?.value,
         inputEmail.props.re,
       );
       const login: boolean = validate(
-        inputLogin.element.querySelector('input').value,
+        inputLogin.element.querySelector('input')?.value,
         inputLogin.props.re,
       );
       const phone: boolean = validate(
-        inputPhone.element.querySelector('input').value,
+        inputPhone.element.querySelector('input')?.value,
         inputPhone.props.re,
       );
       const firstName: boolean = validate(
-        inputFirstName.element.querySelector('input').value,
+        inputFirstName.element.querySelector('input')?.value,
         inputFirstName.props.re,
       );
       const lastName: boolean = validate(
-        inputLastName.element.querySelector('input').value,
+        inputLastName.element.querySelector('input')?.value,
         inputLastName.props.re,
       );
       const password: boolean = validate(
-        inputPassword.element.querySelector('input').value,
+        inputPassword.element.querySelector('input')?.value,
         inputPassword.props.re,
       );
       const repeatPassword: boolean = validate(
-        inputRepeatPassword.element.querySelector('input').value,
+        inputRepeatPassword.element.querySelector('input')?.value,
         inputRepeatPassword.props.re,
       );
 
@@ -239,12 +217,9 @@ export const signUp = (): string => {
 
   const result: string = pug.render(template);
 
-  const app: HTMLElement | null = document.querySelector('.app');
-  if (app) {
-    app.innerHTML = result;
-    return result;
-  }
+  const app = document.querySelector('.app') as HTMLElement;
 
+  app.innerHTML = result;
   return result;
 };
 

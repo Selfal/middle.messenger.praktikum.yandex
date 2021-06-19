@@ -1,3 +1,5 @@
+@import '../../style/variables.scss';
+
 body {
   height: 100vh;
   display: flex;
@@ -8,7 +10,7 @@ body {
 
 .link-back {
   text-decoration: none;
-  color: #105fd4;
+  color: $blue;
   margin-top: 30px;
 }
 
