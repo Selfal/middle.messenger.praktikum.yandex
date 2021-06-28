@@ -1,0 +1,31 @@
+@import '../../style/variables.scss';
+
+.button {
+  color: $blue;
+  text-align: center;
+  padding: calc(1em / 2) calc(1em * 2);
+  box-sizing: border-box;
+  border-radius: 5px;
+
+  &--secondary {
+    color: $blue;
+    padding: 5px 0;
+
+    &:hover {
+      color: darken($blue, 2%);
+    }
+  }
+
+  &--primary {
+    background: $blue;
+    color: $white;
+
+    &:hover {
+      background: darken($blue, 2%);
+    }
+
+    &:active {
+      background: darken($blue, 3%);
+    }
+  }
+}

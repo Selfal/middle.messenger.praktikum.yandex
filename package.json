@@ -4,9 +4,13 @@
   "description": "### Откройте pull request в ветку main из ветки, где вы разрабатывали проект, и добавьте ссылку на этот pr в README.md в ветке main. Название pull request может быть любое.",
   "main": "index.js",
   "scripts": {
-    "start": "parcel static/*.pug  --port 3000 --open",
-    "build": "parcel build static/index.pug",
-    "server": "node server.js"
+    "watch": "parcel watch build ./static/**/*.html",
+    "build": "parcel build ./static/**/*.html",
+    "start": "concurrently \"parcel build ./static/**/*.html\" \"node ./server.js\"",
+    "dev": "npm run build && parcel ./static/index.html --port 3000 --open",
+    "eslint": "eslint ./static/**/*.ts",
+    "stylelint": "stylelint './static/**/*.scss' --fix",
+    "prettier": "prettier ./static"
   },
   "repository": {
     "type": "git",
@@ -19,17 +23,30 @@
   },
   "homepage": "https://github.com/Selfal/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
-    "@babel/cli": "^7.14.3",
+    "@babel/cli": "^7.12.1",
     "@babel/core": "^7.14.3",
-    "@babel/preset-env": "^7.14.2",
+    "@babel/preset-env": "^7.14.4",
+    "@types/pug": "^2.0.4",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
     "babel-preset-es2015": "^6.24.1",
+    "concurrently": "^6.2.0",
+    "eslint": "^7.28.0",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-xo": "^0.36.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "express": "^4.17.1",
     "parcel-bundler": "^1.10.3",
     "parcel-plugin-static-files-copy": "^2.6.0",
-    "sass": "^1.34.0"
+    "prettier": "^2.3.1",
+    "sass": "^1.34.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
+    "typescript": "^4.3.2"
   },
   "dependencies": {
-    "fs": "*",
     "pug": "^3.0.2"
   },
   "staticFiles": {

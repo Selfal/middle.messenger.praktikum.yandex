@@ -1,15 +1,32 @@
+@import '../../style/variables.scss';
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont,
-    'Roboto','Helvetica Neue', Geneva, "Noto Sans Armenian", "Noto Sans Bengali",
-    "Noto Sans Cherokee", "Noto Sans Devanagari","Noto Sans Ethiopic", 
-    "Noto Sans Georgian", "Noto Sans Hebrew", "Noto Sans Kannada", "Noto Sans Khmer",
-    "Noto Sans Lao", "Noto Sans Osmanya", "Noto Sans Tamil", "Noto Sans Telugu", "Noto Sans Thai",
-    sans-serif, arial, Tahoma, verdana;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto',
+    'Helvetica Neue', Geneva, 'Noto Sans Armenian',
+    'Noto Sans Bengali', 'Noto Sans Cherokee', 'Noto Sans Devanagari',
+    'Noto Sans Ethiopic', 'Noto Sans Georgian', 'Noto Sans Hebrew',
+    'Noto Sans Kannada', 'Noto Sans Khmer', 'Noto Sans Lao',
+    'Noto Sans Osmanya', 'Noto Sans Tamil', 'Noto Sans Telugu',
+    'Noto Sans Thai', sans-serif, arial, Tahoma, verdana;
 }
 
 .wrapper {
   display: flex;
   height: 100vh;
+}
+
+.button {
+  display: flex;
+  background: inherit;
+  border: none;
+  cursor: pointer;
+  padding: 3px;
+
+  &__icon {
+    height: 20px;
+    width: 20px;
+    fill: #b5b5b5;
+  }
 }
 
 .chat-menu {
@@ -26,10 +43,6 @@ body {
     border-bottom: 1px solid #ececec;
     padding: 10px;
     margin-bottom: 10px;
-
-    .button {
-      margin-left: 10px;
-    }
   }
 
   &__body {
@@ -59,7 +72,7 @@ body {
     display: flex;
     align-items: center;
     padding: 10px;
-    background: #fff;
+    background: $white;
     border-bottom: 1px solid #ececec;
   }
 
@@ -67,12 +80,14 @@ body {
     display: flex;
     align-items: center;
   }
+
   &__header-middle {
     display: flex;
     align-items: center;
     margin: 0 10px;
     width: 100%;
   }
+
   &__header-right {
     display: flex;
     align-items: center;
@@ -93,7 +108,7 @@ body {
   &__footer {
     display: flex;
     align-items: center;
-    background: #fff;
+    background: $white;
     border-top: 1px solid#ececec;
     padding: 0 10px;
   }
@@ -108,6 +123,7 @@ body {
   display: flex;
   align-items: center;
   padding-left: 10px;
+  width: 80%;
 
   &__icon {
     height: 20px;
@@ -122,10 +138,15 @@ body {
   border-radius: 5px;
   border: none;
   outline: none;
-  padding: 10px;
+  padding: 5px 10px;
   font-size: 14px;
-  background: #ffffff;
+  background: $white;
   box-sizing: border-box;
+  margin-left: 5px;
+
+  &:focus {
+    background: #e9f9ff;
+  }
 }
 
 .message-input {
@@ -135,25 +156,14 @@ body {
   outline: none;
   padding: 7px 10px;
   font-size: 14px;
-  background: #ffffff;
+  background: $white;
   box-sizing: border-box;
   resize: none;
   height: 30px;
   max-height: 5em;
-}
 
-.button {
-  display: flex;
-  background: inherit;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 3px;
-
-  &__icon {
-    height: 20px;
-    width: 20px;
-    fill: #b5b5b5;
+  &:focus {
+    background: #e9f9ff;
   }
 }
 
@@ -166,13 +176,14 @@ body {
   position: absolute;
   top: 60%;
   right: 50%;
-  background-color: #f9f9f9;
+  background-color: $gray;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 4px rgba(0, 0, 0, 0.2);
   z-index: 1;
   font-size: 12px;
   text-align: left;
   border-radius: 5px;
+
   &__item {
     padding: 10px 10px;
     cursor: pointer;

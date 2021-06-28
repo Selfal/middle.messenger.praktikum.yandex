@@ -1,3 +1,5 @@
+@import '../../style/variables.scss';
+
 .message {
   display: flex;
   justify-content: space-between;
@@ -33,7 +35,7 @@
   &__user-name {
     font-weight: 500;
     margin-bottom: 5px;
-    color: #3369F3;
+    color: $blue;
   }
 
   &__content {
@@ -47,8 +49,7 @@
 
   &__time {
     font-weight: 400;
-    color: #b3b3b3;
-    
+    color: $time;
     font-size: 11px;
   }
 }
