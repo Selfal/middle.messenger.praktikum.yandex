@@ -21,6 +21,8 @@ export class Input extends Block {
       events: {
         ...props.events,
         blur: (e: Event) => {
+          console.log('test');
+
           const element = e.target as HTMLInputElement;
           this.props.value = element.value;
 
@@ -42,6 +44,7 @@ export class Input extends Block {
           }
         },
         focus: (e: Event) => {
+          console.log('test');
           const element = e.target as HTMLInputElement;
           element.classList.remove('input-component__input--error');
 
@@ -89,6 +92,9 @@ export class Input extends Block {
     span.input-component__warning ${status === 'error' ? warning : ''}
     `);
 
-    return component(this.props);
+    const test = document.createElement('main');
+    test.innerHTML = component();
+    return test;
+    // return component(this.props);
   }
 }

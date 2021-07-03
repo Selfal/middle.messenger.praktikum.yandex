@@ -28,6 +28,9 @@ export class Button extends Block {
         primary ? 'button--primary' : 'button--secondary'
       }${className}(href="${link}") ${text}`,
     );
-    return component(this.props);
+    // return component(this.props);
+    const test = document.createElement('main');
+    test.innerHTML = component();
+    return test;
   }
 }

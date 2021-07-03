@@ -1,5 +1,6 @@
 import EventBus from './EventBus';
 import { migrateHtmlAtribute } from '../utils/migrateHtmlAtribute';
+import { render } from '../utils/renderDOM';
 
 export default class Block {
   static EVENTS = {
@@ -157,7 +158,8 @@ export default class Block {
     const block = this.render();
     this._removeEvents();
 
-    const template = migrateHtmlAtribute(block) as HTMLElement;
+    // const template = migrateHtmlAtribute(block) as HTMLElement;
+    const template = block.firstChild;
     template.getAttributeNames().forEach((name) => {
       this._element?.setAttribute(
         name,
@@ -166,7 +168,6 @@ export default class Block {
     });
 
     const childNodes = <NodeList>template.childNodes;
-
     let str: string = '';
     for (let i = 0; i <= childNodes.length - 1; i++) {
       const item = <HTMLElement>childNodes[i];
