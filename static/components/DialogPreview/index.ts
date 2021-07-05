@@ -30,6 +30,9 @@ export class DialogPreview extends Block {
         div.user-item__last-message ${this.props.lastMessage}
         ${this.props.missedNum ? messageInfoTmp : ''}
     `);
-    return component(this.props);
+
+    const test = document.createElement('div');
+    test.innerHTML = component();
+    return test;
   }
 }

@@ -92,7 +92,7 @@ export class Input extends Block {
     span.input-component__warning ${status === 'error' ? warning : ''}
     `);
 
-    const test = document.createElement('main');
+    const test = document.createElement('div');
     test.innerHTML = component();
     return test;
     // return component(this.props);

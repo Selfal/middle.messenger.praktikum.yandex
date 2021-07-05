@@ -4,7 +4,7 @@ import './style.scss';
 import { Input } from '../../components/Input/index';
 import { Button } from '../../components/Button/index';
 import validate from '../../utils/validate';
-import { render } from '../../utils/renderDOM';
+import { router } from '../../index';
 import HTTPTool from '../../utils/HTTPTool';
 import { regExpList } from '../../constants';
 import Block from '../../utils/Block';
@@ -78,8 +78,14 @@ export class SignIn extends Block {
           }),
           new Button({
             text: 'Создать аккаунт',
-            link: './pages/signUp/index.html',
             className: '.auth-form__create-account.link',
+            events: {
+              click: (e: Event): void => {
+                e.preventDefault();
+                router.go('/sign-up');
+                console.log('click create');
+              },
+            },
           }),
         ],
         footerButtons: [
@@ -155,6 +161,26 @@ export class SignIn extends Block {
     layout
       .querySelector('.auth-form')
       ?.append(this.props.childComponents.buttons[1].getContent());
+    layout
+      .querySelector('.footer-links')
+      ?.append(
+        this.props.childComponents.footerButtons[0].getContent(),
+      );
+    layout
+      .querySelector('.footer-links')
+      ?.append(
+        this.props.childComponents.footerButtons[1].getContent(),
+      );
+    layout
+      .querySelector('.footer-links')
+      ?.append(
+        this.props.childComponents.footerButtons[2].getContent(),
+      );
+    layout
+      .querySelector('.footer-links')
+      ?.append(
+        this.props.childComponents.footerButtons[3].getContent(),
+      );
     return layout;
   }
 }

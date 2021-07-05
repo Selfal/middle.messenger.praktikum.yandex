@@ -1,3 +1,6 @@
+import { SignIn } from '../pages/SignIn/index';
+import { SignUp } from '../pages/SignUp/index';
+
 class Route {
   constructor(pathname: string, view, props) {
     this._pathname = pathname;
@@ -24,17 +27,16 @@ class Route {
   }
 
   render() {
-    if (!this._block) {
-      this._block = new this._blockClass();
-      console.log(this._block);
-      render(this._props.rootQuery, this._block);
-      return;
-    }
-
+    // if (!this._block) {
+    //   this._block = new this._blockClass();
+    //   render(this._props.rootQuery, this._block);
+    //   return;
+    // }
+    this._block = new this._blockClass();
+    render(this._props.rootQuery, this._block);
     this._block.show();
   }
 }
-
 export class Router {
   constructor(rootQuery) {
     if (Router.__instance) {
@@ -55,7 +57,6 @@ export class Router {
     });
 
     this.routes.push(route);
-
     return this;
   }
 
@@ -69,13 +70,15 @@ export class Router {
   _onRoute(pathname: string) {
     const route = this.getRoute(pathname);
     if (!route) {
-      return;
+      this.go('/404');
     }
 
     if (this._currentRoute && this._currentRoute !== route) {
       this._currentRoute.leave();
     }
     this._currentRoute = route;
+    console.log('route: ', route);
+    console.log('pathname: ', pathname);
     route.render(route, pathname);
   }
 
@@ -103,6 +106,13 @@ function isEqual(lhs, rhs) {
 
 function render(query, block) {
   const root = document.querySelector(query);
+  while (root.firstChild) {
+    root.removeChild(root.firstChild);
+  }
+
+  console.log('root: ', root);
+  console.log('query: ', query);
+  console.log('block: ', block);
   root.append(block.render());
   return root;
 }

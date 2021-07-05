@@ -25,6 +25,8 @@ export class Message extends Block {
         ${this.props.img ? imgTmp : ''} 
         div.message__content ${this.props.messageText}`);
 
-    return component(this.props);
+    const test = document.createElement('div');
+    test.innerHTML = component();
+    return test;
   }
 }

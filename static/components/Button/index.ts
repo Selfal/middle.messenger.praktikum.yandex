@@ -29,8 +29,8 @@ export class Button extends Block {
       }${className}(href="${link}") ${text}`,
     );
     // return component(this.props);
-    const test = document.createElement('main');
-    test.innerHTML = component();
-    return test;
+    const result = document.createElement('div');
+    result.innerHTML = component();
+    return result;
   }
 }
