@@ -1,11 +1,13 @@
 import { SignIn } from './pages/SignIn/index';
 import { SignUp } from './pages/SignUp/index';
-import { home } from './pages/home/index';
+import { Home } from './pages/Home/index';
+import { ProfileSetting } from './pages/profileSetting/index';
 import { Router } from './utils/Router';
 
 export const router = new Router('.app');
 router
   .use('/', SignIn)
   .use('/sign-up', SignUp)
-  // .use('/home', home)
+  .use('/home', Home)
+  .use('/settings', ProfileSetting)
   .start();

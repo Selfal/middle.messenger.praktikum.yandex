@@ -1,8 +1,8 @@
 import pug from 'pug';
-import './style.scss';
 import IInput from './interface';
 import Block from '../../utils/Block';
 import validate from '../../utils/validate';
+import './style.scss';
 
 export class Input extends Block {
   readonly props: IInput;

@@ -1,13 +1,14 @@
 import pug from 'pug';
-import './style.scss';
 
+import Block from '../../utils/Block';
 import { Input } from '../../components/Input/index';
 import { Button } from '../../components/Button/index';
 import validate from '../../utils/validate';
 import { router } from '../../index';
 import HTTPTool from '../../utils/HTTPTool';
 import { regExpList } from '../../constants';
-import Block from '../../utils/Block';
+
+import './style.scss';
 
 export class SignIn extends Block {
   constructor() {
@@ -43,17 +44,20 @@ export class SignIn extends Block {
                 return item.value;
               },
             },
-            re: regExpList.password,
+            re: regExpList.newPassword,
           }),
         ],
         buttons: [
           new Button({
             text: 'Войти',
-            link: './pages/home/index.html',
             className: 'auth-form__button',
             primary: true,
             events: {
               click: (e: Event) => {
+                const inputEmail =
+                  this.props.childComponents.inputs[0];
+                const inputPassword =
+                  this.props.childComponents.inputs[1];
                 const email: boolean = validate(
                   inputEmail.element.querySelector('input')?.value,
                   inputEmail.props.re,
@@ -72,6 +76,11 @@ export class SignIn extends Block {
                 if (!password) {
                   e.preventDefault();
                   inputPassword.setProps({ status: 'error' });
+                }
+
+                if (email && password) {
+                  e.preventDefault();
+                  router.go('/home');
                 }
               },
             },
@@ -134,7 +143,7 @@ export class SignIn extends Block {
       .catch(console.log);
 
     const component = pug.compile(
-      `div.wrapper
+      `div.sign-in.wrapper
     header.header 
       h2.logo Chatao
     main.main 

@@ -7,7 +7,7 @@ import validate from '../../utils/validate';
 import { regExpList } from '../../constants';
 
 export const profileSetting = (): string => {
-  const template: string = `.wrapper
+  const template: string = `.profile-settings.wrapper
       a.button-back(href="../home/index.html") 
         svg.button__icon 
           use(xlink:href="../../assets/sprite.svg#left-arrow")

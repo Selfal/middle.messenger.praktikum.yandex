@@ -1,6 +1,3 @@
-import { SignIn } from '../pages/SignIn/index';
-import { SignUp } from '../pages/SignUp/index';
-
 class Route {
   constructor(pathname: string, view, props) {
     this._pathname = pathname;

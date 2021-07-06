@@ -10,12 +10,13 @@ body {
     'Noto Sans Thai', sans-serif, arial, Tahoma, verdana;
 }
 
-.wrapper {
+.home.wrapper {
   display: flex;
+  flex-direction: row;
   height: 100vh;
 }
 
-.button {
+.button-only-icon {
   display: flex;
   background: inherit;
   border: none;
@@ -71,6 +72,8 @@ body {
   &__header {
     display: flex;
     align-items: center;
+    width: 100%;
+    box-sizing: border-box;
     padding: 10px;
     background: $white;
     border-bottom: 1px solid #ececec;
@@ -97,6 +100,8 @@ body {
     display: flex;
     flex-direction: column;
     flex-grow: 3;
+    width: 100%;
+    box-sizing: border-box;
     padding: 10px 20px 10px 10px;
     overflow: auto;
 
@@ -109,6 +114,8 @@ body {
     display: flex;
     align-items: center;
     background: $white;
+    width: 100%;
+    box-sizing: border-box;
     border-top: 1px solid#ececec;
     padding: 0 10px;
   }
