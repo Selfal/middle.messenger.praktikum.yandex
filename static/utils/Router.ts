@@ -74,8 +74,6 @@ export class Router {
       this._currentRoute.leave();
     }
     this._currentRoute = route;
-    console.log('route: ', route);
-    console.log('pathname: ', pathname);
     route.render(route, pathname);
   }
 
@@ -107,9 +105,6 @@ function render(query, block) {
     root.removeChild(root.firstChild);
   }
 
-  console.log('root: ', root);
-  console.log('query: ', query);
-  console.log('block: ', block);
   root.append(block.render());
   return root;
 }
