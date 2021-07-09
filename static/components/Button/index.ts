@@ -1,4 +1,4 @@
-import pug from 'pug';
+import * as pug from 'pug';
 import './style.scss';
 import IButton from './interface';
 import Block from '../../utils/Block';

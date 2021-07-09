@@ -1,4 +1,4 @@
-import pug from 'pug';
+import * as pug from 'pug';
 
 import Block from '../../utils/Block';
 import { Button } from '../../components/Button/index';
@@ -7,6 +7,8 @@ import validate from '../../utils/validate';
 import { render } from '../../utils/renderDOM';
 import { router } from '../../index';
 import { regExpList } from '../../constants';
+import AuthAPI from '../../api/auth';
+
 import './style.scss';
 
 export class SignUp extends Block {
@@ -169,10 +171,6 @@ export class SignUp extends Block {
                   inputRepeatPassword.props.re,
                 );
 
-                if(email && login && phone && firstName && lastName && password && repeatPassword) {
-                  router.go('/')
-                }
-
                 if (!email) {
                   inputEmail.setProps({ status: 'error' });
                 }
@@ -199,6 +197,26 @@ export class SignUp extends Block {
 
                 if (!repeatPassword) {
                   inputRepeatPassword.setProps({ status: 'error' });
+                }
+
+                if(email && login && phone && firstName && lastName && password && repeatPassword) {
+                  const options = {
+                    first_name: inputFirstName.element.querySelector('input')?.value,
+                    second_name: inputLastName.element.querySelector('input')?.value,
+                    login: inputLogin.element.querySelector('input')?.value,
+                    email: inputEmail.element.querySelector('input')?.value,
+                    password: inputPassword.element.querySelector('input')?.value,
+                    phone: inputPhone.element.querySelector('input')?.value,
+                  }
+                  console.log(options)
+                  new AuthAPI()
+                    .signUp(options)
+                    .then(() => {
+                      router.go('/')
+                    })
+                    .catch((err: Error) => {
+                      console.log(new Error('Ошибка: ', err))
+                    }) 
                 }
               },
             },

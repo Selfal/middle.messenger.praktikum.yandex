@@ -1,4 +1,4 @@
-import pug from 'pug';
+import * as pug from 'pug';
 import './style.scss';
 import { IDialogPreview } from './interface';
 import Block from '../../utils/Block';
@@ -7,7 +7,7 @@ export class DialogPreview extends Block {
   readonly props: IDialogPreview;
 
   constructor(props: IDialogPreview) {
-    super('div', props);
+    super('li', props);
   }
 
   render(): string {
@@ -20,12 +20,11 @@ export class DialogPreview extends Block {
 
     const component: pug.compileTemplate = pug.compile(`li.user-item${
       this.props.active ? '.user-item--active' : ''
-    }
+    }(data-id="${this.props.id}")
     img.user-item__avatar${avatarTmp}
     div.user-item__content
       div.user-item__header
         div.user-item__name ${this.props.dialogName}
-        div.user-item__time ${this.props.dateLastMessage}
       div.user-item__body
         div.user-item__last-message ${this.props.lastMessage}
         ${this.props.missedNum ? messageInfoTmp : ''}

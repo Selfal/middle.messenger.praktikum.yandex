@@ -1,4 +1,4 @@
-import pug from 'pug';
+import * as pug from 'pug';
 import IInput from './interface';
 import Block from '../../utils/Block';
 import validate from '../../utils/validate';

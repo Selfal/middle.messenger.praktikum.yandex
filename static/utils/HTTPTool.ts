@@ -8,6 +8,7 @@ enum METHODS {
 
 type TOptions = {
   method?: METHODS;
+  mode?: string;
   headers?: Record<string, string>;
   timeout?: number;
   data?: unknown;
@@ -30,7 +31,11 @@ export default class HTTPTool {
   get = (url: string, options: TOptions = {}) => {
     return this.request(
       url,
-      { ...options, method: METHODS.GET },
+      {
+        ...options,
+        method: METHODS.GET,
+        mode: 'cors',
+      },
       options.timeout,
     );
   };
@@ -38,7 +43,11 @@ export default class HTTPTool {
   post = (url: string, options: TOptions = {}) => {
     return this.request(
       url,
-      { ...options, method: METHODS.POST },
+      {
+        ...options,
+        method: METHODS.POST,
+        mode: 'cors',
+      },
       options.timeout,
     );
   };
@@ -82,17 +91,15 @@ export default class HTTPTool {
           : url,
       );
 
+      xhr.withCredentials = true;
+
       Object.keys(headers).forEach((key: string) => {
         xhr.setRequestHeader(key, headers[key]);
       });
 
       xhr.onload = function () {
         const { status } = xhr;
-        if (
-          status === 200 &&
-          xhr.readyState === 4 &&
-          JSON.parse(xhr.responseText)
-        ) {
+        if (status === 200 && xhr.readyState === 4) {
           resolve(xhr);
         }
 

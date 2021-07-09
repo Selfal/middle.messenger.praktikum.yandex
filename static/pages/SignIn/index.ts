@@ -1,4 +1,4 @@
-import pug from 'pug';
+import * as pug from 'pug';
 
 import Block from '../../utils/Block';
 import { Input } from '../../components/Input/index';
@@ -7,6 +7,7 @@ import validate from '../../utils/validate';
 import { router } from '../../index';
 import HTTPTool from '../../utils/HTTPTool';
 import { regExpList } from '../../constants';
+import AuthAPI from '../../api/auth';
 
 import './style.scss';
 
@@ -16,20 +17,19 @@ export class SignIn extends Block {
       childComponents: {
         inputs: [
           new Input({
-            label: 'Email',
-            placeholder: 'Введите свой email',
+            label: 'Логин',
+            placeholder: 'Введите свой логин',
             className: '.input-component__input',
-            name: 'email',
-            warning: 'Невалидный email',
-            type: 'email',
+            name: 'login',
+            warning: 'Невалидный логин',
+            type: 'text',
             events: {
               input: (e: Event): string => {
-                console.log('test');
                 const item = e.target as HTMLInputElement;
                 return item.value;
               },
             },
-            re: regExpList.email,
+            re: regExpList.login,
           }),
           new Input({
             label: 'Пароль',
@@ -80,7 +80,73 @@ export class SignIn extends Block {
 
                 if (email && password) {
                   e.preventDefault();
-                  router.go('/home');
+                  const options = {
+                    login:
+                      inputEmail.element.querySelector('input')
+                        ?.value,
+                    password:
+                      inputPassword.element.querySelector('input')
+                        ?.value,
+                  };
+
+                  /*
+                  avatar: null
+                  display_name: null
+                  email: "test8@yandex.com"
+                  first_name: "Артур"
+                  id: 29738
+                  login: "test8AO"
+                  phone: "+79999999999"
+                  second_name: "Морган"
+
+                  */
+                  new AuthAPI()
+                    .signIn(options)
+                    .then(() => {
+                      new AuthAPI().getUserInfo().then((data) => {
+                        const userInfo = JSON.parse(data.response);
+                        localStorage.setItem('email', userInfo.email);
+                        localStorage.setItem(
+                          'first_name',
+                          userInfo.first_name,
+                        );
+                        localStorage.setItem('id', userInfo.id);
+                        localStorage.setItem('login', userInfo.login);
+                        localStorage.setItem('phone', userInfo.phone);
+                        localStorage.setItem(
+                          'second_name',
+                          userInfo.second_name,
+                        );
+                        localStorage.setItem(
+                          'display_name',
+                          userInfo.display_name,
+                        );
+                        localStorage.setItem(
+                          'avatar',
+                          userInfo.avatar,
+                        );
+                        router.go('/home');
+                      });
+                    })
+                    .catch((err: Error) => {
+                      inputEmail.setProps({
+                        status: 'error',
+                        warning: 'Неверный логин или пароль',
+                      });
+                      inputPassword.setProps({
+                        status: 'error',
+                        warning: 'Неверный логин или пароль',
+                      });
+                      new AuthAPI()
+                        .getUserInfo()
+                        // .then((res) => res.json())
+                        .then((data) => {
+                          console.log('user', data);
+                        })
+                        .catch(() => {
+                          console.log(new Error('Ошибка: ', err));
+                        });
+                    });
                 }
               },
             },
@@ -124,24 +190,6 @@ export class SignIn extends Block {
   }
 
   render() {
-    new HTTPTool()
-      .get('https://jsonplaceholder.typicode.com', {
-        data: { userId: 3 },
-      })
-      .then(({ response }) =>
-        console.log('Ответ userId 3:', JSON.parse(response)),
-      )
-      .catch(console.log);
-
-    new HTTPTool()
-      .get('https://jsonplaceholder.typicode.com/posts', {
-        data: { userId: 1 },
-      })
-      .then(({ response }) =>
-        console.log('Ответ userId 1:', JSON.parse(response)),
-      )
-      .catch(console.log);
-
     const component = pug.compile(
       `div.sign-in.wrapper
     header.header 
@@ -190,6 +238,20 @@ export class SignIn extends Block {
       ?.append(
         this.props.childComponents.footerButtons[3].getContent(),
       );
+    new AuthAPI().getUserInfo().then((data) => {
+      console.log('user', data);
+      const userInfo = JSON.parse(data.response);
+      localStorage.setItem('email', userInfo.email);
+      localStorage.setItem('first_name', userInfo.first_name);
+      localStorage.setItem('id', userInfo.id);
+      localStorage.setItem('login', userInfo.login);
+      localStorage.setItem('phone', userInfo.phone);
+      localStorage.setItem('second_name', userInfo.second_name);
+      localStorage.setItem('display_name', userInfo.display_name);
+      localStorage.setItem('avatar', userInfo.avatar);
+      localStorage.setItem('second_name', userInfo.second_name);
+      router.go('/home');
+    });
     return layout;
   }
 }

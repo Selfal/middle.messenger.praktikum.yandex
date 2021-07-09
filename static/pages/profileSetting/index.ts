@@ -1,16 +1,17 @@
-import pug from 'pug';
+import * as pug from 'pug';
 import { Input } from '../../components/Input/index';
 import { Button } from '../../components/Button/index';
-import { render } from '../../utils/renderDOM';
+import { AvatarInput } from '../../components/AvatarInput/index';
 import validate from '../../utils/validate';
 import { regExpList } from '../../constants';
 import Block from '../../utils/Block';
 import './style.scss';
 import { router } from '../../index';
+import AuthAPI from '../../api/auth';
+import UserAPI from '../../api/userApi';
 
 export class ProfileSetting extends Block {
   constructor() {
-    const cachDataInputProfile: Array<string> = [];
     super('main', {
       childComponents: {
         inputsInfo: [
@@ -19,7 +20,7 @@ export class ProfileSetting extends Block {
             placeholder: 'Начните ввод',
             name: 'login',
             type: 'text',
-            value: 'Selfal',
+            value: localStorage.getItem('login') || 'Начните ввод',
             disabled: true,
             warning: 'Невалидный логин',
             re: regExpList.login,
@@ -30,7 +31,8 @@ export class ProfileSetting extends Block {
             placeholder: 'Начните ввод',
             name: 'name',
             type: 'text',
-            value: 'Олег',
+            value:
+              localStorage.getItem('first_name') || 'Начните ввод',
             disabled: true,
             warning: 'Невалидное имя',
             re: regExpList.firstName,
@@ -41,7 +43,8 @@ export class ProfileSetting extends Block {
             placeholder: 'Начните ввод',
             name: 'last-name',
             type: 'text',
-            value: 'Антимонов',
+            value:
+              localStorage.getItem('second_name') || 'Начните ввод',
             disabled: true,
             warning: 'Невалидная фамилия',
             re: regExpList.lastName,
@@ -52,7 +55,10 @@ export class ProfileSetting extends Block {
             placeholder: 'Начните ввод',
             name: 'username',
             type: 'text',
-            value: 'Олег',
+            value:
+              localStorage.getItem('display_name') !== 'null'
+                ? localStorage.getItem('display_name')
+                : '',
             disabled: true,
             warning: 'Невалидное имя в чате',
             re: regExpList.userName,
@@ -63,10 +69,22 @@ export class ProfileSetting extends Block {
             placeholder: 'Начните ввод',
             name: 'tel',
             type: 'phone',
-            value: '+79998781414',
+            value: localStorage.getItem('phone') || 'Начните ввод',
+
             disabled: true,
             warning: 'Невалидный номер телефона',
             re: regExpList.phone,
+          }),
+
+          new Input({
+            label: 'email',
+            placeholder: 'Начните ввод',
+            name: 'email',
+            type: 'email',
+            value: localStorage.getItem('email') || 'Начните ввод',
+            disabled: true,
+            warning: 'Невалидная почта',
+            re: regExpList.email,
           }),
         ],
         inputsPassword: [
@@ -117,6 +135,7 @@ export class ProfileSetting extends Block {
                 return item.value;
               },
             },
+            re: / /,
             warning: 'Пароли не совпадают',
           }),
         ],
@@ -125,7 +144,7 @@ export class ProfileSetting extends Block {
             text: 'Редактировать профиль',
             className: '.link.link--edit-profile',
             events: {
-              click: (e): void => {
+              click: (e: Event): void => {
                 e.preventDefault();
                 const { buttons, inputsInfo } =
                   this.props.childComponents;
@@ -136,15 +155,6 @@ export class ProfileSetting extends Block {
                   saveProfileButton,
                   canceleButton,
                 } = buttons;
-
-                cachDataInputProfile.splice(
-                  0,
-                  cachDataInputProfile.length,
-                );
-                for (let i = 0; i < inputsInfo.length; i++) {
-                  const item: Input = inputsInfo[i];
-                  cachDataInputProfile.push(item.value);
-                }
 
                 editProfileButton.hide();
                 editPasswordButton.hide();
@@ -187,15 +197,46 @@ export class ProfileSetting extends Block {
                 }
 
                 if (validateForm) {
-                  cachDataInputProfile.splice(
-                    0,
-                    cachDataInputProfile.length,
-                  );
                   for (let i = 0; i < inputsInfo.length; i++) {
                     const item: Input = inputsInfo[i];
                     item.setProps({ status: 'normal' });
-                    cachDataInputProfile.push(item.value);
                   }
+
+                  const options = {
+                    login: inputsInfo[0].value,
+                    first_name: inputsInfo[1].value,
+                    second_name: inputsInfo[2].value,
+                    display_name: inputsInfo[3].value,
+                    phone: inputsInfo[4].value,
+                    email: inputsInfo[5].value,
+                  };
+
+                  console.log(options);
+
+                  new UserAPI().changeInfo(options).then((data) => {
+                    const userInfo = JSON.parse(data.response);
+                    localStorage.setItem('email', userInfo.email);
+                    localStorage.setItem(
+                      'first_name',
+                      userInfo.first_name,
+                    );
+                    localStorage.setItem('id', userInfo.id);
+                    localStorage.setItem('login', userInfo.login);
+                    localStorage.setItem('phone', userInfo.phone);
+                    localStorage.setItem(
+                      'second_name',
+                      userInfo.second_name,
+                    );
+                    localStorage.setItem(
+                      'display_name',
+                      userInfo.display_name,
+                    );
+                    localStorage.setItem('avatar', userInfo.avatar);
+                    localStorage.setItem(
+                      'second_name',
+                      userInfo.second_name,
+                    );
+                  });
 
                   saveProfileButton.hide();
                   canceleButton.hide();
@@ -262,6 +303,13 @@ export class ProfileSetting extends Block {
                 console.log(validateForm);
 
                 if (validateForm) {
+                  const options = {
+                    oldPassword: inputsPassword[0].value,
+                    newPassword: inputsPassword[1].value,
+                  };
+                  console.log(options);
+                  new UserAPI().changePassword(options);
+
                   for (let i = 0; i < inputsPassword.length; i++) {
                     const item: Input = inputsPassword[i];
                     item.setProps({ status: 'normal', value: '' });
@@ -287,7 +335,10 @@ export class ProfileSetting extends Block {
             events: {
               click: (e: Event) => {
                 e.preventDefault();
-                router.go('/');
+                new AuthAPI().logoutUser().then((data) => {
+                  console.log('logout: ', data);
+                  router.go('/');
+                });
               },
             },
           }),
@@ -316,7 +367,6 @@ export class ProfileSetting extends Block {
                 saveProfileButton.hide();
                 for (let i = 0; i < inputsInfo.length; i++) {
                   inputsInfo[i].setProps({
-                    value: cachDataInputProfile[i],
                     status: 'normal',
                   });
                 }
@@ -335,6 +385,30 @@ export class ProfileSetting extends Block {
             },
           }),
         },
+        avatarInput: new AvatarInput({
+          src:
+            localStorage.getItem('avatar') !== 'null'
+              ? `https://ya-praktikum.tech/api/v2/resources/${localStorage.getItem(
+                  'avatar',
+                )}`
+              : '../../assets/img/avatarPlaceholder.jpeg',
+          events: {
+            change: (e: Event) => {
+              console.log('file: ', e.target.files[0]);
+              const formData = new FormData();
+              formData.append('avatar', e.target.files[0]);
+              console.log(formData);
+              new UserAPI().changeAvatar(formData).then((data) => {
+                const userInfo = JSON.parse(data.response);
+                localStorage.setItem('avatar', userInfo.avatar);
+                this.props.childComponents.avatarInput.setProps({
+                  src: `https://ya-praktikum.tech/api/v2/resources/${userInfo.avatar}`,
+                });
+              });
+              console.log('hello avatar test');
+            },
+          },
+        }),
       },
     });
   }
@@ -364,16 +438,16 @@ export class ProfileSetting extends Block {
         svg.button__icon 
           use(xlink:href="../../assets/sprite.svg#left-arrow")
       main.main 
-        label.avatar
-          img.avatar__img(src="../../assets/img/my-avatar.jpeg") 
-          input.avatar__input(type="file")
-        .name Антимонов Олег
+        
+        .name ${localStorage.getItem(
+          'second_name',
+        )} ${localStorage.getItem('first_name')}
 
         form.user-info
           
         .user-info-bottom `;
 
-    const { buttons, inputsInfo, inputsPassword } =
+    const { buttons, inputsInfo, inputsPassword, avatarInput } =
       this.props.childComponents;
     const {
       editProfileButton,
@@ -387,6 +461,8 @@ export class ProfileSetting extends Block {
     let result = document.createElement('div');
     result.innerHTML = component();
     result = result.firstChild;
+
+    result.querySelector('.main')?.prepend(avatarInput.getContent());
 
     for (let i = 0; i < inputsInfo.length; i++) {
       result
@@ -424,6 +500,10 @@ export class ProfileSetting extends Block {
     canceleButton.hide();
     saveProfileButton.hide();
     savePasswordButton.hide();
+    new AuthAPI().getUserInfo().catch(() => {
+      router.go('/');
+    });
+
     return result;
   }
 }

@@ -6,4 +6,5 @@ export interface IDialogPreview {
   active?: boolean;
   avatar?: string;
   events?: object;
+  id?: string | number;
 }

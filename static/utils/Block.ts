@@ -1,6 +1,4 @@
 import EventBus from './EventBus';
-import { migrateHtmlAtribute } from '../utils/migrateHtmlAtribute';
-import { render } from '../utils/renderDOM';
 
 export default class Block {
   static EVENTS = {
