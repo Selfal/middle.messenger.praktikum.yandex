@@ -18,7 +18,6 @@ export class Button extends Block {
     } = this.props as IButton;
 
     let { className } = this.props as IButton;
-
     if (!className?.startsWith('.')) {
       className = `.${className}`;
     }
@@ -31,6 +30,6 @@ export class Button extends Block {
     // return component(this.props);
     const result = document.createElement('div');
     result.innerHTML = component();
-    return result;
+    return result.firstChild;
   }
 }

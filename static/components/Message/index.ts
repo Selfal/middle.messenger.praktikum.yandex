@@ -17,7 +17,11 @@ export class Message extends Block {
 
     const component: pug.compileTemplate = pug.compile(`div.message
     div.message-container 
-      img.message__avatar(src="${this.props.userAvatar}")
+      img.message__avatar(src="${
+        this.props.userAvatar
+          ? this.props.userAvatar
+          : '../../assets/img/avatarPlaceholder.jpeg'
+      }")
       div.message__body 
         div.message__body-header 
           div.message__user-name ${this.props.userName} 
@@ -27,6 +31,6 @@ export class Message extends Block {
 
     const test = document.createElement('div');
     test.innerHTML = component();
-    return test;
+    return test.firstChild;
   }
 }

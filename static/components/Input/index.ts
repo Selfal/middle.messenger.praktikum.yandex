@@ -91,7 +91,7 @@ export class Input extends Block {
 
     const test = document.createElement('div');
     test.innerHTML = component();
-    return test;
+    return test.firstChild;
     // return component(this.props);
   }
 }

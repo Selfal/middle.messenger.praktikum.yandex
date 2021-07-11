@@ -3,6 +3,7 @@ import ChatAPI from '../../api/chatApi';
 import { DialogPreview } from '../../components/DialogPreview/index';
 import { IconButton } from '../../components/IconButton/index';
 import { Message } from '../../components/Message/index';
+import { InputMessage } from '../../components/InputMessage/index';
 import { router } from '../../index';
 import Block from '../../utils/Block';
 import './style.scss';
@@ -11,226 +12,13 @@ export class Home extends Block {
   constructor() {
     super('main', {
       childComponents: {
-        dialogsPreview: [
-          /*
-          new DialogPreview({
-            dialogName: 'Сергеева Елизавета Ярославовна',
-            dateLastMessage: '14.05.2021',
-            lastMessage:
-              'Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции обеспечивает широкому кругу (специалистов) участие в формировании направлений прогрессивного развития. С другой стороны постоянное информационно-пропагандистское обеспечение нашей деятельности играет важную роль в формировании форм развития. Разнообразный и богатый опыт укрепление и развитие структуры играет важную роль в формировании новых предложений.',
-            missedNum: 12,
-            active: true,
-            avatar: '../../assets/img/message-img.jpeg',
-          }),
-          new DialogPreview({
-            dialogName: 'Седов Артём Михайлович',
-            dateLastMessage: '12.05.2021',
-            lastMessage:
-              'Разнообразный и богатый опыт сложившаяся структура организации требуют от нас анализа систем массового участия. Товарищи! дальнейшее развитие различных форм деятельности позволяет оценить значение существенных финансовых и административных условий. Не следует, однако забывать, что рамки и место обучения кадров влечет за собой процесс внедрения и модернизации новых предложений. Повседневная практика показывает, что реализация намеченных плановых заданий представляет собой интересный эксперимент проверки дальнейших направлений развития. С другой стороны сложившаяся структура организации обеспечивает широкому кругу (специалистов) участие в формировании форм развития. Значимость этих проблем настолько очевидна, что консультация с широким активом требуют определения и уточнения форм развития.',
-            missedNum: 3,
-            active: false,
-            avatar: '',
-          }),
-          new DialogPreview({
-            dialogName: 'Озеров Михаил Робертович',
-            dateLastMessage: '10.05.2021',
-            lastMessage:
-              'Таким образом реализация намеченных плановых заданий способствует подготовки и реализации соответствующий условий активизации. С другой стороны консультация с широким активом играет важную роль в формировании модели развития.',
-            missedNum: 1,
-            active: false,
-            avatar: '',
-          }),
-          new DialogPreview({
-            dialogName: 'Игнатов Артём Анатольевич',
-            dateLastMessage: '04.04.2021',
-            lastMessage: 'Hello',
-            missedNum: 0,
-            active: false,
-            avatar: '',
-          }),
-          new DialogPreview({
-            dialogName: 'Карпова Дарья Данисовна',
-            dateLastMessage: '04.04.2021',
-            lastMessage: 'Hello',
-            missedNum: 0,
-            active: false,
-            avatar: '',
-          }),
-          new DialogPreview({
-            dialogName: 'Матвеев Ярослав Даниилович',
-            dateLastMessage: '04.04.2021',
-            lastMessage: 'Hello',
-            missedNum: 0,
-            active: false,
-            avatar: '',
-          }),
-          new DialogPreview({
-            dialogName: 'Чернышев Николай Саввич',
-            dateLastMessage: '04.04.2021',
-            lastMessage: 'Hello',
-            missedNum: 0,
-            active: false,
-            avatar: '',
-          }),
-          new DialogPreview({
-            dialogName: 'Афанасьева Виктория Тимофеевна',
-            dateLastMessage: '04.04.2021',
-            lastMessage: 'Hello',
-            missedNum: 0,
-            active: false,
-            avatar: '',
-          }),
-          new DialogPreview({
-            dialogName: 'Зайцев Константин Михайлович',
-            dateLastMessage: '04.04.2021',
-            lastMessage: 'Hello',
-            missedNum: 0,
-            active: false,
-            avatar: '',
-          }),
-          new DialogPreview({
-            dialogName: 'Кузнецова Ксения Тимофеевна',
-            dateLastMessage: '04.04.2021',
-            lastMessage: 'Hello',
-            missedNum: 0,
-            active: false,
-            avatar: '',
-          }),
-          new DialogPreview({
-            dialogName: 'Грачева Екатерина Николаевна',
-            dateLastMessage: '04.04.2021',
-            lastMessage: 'Hello',
-            missedNum: 0,
-            active: false,
-            avatar: '',
-          }),
-          new DialogPreview({
-            dialogName: 'Кочетова Алина Артёмовна',
-            dateLastMessage: '04.04.2021',
-            lastMessage: 'Hello',
-            missedNum: 0,
-            active: false,
-            avatar: '',
-          }),
-          */
-        ],
-        messages: [
-          /*
-          new Message({
-            userAvatar: '../../assets/img/message-img.jpeg',
-            userName: 'Сергеева Елизавета',
-            messageText:
-              'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-            img: '',
-            time: '06:59',
-          }),
-          new Message({
-            userAvatar: '../../assets/img/my-avatar.jpeg',
-            userName: `${localStorage.getItem(
-              'second_name',
-            )} ${localStorage.getItem('first_name')}`,
-            messageText:
-              'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-            img: '',
-            time: '06:59',
-          }),
-          new Message({
-            userAvatar: '../../assets/img/message-img.jpeg',
-            userName: 'Сергеева Елизавета',
-            messageText:
-              'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-            img: '',
-            time: '06:59',
-          }),
-          new Message({
-            userAvatar: '../../assets/img/my-avatar.jpeg',
-            userName: `${localStorage.getItem(
-              'second_name',
-            )} ${localStorage.getItem('first_name')}`,
-            messageText:
-              'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-            img: '',
-            time: '06:59',
-          }),
-          new Message({
-            userAvatar: '../../assets/img/message-img.jpeg',
-            userName: 'Сергеева Елизавета',
-            messageText:
-              'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-            img: '../../assets/img/message-img.jpeg',
-            time: '06:59',
-          }),
-          new Message({
-            userAvatar: '../../assets/img/my-avatar.jpeg',
-            userName: `${localStorage.getItem(
-              'second_name',
-            )} ${localStorage.getItem('first_name')}`,
-            messageText:
-              'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-            img: '',
-            time: '06:59',
-          }),
-          new Message({
-            userAvatar: '../../assets/img/message-img.jpeg',
-            userName: 'Сергеева Елизавета',
-            messageText:
-              'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-            img: '',
-            time: '06:59',
-          }),
-          new Message({
-            userAvatar: '../../assets/img/my-avatar.jpeg',
-            userName: `${localStorage.getItem(
-              'second_name',
-            )} ${localStorage.getItem('first_name')}`,
-            messageText:
-              'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-            img: '',
-            time: '06:59',
-          }),
-          new Message({
-            userAvatar: '../../assets/img/message-img.jpeg',
-            userName: 'Сергеева Елизавета',
-            messageText:
-              'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-            img: '',
-            time: '06:59',
-          }),
-          new Message({
-            userAvatar: '../../assets/img/my-avatar.jpeg',
-            userName: `${localStorage.getItem(
-              'second_name',
-            )} ${localStorage.getItem('first_name')}`,
-            messageText:
-              'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-            img: '',
-            time: '06:59',
-          }),
-          new Message({
-            userAvatar: '../../assets/img/message-img.jpeg',
-            userName: 'Сергеева Елизавета',
-            messageText:
-              'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-            img: '../../assets/img/message-img.jpeg',
-            time: '06:59',
-          }),
-          new Message({
-            userAvatar: '../../assets/img/my-avatar.jpeg',
-            userName: `${localStorage.getItem(
-              'second_name',
-            )} ${localStorage.getItem('first_name')}`,
-            messageText:
-              'Уж поверь моему слову, Грегори, мы бобов разводить не станем.',
-            img: '',
-            time: '06:59',
-          }),
-          */
-        ],
+        dialogsPreview: [],
         buttons: {
           profileSettings: new IconButton({
             srcIcon: '../../assets/sprite.svg#profile',
             events: {
               click: (e: Event) => {
+                console.log('test click settings');
                 router.go('/settings');
               },
             },
@@ -245,7 +33,197 @@ export class Home extends Block {
             srcIcon: '../../assets/sprite.svg#attach',
           }),
         },
+        inputs: {
+          messageArea: new InputMessage({
+            placeholder: 'Начните ввод',
+            events: {
+              keydown: (e: Event) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  this.props.soket.send(
+                    JSON.stringify({
+                      content: e.target.value,
+                      type: 'message',
+                    }),
+                  );
+                }
+              },
+            },
+          }),
+        },
+        popups: {},
       },
+      messages: [],
+      selectedChat: null,
+      activeChatName: null,
+      activeChatAvatar: null,
+      socket: null,
+      users: {},
+    });
+
+    new ChatAPI().getChat().then((data) => {
+      const result = JSON.parse(data.response);
+      result.map((item) => {
+        console.log(item);
+        const component = new DialogPreview({
+          dialogName: item.title,
+          lastMessage:
+            item.last_message === null
+              ? 'Сообщений нет'
+              : item.last_message?.content,
+          missedNum: item.unread_count,
+          active: false,
+          avatar: item.avatar
+            ? `https://ya-praktikum.tech/api/v2/resources/${item.avatar}`
+            : '',
+          id: item.id,
+          chatName: item.title,
+          events: {
+            click: (e: Event) => {
+              e.stopPropagation();
+              const dialogs =
+                this.props.childComponents.dialogsPreview;
+
+              for (let i = 0; i < dialogs.length; i++) {
+                this.props.childComponents.dialogsPreview[i].setProps(
+                  {
+                    active: false,
+                  },
+                );
+              }
+
+              component.setProps({ active: true });
+              this.props.selectedChat = e.currentTarget.dataset.id;
+              this.setProps({
+                activeChatName: e.currentTarget.dataset.chatname,
+              });
+              this.setProps({
+                activeChatAvatar: e.currentTarget.dataset.chatavatar,
+              });
+
+              new ChatAPI()
+                .getUsers(this.props.selectedChat)
+                .then((data) => {
+                  const result = JSON.parse(data.response);
+                  result.map((item) => {
+                    this.props.users[item.id] = {
+                      ...item,
+                    };
+                  });
+                });
+
+              this.props.messages = [];
+
+              new ChatAPI()
+                .getToken(this.props.selectedChat)
+                .then((data) => {
+                  const result = JSON.parse(data.response);
+                  console.log(result);
+                  return result;
+                })
+                .then((result) => {
+                  this.setProps({
+                    soket: new WebSocket(
+                      `wss://ya-praktikum.tech/ws/chats/${localStorage.getItem(
+                        'id',
+                      )}/${this.props.selectedChat}/${result.token}`,
+                    ),
+                  });
+
+                  this.props.soket.addEventListener('open', () => {
+                    console.log('Соединение установлено');
+                    this.props.soket.send(
+                      JSON.stringify({
+                        content: '0',
+                        type: 'get old',
+                      }),
+                    );
+                  });
+
+                  this.props.soket.addEventListener(
+                    'close',
+                    (event) => {
+                      if (event.wasClean) {
+                        console.log('Соединение закрыто чисто');
+                      } else {
+                        console.log('Обрыв соединения');
+                      }
+
+                      console.log(
+                        `Код: ${event.code} | Причина: ${event.reason}`,
+                      );
+                    },
+                  );
+
+                  this.props.soket.addEventListener(
+                    'message',
+                    (event) => {
+                      const data = JSON.parse(event.data);
+                      console.log('Получены данные', data);
+
+                      // const messagesArr = this.props.messages;
+                      if (Array.isArray(data)) {
+                        data.map((item) => {
+                          const time = new Date(item.time)
+                            .toTimeString()
+                            .slice(0, 5);
+                          const user = this.props.users[item.user_id];
+                          this.setProps({
+                            messages: [
+                              ...this.props.messages,
+                              new Message({
+                                userAvatar: `${
+                                  user.avatar
+                                    ? `https://ya-praktikum.tech/api/v2/resources/${user.avatar}`
+                                    : '../../assets/img/avatarPlaceholder.jpeg'
+                                }`,
+                                userName: `${user.second_name} ${user.first_name}`,
+                                messageText: item.content,
+                                time: time,
+                              }),
+                            ],
+                          });
+                        });
+                      } else {
+                        const time = new Date(data.time)
+                          .toTimeString()
+                          .slice(0, 5);
+                        const user = this.props.users[data.user_id];
+
+                        this.setProps({
+                          messages: [
+                            new Message({
+                              userAvatar: `${
+                                user.avatar
+                                  ? `https://ya-praktikum.tech/api/v2/resources/${user.avatar}`
+                                  : '../../assets/img/avatarPlaceholder.jpeg'
+                              }`,
+                              userName: `${user.second_name} ${user.first_name}`,
+                              messageText: data.content,
+                              time: time,
+                            }),
+                            ...this.props.messages,
+                          ],
+                        });
+                      }
+                    },
+                  );
+
+                  this.props.soket.addEventListener(
+                    'error',
+                    (event) => {
+                      console.log('Ошибка', event.message);
+                    },
+                  );
+                });
+            },
+          },
+        });
+        const result = this.props.childComponents.dialogsPreview;
+        result.push(component);
+        this.setProps(result);
+        console.log(this.props.childComponents.dialogsPreview);
+      });
     });
   }
 
@@ -262,9 +240,17 @@ export class Home extends Block {
         main.main 
           div.main__header
             div.main__header-left 
-              img.chat-avatar(src="../../assets/img/message-img.jpeg")
+              img.chat-avatar(src="${
+                this.props.activeChatAvatar
+                  ? this.props.activeChatAvatar
+                  : '../../assets/img/avatarPlaceholder.jpeg'
+              }")
             div.main__header-middle
-              div.chat-name Сергеева Елизавета
+              div.chat-name ${
+                this.props.activeChatName
+                  ? this.props.activeChatName
+                  : ''
+              }
             div.main__header-right
               button.button-only-icon.dropdown
                 svg.button-only-icon__icon 
@@ -273,6 +259,7 @@ export class Home extends Block {
                   .dropdown-content__item.dropdown-content__item--add-user Добавить пользователя
                   .dropdown-content__item.dropdown-content__item--delete-user Удалить пользователя
                   .dropdown-content__item.dropdown-content__item--create-chat Создать чат
+                  .dropdown-content__item.dropdown-content__item--delete-chat Удалить чат
           div.main__body
 
           div.main__footer
@@ -281,7 +268,7 @@ export class Home extends Block {
                 svg.button-only-icon__icon 
                   use(xlink:href="../../assets/sprite.svg#attach")
             div.main__footer-middle
-              textarea(placeholder="Начните ввод").message-input
+              
             div.main__footer-right
               button.button-only-icon.button--add
                 svg.button-only-icon__icon 
@@ -294,119 +281,34 @@ export class Home extends Block {
 
     let layout = document.createElement('main');
     layout.innerHTML = component();
-    layout = layout.firstChild;
-    const { dialogsPreview, messages, buttons } =
+    const { dialogsPreview, buttons, inputs } =
       this.props.childComponents;
-
-    new ChatAPI()
-      .getChat()
-      .then((data) => {
-        const result = JSON.parse(data.response);
-        result.map((item) => {
-          console.log(item);
-          console.log(JSON.parse(item.last_message).content);
-          const component = new DialogPreview({
-            dialogName: item.title,
-            lastMessage:
-              JSON.parse(item.last_message).content === null
-                ? 'Сообщений нет'
-                : JSON.parse(item.last_message).content,
-            missedNum: item.unread_count,
-            active: false,
-            avatar: item.avatar
-              ? `https://ya-praktikum.tech/api/v2/resources/${item.avatar}`
-              : '',
-            id: item.id,
-            events: {
-              click: (e: Event) => {
-                const dialogs =
-                  this.props.childComponents.dialogsPreview;
-                // for (let i = 0; i < dialogs.length; i++) {
-                //   this.props.childComponents.dialogsPreview[
-                //     i
-                //   ].setProps({
-                //     active: false,
-                //   });
-                // }
-                component.setProps({ active: true });
-              },
-            },
-          });
-          this.props.childComponents.dialogsPreview.push(component);
-        });
-      })
-      .then(() => {
-        for (let i = 0; i < dialogsPreview.length; i++) {
-          layout
-            .querySelector('.chat-menu__body')
-            ?.append(dialogsPreview[i].getContent());
-        }
-      });
-
-    new ChatAPI()
-      .getToken(200)
-      .then((data) => {
-        const result = JSON.parse(data.response);
-        console.log(result);
-        return result;
-      })
-      .then((result) => {
-        const socket = new WebSocket(
-          `wss://ya-praktikum.tech/ws/chats/${localStorage.getItem(
-            'id',
-          )}/200/${result.token}`,
-        );
-
-        socket.addEventListener('open', () => {
-          console.log('Соединение установлено');
-          socket.send(
-            JSON.stringify({
-              content: '0',
-              type: 'get old',
-            }),
-          );
-        });
-
-        socket.addEventListener('close', (event) => {
-          if (event.wasClean) {
-            console.log('Соединение закрыто чисто');
-          } else {
-            console.log('Обрыв соединения');
-          }
-
-          console.log(
-            `Код: ${event.code} | Причина: ${event.reason}`,
-          );
-        });
-
-        socket.addEventListener('message', (event) => {
-          const data = JSON.parse(event.data);
-          console.log('Получены данные', data);
-          data.map((item) => {
-            const component = new Message({
-              // userAvatar: '../../assets/img/message-img.jpeg',
-              userName: 'Сергеева Елизавета',
-              messageText: item.content,
-              time: '06:59',
-            });
-            this.props.childComponents.messages.push(component);
-          });
-          for (let i = 0; i < messages.length; i++) {
-            layout
-              .querySelector('.main__body')
-              ?.append(messages[i].getContent());
-          }
-        });
-
-        socket.addEventListener('error', (event) => {
-          console.log('Ошибка', event.message);
-        });
-      });
+    const messages = this.props.messages;
 
     layout
       .querySelector('.chat-menu__header')
       ?.append(buttons.profileSettings.getContent());
 
-    return layout;
+    for (let i = 0; i < dialogsPreview.length; i++) {
+      layout
+        .querySelector('.chat-menu__body')
+        ?.append(dialogsPreview[i].getContent());
+    }
+
+    layout.querySelector('.main__body')?.innerHTML = '';
+    for (let i = 0; i < messages.length; i++) {
+      layout
+        .querySelector('.main__body')
+        ?.append(messages[i].getContent());
+    }
+
+    layout
+      .querySelector('.main__footer-middle')
+      ?.append(inputs.messageArea.getContent());
+
+    const messagesWrapper = layout.querySelector('.main__body');
+    messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+
+    return layout.firstChild;
   }
 }

@@ -7,4 +7,5 @@ export interface IDialogPreview {
   avatar?: string;
   events?: object;
   id?: string | number;
+  chatName?: string;
 }

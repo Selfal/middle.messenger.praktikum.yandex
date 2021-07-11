@@ -157,7 +157,7 @@ export default class Block {
     this._removeEvents();
 
     // const template = migrateHtmlAtribute(block) as HTMLElement;
-    const template = block.firstChild;
+    const template = block;
     template.getAttributeNames().forEach((name) => {
       this._element?.setAttribute(
         name,
@@ -169,6 +169,7 @@ export default class Block {
     let str: string = '';
     for (let i = 0; i <= childNodes.length - 1; i++) {
       const item = <HTMLElement>childNodes[i];
+
       if (item.outerHTML !== undefined) {
         str += item.outerHTML;
       } else if (item.outerHTML === undefined) {
@@ -177,7 +178,18 @@ export default class Block {
     }
 
     if (this._element) {
-      this._element.innerHTML = str;
+      this._element.innerHTML = '';
+      // console.log('this._element:', this._element);
+      const childrens = Array.prototype.slice.call(
+        template.childNodes,
+      );
+
+      for (let i = 0; i < childrens.length; i++) {
+        this._element.appendChild(childrens[i]);
+      }
+      // this._element.append(template.children);
+      // this._element = this._element.firstChild;
+
       this._addEvents();
     }
   }
@@ -216,8 +228,8 @@ export default class Block {
     return componentWrapper;
   }
 
-  public show(type?: 'flex' | 'div'): void {
-    this.getContent().style.display = type ? type : 'block';
+  public show(): void {
+    this.getContent().style.display = 'flex';
   }
 
   public hide(): void {

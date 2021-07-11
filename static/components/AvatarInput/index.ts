@@ -21,6 +21,6 @@ export class AvatarInput extends Block {
 
     const result = document.createElement('div');
     result.innerHTML = component();
-    return result;
+    return result.firstChild;
   }
 }

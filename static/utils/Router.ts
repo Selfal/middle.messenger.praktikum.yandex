@@ -105,6 +105,6 @@ function render(query, block) {
     root.removeChild(root.firstChild);
   }
 
-  root.append(block.render());
+  root.append(block.getContent());
   return root;
 }

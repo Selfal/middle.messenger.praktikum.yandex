@@ -11,6 +11,7 @@ export class DialogPreview extends Block {
   }
 
   render(): string {
+    console.log('chatName: ', this.props.chatName);
     const messageInfoTmp: string | boolean = this.props.missedNum
       ? `div.user-item__message-info ${this.props.missedNum}`
       : false;
@@ -20,7 +21,9 @@ export class DialogPreview extends Block {
 
     const component: pug.compileTemplate = pug.compile(`li.user-item${
       this.props.active ? '.user-item--active' : ''
-    }(data-id="${this.props.id}")
+    }(data-id="${this.props.id}" data-chatname="${
+      this.props.chatName
+    }" data-chatavatar="${this.props.avatar}")
     img.user-item__avatar${avatarTmp}
     div.user-item__content
       div.user-item__header
@@ -32,6 +35,6 @@ export class DialogPreview extends Block {
 
     const test = document.createElement('div');
     test.innerHTML = component();
-    return test;
+    return test.firstChild;
   }
 }

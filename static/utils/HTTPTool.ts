@@ -89,6 +89,7 @@ export default class HTTPTool {
         isGet && Boolean(data)
           ? `${url}${queryStringify(data)}`
           : url,
+        true,
       );
 
       xhr.withCredentials = true;

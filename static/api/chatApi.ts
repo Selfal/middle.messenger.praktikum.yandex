@@ -39,4 +39,12 @@ export default class ChatAPI {
       },
     );
   }
+
+  getUsers(chatId) {
+    return new HTTPTool().get(`${hostForAPI}/chats/${chatId}/users`, {
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
+  }
 }
