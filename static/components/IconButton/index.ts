@@ -20,13 +20,13 @@ export class IconButton extends Block {
     }
 
     const component = pug.compile(
-      `button.button-only-icon.button--add
+      `button.button-only-icon${className ? className : ''}
         svg.button-only-icon__icon 
           use(xlink:href="${srcIcon}")`,
     );
 
     const result = document.createElement('div');
     result.innerHTML = component();
-    return result;
+    return result.firstChild;
   }
 }

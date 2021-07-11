@@ -81,8 +81,8 @@ export class Input extends Block {
     }
 
     const component: pug.compileTemplate =
-      pug.compile(`label.input-component
-    span ${label}
+      pug.compile(`label.input-component 
+    ${label ? `span ${label}` : ''}
     input(type="${type}" placeholder="${placeholder}" name="${name}" value="${
         value ? value : ''
       }" disabled=${disabled}).input-component__input${statusClass}

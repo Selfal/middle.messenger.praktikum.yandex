@@ -33,4 +33,15 @@ export default class UserAPI {
       },
     });
   }
+
+  searchUser(searchLogin) {
+    return new HTTPTool().post(`${hostForAPI}/user/search`, {
+      headers: {
+        'content-type': 'application/json',
+      },
+      data: JSON.stringify({
+        login: searchLogin,
+      }),
+    });
+  }
 }

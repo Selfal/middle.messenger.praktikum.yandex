@@ -102,3 +102,17 @@ body {
     }
   }
 }
+
+.back-to-chat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #ececec;
+  padding: 0 10px;
+
+  .button-only-icon__icon {
+    width: 30px;
+    height: 30px;
+    fill: #3369f3;
+  }
+}

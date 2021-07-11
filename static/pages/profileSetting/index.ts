@@ -1,6 +1,7 @@
 import * as pug from 'pug';
 import { Input } from '../../components/Input/index';
 import { Button } from '../../components/Button/index';
+import { IconButton } from '../../components/IconButton/index';
 import { AvatarInput } from '../../components/AvatarInput/index';
 import validate from '../../utils/validate';
 import { regExpList } from '../../constants';
@@ -12,7 +13,7 @@ import UserAPI from '../../api/userApi';
 
 export class ProfileSetting extends Block {
   constructor() {
-    super('main', {
+    super('div', {
       childComponents: {
         inputsInfo: [
           new Input({
@@ -384,6 +385,16 @@ export class ProfileSetting extends Block {
               },
             },
           }),
+          backToChats: new IconButton({
+            srcIcon: '../../assets/sprite.svg#left-arrow',
+            className: 'back-to-chat',
+            events: {
+              click: (e: Event) => {
+                e.preventDefault();
+                router.go('/home');
+              },
+            },
+          }),
         },
         avatarInput: new AvatarInput({
           src:
@@ -432,11 +443,14 @@ export class ProfileSetting extends Block {
     }
   }
 
-  render() {
-    const template: string = `.profile-settings.wrapper
-      a.button-back(href="../home/index.html") 
+  /*
+  a.button-back(href="../home/index.html") 
         svg.button__icon 
           use(xlink:href="../../assets/sprite.svg#left-arrow")
+  */
+  render() {
+    const template: string = `div.profile-settings.wrapper
+      
       main.main 
         
         .name ${localStorage.getItem(
@@ -456,12 +470,22 @@ export class ProfileSetting extends Block {
       savePasswordButton,
       exitButton,
       canceleButton,
+      backToChats,
     } = buttons;
     const component: string = pug.compile(template);
     let result = document.createElement('div');
     result.innerHTML = component();
-    result = result.firstChild;
 
+    result
+      .querySelector('.wrapper')
+      ?.prepend(backToChats.getContent());
+    console.log(result.querySelector('.profile-settings'));
+    console.log(backToChats.getContent());
+
+    result
+      .querySelector('.profile-settings')
+      ?.prepend(backToChats.getContent());
+    console.log(result.querySelector('.wrapper'));
     result.querySelector('.main')?.prepend(avatarInput.getContent());
 
     for (let i = 0; i < inputsInfo.length; i++) {
@@ -504,6 +528,6 @@ export class ProfileSetting extends Block {
       router.go('/');
     });
 
-    return result;
+    return result.firstChild;
   }
 }

@@ -1,9 +1,14 @@
 import * as pug from 'pug';
 import ChatAPI from '../../api/chatApi';
+import UserApi from '../../api/userApi';
 import { DialogPreview } from '../../components/DialogPreview/index';
 import { IconButton } from '../../components/IconButton/index';
 import { Message } from '../../components/Message/index';
 import { InputMessage } from '../../components/InputMessage/index';
+import { PopupCreateChat } from '../../components/PopupCreateChat/index';
+import { Button } from '../../components/Button/index';
+import { Input } from '../../components/Input/index';
+import { Dropdown } from '../../components/Dropdown/index';
 import { router } from '../../index';
 import Block from '../../utils/Block';
 import './style.scss';
@@ -18,13 +23,13 @@ export class Home extends Block {
             srcIcon: '../../assets/sprite.svg#profile',
             events: {
               click: (e: Event) => {
-                console.log('test click settings');
                 router.go('/settings');
               },
             },
           }),
           settingsChat: new IconButton({
             srcIcon: '../../assets/sprite.svg#setting',
+            className: '.dropdown',
           }),
           send: new IconButton({
             srcIcon: '../../assets/sprite.svg#send',
@@ -46,12 +51,170 @@ export class Home extends Block {
                       type: 'message',
                     }),
                   );
+                  e.target.value = '';
                 }
               },
             },
           }),
         },
-        popups: {},
+        popups: {
+          createChat: new PopupCreateChat({
+            active: false,
+            title: 'Создание чата',
+            input: new Input({
+              placeholder: 'Введите название чата',
+              type: 'text',
+              disabled: false,
+            }),
+            button: new Button({
+              text: 'Создать',
+              primary: true,
+              events: {
+                click: (e: Event) => {
+                  e.preventDefault();
+                  const popup =
+                    this.props.childComponents.popups.createChat;
+                  new ChatAPI()
+                    .createChats(popup.props.input.value)
+                    .then((data) => {
+                      const result = JSON.parse(data.response);
+                      this.loadChats();
+                    });
+                  popup.setProps({ active: false });
+                },
+              },
+            }),
+          }),
+          addUser: new PopupCreateChat({
+            active: false,
+            title: 'Добавление пользователя',
+            input: new Input({
+              placeholder: 'Введите логин',
+              type: 'text',
+              disabled: false,
+            }),
+            button: new Button({
+              text: 'Добавить',
+              primary: true,
+              events: {
+                click: (e: Event) => {
+                  e.preventDefault();
+                  const popup =
+                    this.props.childComponents.popups.addUser;
+                  new UserApi()
+                    .searchUser(popup.props.input.value)
+                    .then((data) => {
+                      const result = JSON.parse(data.response);
+                      if (result.length > 0) {
+                        new ChatAPI()
+                          .addUser(
+                            result[0].id,
+                            this.props.selectedChat,
+                          )
+                          .then(() => {
+                            popup.setProps({ active: false });
+                          });
+                      }
+                    });
+                },
+              },
+            }),
+          }),
+          deleteUser: new PopupCreateChat({
+            active: false,
+            title: 'Удаление пользователя',
+            input: new Input({
+              placeholder: 'Введите логин',
+              type: 'text',
+              disabled: false,
+            }),
+            button: new Button({
+              text: 'Удалить',
+              primary: true,
+              events: {
+                click: (e: Event) => {
+                  e.preventDefault();
+                  const popup =
+                    this.props.childComponents.popups.deleteUser;
+
+                  const users = this.props.users;
+                  let logins = {};
+                  for (const key in users) {
+                    const { login, id } = users[key];
+                    if (key !== localStorage.getItem('id')) {
+                      logins = {
+                        ...logins,
+                        [login]: id,
+                      };
+                    }
+                  }
+
+                  if (logins[popup.props.input.value]) {
+                    new ChatAPI()
+                      .deleteUser(
+                        logins[popup.props.input.value],
+                        this.props.selectedChat,
+                      )
+                      .then(() => {
+                        popup.setProps({ active: false });
+                      });
+                  }
+                },
+              },
+            }),
+          }),
+        },
+        dropdowns: {
+          settingsChat: new Dropdown({
+            items: [
+              {
+                name: 'Добавить пользователя',
+                event: () => {
+                  const popup =
+                    this.props.childComponents.popups.addUser;
+                  console.log(popup);
+                  popup.setProps({ active: true });
+                },
+              },
+              {
+                name: 'Удалить пользователя',
+                event: () => {
+                  const popup =
+                    this.props.childComponents.popups.deleteUser;
+                  popup.setProps({ active: true });
+                },
+              },
+              {
+                name: 'Создать чат',
+                event: () => {
+                  const popup =
+                    this.props.childComponents.popups.createChat;
+                  popup.setProps({ active: true });
+                },
+              },
+              {
+                name: 'Удалить чат',
+                event: () => {
+                  const id = this.props.selectedChat;
+                  new ChatAPI()
+                    .deleteChat(id)
+                    .then((data) => {
+                      this.loadChats();
+                    })
+                    .then(() => {
+                      this.setProps({
+                        messages: [],
+                        selectedChat: null,
+                        activeChatName: null,
+                        activeChatAvatar: null,
+                        users: {},
+                      });
+                    });
+                },
+              },
+            ],
+          }),
+        },
       },
       messages: [],
       selectedChat: null,
@@ -61,10 +224,14 @@ export class Home extends Block {
       users: {},
     });
 
+    this.loadChats();
+  }
+
+  loadChats() {
     new ChatAPI().getChat().then((data) => {
       const result = JSON.parse(data.response);
+      this.props.childComponents.dialogsPreview = [];
       result.map((item) => {
-        console.log(item);
         const component = new DialogPreview({
           dialogName: item.title,
           lastMessage:
@@ -118,7 +285,6 @@ export class Home extends Block {
                 .getToken(this.props.selectedChat)
                 .then((data) => {
                   const result = JSON.parse(data.response);
-                  console.log(result);
                   return result;
                 })
                 .then((result) => {
@@ -164,6 +330,8 @@ export class Home extends Block {
                       // const messagesArr = this.props.messages;
                       if (Array.isArray(data)) {
                         data.map((item) => {
+                          console.log(item);
+
                           const time = new Date(item.time)
                             .toTimeString()
                             .slice(0, 5);
@@ -222,7 +390,6 @@ export class Home extends Block {
         const result = this.props.childComponents.dialogsPreview;
         result.push(component);
         this.setProps(result);
-        console.log(this.props.childComponents.dialogsPreview);
       });
     });
   }
@@ -252,14 +419,7 @@ export class Home extends Block {
                   : ''
               }
             div.main__header-right
-              button.button-only-icon.dropdown
-                svg.button-only-icon__icon 
-                  use(xlink:href="../../assets/sprite.svg#setting")
-                .dropdown-content
-                  .dropdown-content__item.dropdown-content__item--add-user Добавить пользователя
-                  .dropdown-content__item.dropdown-content__item--delete-user Удалить пользователя
-                  .dropdown-content__item.dropdown-content__item--create-chat Создать чат
-                  .dropdown-content__item.dropdown-content__item--delete-chat Удалить чат
+
           div.main__body
 
           div.main__footer
@@ -281,7 +441,7 @@ export class Home extends Block {
 
     let layout = document.createElement('main');
     layout.innerHTML = component();
-    const { dialogsPreview, buttons, inputs } =
+    const { dialogsPreview, buttons, inputs, popups, dropdowns } =
       this.props.childComponents;
     const messages = this.props.messages;
 
@@ -305,6 +465,23 @@ export class Home extends Block {
     layout
       .querySelector('.main__footer-middle')
       ?.append(inputs.messageArea.getContent());
+
+    layout
+      .querySelector('.wrapper')
+      ?.append(popups.createChat.getContent());
+    layout
+      .querySelector('.wrapper')
+      ?.append(popups.addUser.getContent());
+    layout
+      .querySelector('.wrapper')
+      ?.append(popups.deleteUser.getContent());
+    layout
+      .querySelector('.main__header-right')
+      ?.append(buttons.settingsChat.getContent());
+
+    layout
+      .querySelector('.dropdown')
+      ?.append(dropdowns.settingsChat.getContent());
 
     const messagesWrapper = layout.querySelector('.main__body');
     messagesWrapper.scrollTop = messagesWrapper.scrollHeight;

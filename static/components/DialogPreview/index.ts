@@ -11,7 +11,6 @@ export class DialogPreview extends Block {
   }
 
   render(): string {
-    console.log('chatName: ', this.props.chatName);
     const messageInfoTmp: string | boolean = this.props.missedNum
       ? `div.user-item__message-info ${this.props.missedNum}`
       : false;

@@ -182,3 +182,48 @@ body {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+.popup-create-chat-wrapper {
+  display: none;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  &--active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.popup-create-chat-body {
+  background: #fff;
+  width: 50vw;
+  max-width: 350px;
+  border-radius: 5px;
+  box-shadow: 4px 8px 16px 0px rgb(34 60 80 / 20%);
+
+  &__title {
+    margin: 0 auto;
+    margin-top: 15px;
+    font-size: 20px;
+    width: 70%;
+    text-align: center;
+  }
+
+  &__input {
+    width: 80%;
+    margin: 15px auto;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+}
