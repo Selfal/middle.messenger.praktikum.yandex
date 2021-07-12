@@ -1,8 +1,8 @@
-import { SignIn } from './pages/SignIn/index';
-import { SignUp } from './pages/SignUp/index';
-import { Home } from './pages/Home/index';
-import { ProfileSetting } from './pages/ProfileSetting/index';
-import { Router } from './utils/Router';
+import { SignIn } from '~/pages/SignIn/index';
+import { SignUp } from '~/pages/SignUp/index';
+import { Home } from '~/pages/Home/index';
+import { ProfileSetting } from '~/pages/ProfileSetting/index';
+import { Router } from '~/utils/Router';
 
 export const router = new Router('.app');
 router
