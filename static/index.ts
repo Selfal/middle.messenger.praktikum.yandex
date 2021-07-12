@@ -1,6 +1,6 @@
 // import { SignIn } from './pages/SignIn';
 // import { SignUp } from './pages/SignUp';
-import { Home } from './pages/Home';
+import { Home } from './pages/Home/Home';
 // import { ProfileSetting } from './pages/ProfileSetting';
 import { Router } from './utils/Router';
 
