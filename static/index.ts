@@ -1,7 +1,7 @@
-import { SignIn } from './pages/SignIn/SignIn.ts';
-import { SignUp } from './pages/SignUp/SignUp.ts';
-import { Home } from './pages/Home/Home.ts';
-import { ProfileSetting } from './pages/ProfileSetting/ProfileSetting.ts';
+import { SignIn } from './pages/SignIn/index';
+import { SignUp } from './pages/SignUp/index';
+import { Home } from './pages/Home/index';
+import { ProfileSetting } from './pages/ProfileSetting/index';
 import { Router } from './utils/Router';
 
 export const router = new Router('.app');
