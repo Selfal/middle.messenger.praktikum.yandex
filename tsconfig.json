@@ -7,9 +7,5 @@
     "sourceMap": true,
     "strictNullChecks": true
   },
-  "lib": ["es2015", "es2016", "esnext"],
-  "baseUrl": ".",
-  "paths": {
-    "~/*": ["./static/*"]
-  }
+  "lib": ["es2015", "es2016", "esnext"]
 }
