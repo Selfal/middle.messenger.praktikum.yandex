@@ -11,7 +11,7 @@ import { router } from '../../index';
 import AuthAPI from '../../api/auth';
 import UserAPI from '../../api/userApi';
 
-export class ProfileSetting extends Block {
+export default class ProfileSetting extends Block {
   constructor() {
     super('div', {
       childComponents: {

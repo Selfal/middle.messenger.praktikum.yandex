@@ -13,7 +13,7 @@ import { router } from '../../index';
 import Block from '../../utils/Block';
 import './style.scss';
 
-export class Home extends Block {
+export default class Home extends Block {
   constructor() {
     super('main', {
       childComponents: {

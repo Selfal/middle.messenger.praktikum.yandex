@@ -11,7 +11,7 @@ import AuthAPI from '../../api/auth';
 
 import './style.scss';
 
-export class SignIn extends Block {
+export default class SignIn extends Block {
   constructor() {
     super('main', {
       childComponents: {

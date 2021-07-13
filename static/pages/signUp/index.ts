@@ -11,7 +11,7 @@ import AuthAPI from '../../api/auth';
 
 import './style.scss';
 
-export class SignUp extends Block {
+export default class SignUp extends Block {
 
   constructor() {
     super('main', {
