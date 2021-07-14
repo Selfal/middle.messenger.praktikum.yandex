@@ -477,7 +477,6 @@ export class ProfileSettings extends Block {
 
     let layout = document.createElement('main');
     layout.innerHTML = component();
-    layout = layout.firstChild as HTMLElement;
 
     layout
       .querySelector('.wrapper')
