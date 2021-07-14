@@ -10,7 +10,7 @@ export class IconButton extends Block {
     super('div', props);
   }
 
-  render(): string {
+  render(): HTMLElement {
     const { srcIcon } = this.props as IIconButton;
 
     let { className } = this.props as IIconButton;
@@ -27,6 +27,6 @@ export class IconButton extends Block {
 
     const result = document.createElement('div');
     result.innerHTML = component();
-    return result.firstChild;
+    return result.firstChild as HTMLElement;
   }
 }

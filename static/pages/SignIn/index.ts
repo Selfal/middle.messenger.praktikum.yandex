@@ -5,7 +5,6 @@ import { Input } from '../../components/Input/index';
 import { Button } from '../../components/Button/index';
 import validate from '../../utils/validate';
 import { router } from '../../index';
-import HTTPTool from '../../utils/HTTPTool';
 import { regExpList } from '../../constants';
 import AuthAPI from '../../api/auth';
 

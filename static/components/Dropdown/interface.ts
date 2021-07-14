@@ -1,3 +1,7 @@
 export default interface IDropdown {
-  // active?: boolean;
+  items: {
+    name: string;
+    events: Record<string, unknown>;
+  };
+  events?: Record<string, unknown>;
 }

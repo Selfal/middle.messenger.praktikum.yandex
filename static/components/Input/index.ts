@@ -59,7 +59,7 @@ export class Input extends Block {
     return this.props.value;
   }
 
-  render() {
+  render(): HTMLElement {
     const {
       label,
       status = 'normal',
@@ -91,7 +91,6 @@ export class Input extends Block {
 
     const test = document.createElement('div');
     test.innerHTML = component();
-    return test.firstChild;
-    // return component(this.props);
+    return test.firstChild as HTMLElement;
   }
 }

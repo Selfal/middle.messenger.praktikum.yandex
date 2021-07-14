@@ -10,7 +10,7 @@ export class Button extends Block {
     super('a', props);
   }
 
-  render(): string {
+  render(): HTMLElement {
     const {
       text,
       link = '#',
@@ -27,9 +27,9 @@ export class Button extends Block {
         primary ? 'button--primary' : 'button--secondary'
       }${className}(href="${link}") ${text}`,
     );
-    // return component(this.props);
+
     const result = document.createElement('div');
     result.innerHTML = component();
-    return result.firstChild;
+    return result.firstChild as HTMLElement;
   }
 }

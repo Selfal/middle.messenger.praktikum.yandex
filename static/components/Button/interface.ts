@@ -3,5 +3,5 @@ export default interface IButton {
   link?: string;
   className?: string;
   primary?: boolean;
-  events?: {};
+  events?: Record<string, unknown>;
 }

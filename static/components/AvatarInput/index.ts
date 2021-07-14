@@ -1,6 +1,6 @@
 import * as pug from 'pug';
 import './style.scss';
-// import IButton from './interface';
+import IAvatarInput from './interface';
 import Block from '../../utils/Block';
 
 export class AvatarInput extends Block {
@@ -10,7 +10,7 @@ export class AvatarInput extends Block {
     super('label', props);
   }
 
-  render(): string {
+  render(): HTMLElement {
     const { src } = this.props as IAvatarInput;
 
     const component = pug.compile(
@@ -19,8 +19,8 @@ export class AvatarInput extends Block {
         input.avatar__input(type="file" name="file")`,
     );
 
-    const result = document.createElement('div');
+    const result: HTMLElement = document.createElement('div');
     result.innerHTML = component();
-    return result.firstChild;
+    return result.firstChild as HTMLElement;
   }
 }
