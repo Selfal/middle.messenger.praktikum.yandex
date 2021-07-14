@@ -156,7 +156,7 @@ export default class Block {
     const block = this.render();
     this._removeEvents();
 
-    // const template = migrateHtmlAtribute(block) as HTMLElement;
+    // Const template = migrateHtmlAtribute(block) as HTMLElement;
     const template = block;
     template.getAttributeNames().forEach((name) => {
       this._element?.setAttribute(
@@ -179,7 +179,7 @@ export default class Block {
 
     if (this._element) {
       this._element.innerHTML = '';
-      // console.log('this._element:', this._element);
+      // Console.log('this._element:', this._element);
       const childrens = Array.prototype.slice.call(
         template.childNodes,
       );
@@ -187,7 +187,7 @@ export default class Block {
       for (let i = 0; i < childrens.length; i++) {
         this._element.appendChild(childrens[i]);
       }
-      // this._element.append(template.children);
+      // This._element.append(template.children);
       // this._element = this._element.firstChild;
 
       this._addEvents();

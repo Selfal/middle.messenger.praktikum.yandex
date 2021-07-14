@@ -24,7 +24,7 @@ class Route {
   }
 
   render() {
-    // if (!this._block) {
+    // If (!this._block) {
     //   this._block = new this._blockClass();
     //   render(this._props.rootQuery, this._block);
     //   return;
@@ -58,9 +58,10 @@ export class Router {
   }
 
   start() {
-    window.onpopstate = ((event: Event) => {
+    window.onpopstate = (event: Event) => {
       this._onRoute(event.currentTarget.location.pathname);
-    }).bind(this);
+    };
+
     this._onRoute(window.location.pathname);
   }
 
@@ -73,6 +74,7 @@ export class Router {
     if (this._currentRoute && this._currentRoute !== route) {
       this._currentRoute.leave();
     }
+
     this._currentRoute = route;
     route.render(route, pathname);
   }
