@@ -10,8 +10,9 @@ import './style.scss';
 import { router } from '../../index';
 import AuthAPI from '../../api/auth';
 import UserAPI from '../../api/userApi';
+import IProfileSettings from './interface';
 
-export class ProfileSetting extends Block {
+export class ProfileSettings extends Block {
   constructor() {
     super('div', {
       childComponents: {
@@ -24,7 +25,7 @@ export class ProfileSetting extends Block {
             value: localStorage.getItem('login') || 'Начните ввод',
             disabled: true,
             warning: 'Невалидный логин',
-            re: regExpList.login,
+            re: regExpList.login as RegExp,
           }),
 
           new Input({
@@ -36,7 +37,7 @@ export class ProfileSetting extends Block {
               localStorage.getItem('first_name') || 'Начните ввод',
             disabled: true,
             warning: 'Невалидное имя',
-            re: regExpList.firstName,
+            re: regExpList.firstName as RegExp,
           }),
 
           new Input({
@@ -48,7 +49,7 @@ export class ProfileSetting extends Block {
               localStorage.getItem('second_name') || 'Начните ввод',
             disabled: true,
             warning: 'Невалидная фамилия',
-            re: regExpList.lastName,
+            re: regExpList.lastName as RegExp,
           }),
 
           new Input({
@@ -62,7 +63,7 @@ export class ProfileSetting extends Block {
                 : '',
             disabled: true,
             warning: 'Невалидное имя в чате',
-            re: regExpList.userName,
+            re: regExpList.userName as RegExp,
           }),
 
           new Input({
@@ -74,7 +75,7 @@ export class ProfileSetting extends Block {
 
             disabled: true,
             warning: 'Невалидный номер телефона',
-            re: regExpList.phone,
+            re: regExpList.phone as RegExp,
           }),
 
           new Input({
@@ -85,7 +86,7 @@ export class ProfileSetting extends Block {
             value: localStorage.getItem('email') || 'Начните ввод',
             disabled: true,
             warning: 'Невалидная почта',
-            re: regExpList.email,
+            re: regExpList.email as RegExp,
           }),
         ],
         inputsPassword: [
@@ -102,7 +103,7 @@ export class ProfileSetting extends Block {
               },
             },
             warning: 'Пароль неверный',
-            re: regExpList.oldPassword,
+            re: regExpList.oldPassword as RegExp,
           }),
           new Input({
             label: 'Новый пароль',
@@ -113,16 +114,16 @@ export class ProfileSetting extends Block {
             events: {
               input: (e: Event): string => {
                 const item = e.target as HTMLInputElement;
-                this.props.childComponents.inputsPassword[2].setProps(
-                  {
-                    re: new RegExp(`${item.value}`),
-                  },
-                );
+                const { inputsPassword } = this.props
+                  .childComponents as IProfileSettings;
+                inputsPassword[2].setProps({
+                  re: new RegExp(`${item.value}`),
+                });
                 return item.value;
               },
             },
             warning: 'Пароль не соответствует требованиям',
-            re: regExpList.newPassword,
+            re: regExpList.newPassword as RegExp,
           }),
           new Input({
             label: 'Повторите пароль',
@@ -147,8 +148,8 @@ export class ProfileSetting extends Block {
             events: {
               click: (e: Event): void => {
                 e.preventDefault();
-                const { buttons, inputsInfo } =
-                  this.props.childComponents;
+                const { buttons, inputsInfo } = this.props
+                  .childComponents as IProfileSettings;
                 const {
                   editProfileButton,
                   editPasswordButton,
@@ -170,11 +171,11 @@ export class ProfileSetting extends Block {
             text: 'Сохранить изменения',
             className: '.link.link--save-profile',
             events: {
-              click: (e): void => {
+              click: (e: Event): void => {
                 e.preventDefault();
                 let validateForm: boolean = true;
-                const { buttons, inputsInfo } =
-                  this.props.childComponents;
+                const { buttons, inputsInfo } = this.props
+                  .childComponents as IProfileSettings;
                 const {
                   saveProfileButton,
                   canceleButton,
@@ -186,7 +187,7 @@ export class ProfileSetting extends Block {
                   const item: Input = inputsInfo[i];
                   const check: boolean = validate(
                     item.value,
-                    item.props.re,
+                    item.props.re as RegExp,
                   );
 
                   if (!check) {
@@ -253,10 +254,10 @@ export class ProfileSetting extends Block {
             text: 'Изменить пароль',
             className: '.link.link--edit-password',
             events: {
-              click: (e): void => {
+              click: (e: Event): void => {
                 e.preventDefault();
-                const { buttons, inputsInfo, inputsPassword } =
-                  this.props.childComponents;
+                const { buttons, inputsInfo, inputsPassword } = this
+                  .props.childComponents as IProfileSettings;
                 const {
                   canceleButton,
                   editProfileButton,
@@ -279,10 +280,10 @@ export class ProfileSetting extends Block {
             text: 'Сохранить пароль',
             className: '.link.link--save-password',
             events: {
-              click: (e): void => {
+              click: (e: Event): void => {
                 e.preventDefault();
-                const { buttons, inputsInfo, inputsPassword } =
-                  this.props.childComponents;
+                const { buttons, inputsInfo, inputsPassword } = this
+                  .props.childComponents as IProfileSettings;
                 const {
                   canceleButton,
                   editProfileButton,
@@ -293,10 +294,14 @@ export class ProfileSetting extends Block {
                 let validateForm: boolean = true;
                 for (let i = 0; i < inputsPassword.length; i++) {
                   const item: Input = inputsPassword[i];
-                  if (!validate(item.value, item.props.re)) {
+                  if (
+                    !validate(item.value, item.props.re as RegExp)
+                  ) {
                     validateForm = false;
                     item.setProps({ status: 'error' });
-                  } else if (validate(item.value, item.props.re)) {
+                  } else if (
+                    validate(item.value, item.props.re as RegExp)
+                  ) {
                     item.setProps({ status: 'success' });
                   }
                 }
@@ -332,7 +337,6 @@ export class ProfileSetting extends Block {
           exitButton: new Button({
             text: 'Выход',
             className: '.link.link--exit',
-            // link: '../../index.html',
             events: {
               click: (e: Event) => {
                 e.preventDefault();
@@ -347,10 +351,10 @@ export class ProfileSetting extends Block {
             text: 'Отмена',
             className: '.link.link--back',
             events: {
-              click: (e): void => {
+              click: (e: Event): void => {
                 e.preventDefault();
-                const { buttons, inputsInfo, inputsPassword } =
-                  this.props.childComponents;
+                const { buttons, inputsInfo, inputsPassword } = this
+                  .props.childComponents as IProfileSettings;
                 const {
                   saveProfileButton,
                   canceleButton,
@@ -405,14 +409,16 @@ export class ProfileSetting extends Block {
               : '../../assets/img/avatarPlaceholder.jpeg',
           events: {
             change: (e: Event) => {
-              console.log('file: ', e.target.files[0]);
+              const { avatarInput } = this.props
+                .childComponents as IProfileSettings;
+              const target = e.target as HTMLInputElement;
               const formData = new FormData();
-              formData.append('avatar', e.target.files[0]);
+              formData.append('avatar', target.files[0]);
               console.log(formData);
               new UserAPI().changeAvatar(formData).then((data) => {
                 const userInfo = JSON.parse(data.response);
                 localStorage.setItem('avatar', userInfo.avatar);
-                this.props.childComponents.avatarInput.setProps({
+                avatarInput.setProps({
                   src: `https://ya-praktikum.tech/api/v2/resources/${userInfo.avatar}`,
                 });
               });
@@ -420,11 +426,14 @@ export class ProfileSetting extends Block {
             },
           },
         }),
-      },
+      } as IProfileSettings,
     });
   }
 
-  showElements(elements, showType?: 'flex' | 'div'): void {
+  showElements(
+    elements: Record<string, unknown>,
+    showType?: 'flex' | 'div',
+  ): void {
     for (let i = 0; i < elements.length; i++) {
       elements[i].show(showType);
     }
@@ -443,26 +452,9 @@ export class ProfileSetting extends Block {
     }
   }
 
-  /*
-  a.button-back(href="../home/index.html") 
-        svg.button__icon 
-          use(xlink:href="../../assets/sprite.svg#left-arrow")
-  */
   render() {
-    const template: string = `div.profile-settings.wrapper
-      
-      main.main 
-        
-        .name ${localStorage.getItem(
-          'second_name',
-        )} ${localStorage.getItem('first_name')}
-
-        form.user-info
-          
-        .user-info-bottom `;
-
-    const { buttons, inputsInfo, inputsPassword, avatarInput } =
-      this.props.childComponents;
+    const { buttons, inputsInfo, inputsPassword, avatarInput } = this
+      .props.childComponents as IProfileSettings;
     const {
       editProfileButton,
       saveProfileButton,
@@ -472,52 +464,60 @@ export class ProfileSetting extends Block {
       canceleButton,
       backToChats,
     } = buttons;
-    const component: string = pug.compile(template);
-    let result = document.createElement('div');
-    result.innerHTML = component();
 
-    result
+    const component = pug.compile(
+      `div.profile-settings.wrapper
+    main.main 
+      .name ${localStorage.getItem(
+        'second_name',
+      )} ${localStorage.getItem('first_name')}
+      form.user-info
+      .user-info-bottom `,
+    );
+
+    let layout = document.createElement('main');
+    layout.innerHTML = component();
+    layout = layout.firstChild as HTMLElement;
+
+    layout
       .querySelector('.wrapper')
       ?.prepend(backToChats.getContent());
-    console.log(result.querySelector('.profile-settings'));
-    console.log(backToChats.getContent());
 
-    result
+    layout
       .querySelector('.profile-settings')
       ?.prepend(backToChats.getContent());
-    console.log(result.querySelector('.wrapper'));
-    result.querySelector('.main')?.prepend(avatarInput.getContent());
+    layout.querySelector('.main')?.prepend(avatarInput.getContent());
 
     for (let i = 0; i < inputsInfo.length; i++) {
-      result
+      layout
         .querySelector('.user-info')
         ?.append(inputsInfo[i].getContent());
     }
 
     for (let i = 0; i < inputsPassword.length; i++) {
-      result
+      layout
         .querySelector('.user-info')
         ?.append(inputsPassword[i].getContent());
     }
 
     this.hideElements(inputsPassword);
 
-    result
+    layout
       .querySelector('.user-info-bottom')
       ?.append(editProfileButton.getContent());
-    result
+    layout
       .querySelector('.user-info-bottom')
       ?.append(saveProfileButton.getContent());
-    result
+    layout
       .querySelector('.user-info-bottom')
       ?.append(editPasswordButton.getContent());
-    result
+    layout
       .querySelector('.user-info-bottom')
       ?.append(savePasswordButton.getContent());
-    result
+    layout
       .querySelector('.user-info-bottom')
       ?.append(exitButton.getContent());
-    result
+    layout
       .querySelector('.user-info-bottom')
       ?.append(canceleButton.getContent());
 
@@ -528,6 +528,6 @@ export class ProfileSetting extends Block {
       router.go('/');
     });
 
-    return result.firstChild;
+    return layout.firstChild;
   }
 }

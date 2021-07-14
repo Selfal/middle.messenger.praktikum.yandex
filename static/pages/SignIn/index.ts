@@ -29,7 +29,7 @@ export class SignIn extends Block {
                 return item.value;
               },
             },
-            re: regExpList.login,
+            re: regExpList.login as RegExp,
           }),
           new Input({
             label: 'Пароль',
@@ -44,7 +44,7 @@ export class SignIn extends Block {
                 return item.value;
               },
             },
-            re: regExpList.newPassword,
+            re: regExpList.newPassword as RegExp,
           }),
         ],
         buttons: [
@@ -54,18 +54,18 @@ export class SignIn extends Block {
             primary: true,
             events: {
               click: (e: Event) => {
-                const inputEmail =
-                  this.props.childComponents.inputs[0];
-                const inputPassword =
-                  this.props.childComponents.inputs[1];
+                const { inputs } = this.props
+                  .childComponents as ISignIn;
+                const inputEmail = inputs[0];
+                const inputPassword = inputs[1];
                 const email: boolean = validate(
                   inputEmail.element.querySelector('input')?.value,
-                  inputEmail.props.re,
+                  inputEmail.props.re as RegExp,
                 );
 
                 const password: boolean = validate(
                   inputPassword.element.querySelector('input')?.value,
-                  inputPassword.props.re,
+                  inputPassword.props.re as RegExp,
                 );
 
                 if (!email) {
@@ -81,12 +81,11 @@ export class SignIn extends Block {
                 if (email && password) {
                   e.preventDefault();
                   const options = {
-                    login:
-                      inputEmail.element.querySelector('input')
-                        ?.value,
-                    password:
-                      inputPassword.element.querySelector('input')
-                        ?.value,
+                    login: inputEmail.element.querySelector('input')
+                      ?.value as string,
+                    password: inputPassword.element.querySelector(
+                      'input',
+                    )?.value as string,
                   };
 
                   new AuthAPI()

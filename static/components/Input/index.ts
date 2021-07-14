@@ -55,8 +55,8 @@ export class Input extends Block {
     });
   }
 
-  get value() {
-    return this.props.value;
+  get value(): string {
+    return this.props.value as string;
   }
 
   render(): HTMLElement {
