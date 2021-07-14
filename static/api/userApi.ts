@@ -1,8 +1,22 @@
 import HTTPTool from '../utils/HTTPTool';
 import { hostForAPI } from '../constants';
 
+interface IChangeInfo {
+  login: string;
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  phone: string;
+  email: string;
+}
+
+interface IChangePassword {
+  oldPassword: string;
+  newPassword: string;
+}
+
 export default class UserAPI {
-  changeInfo(options) {
+  changeInfo(options: IChangeInfo) {
     return new HTTPTool().put(`${hostForAPI}/user/profile`, {
       headers: {
         'content-type': 'application/json',
@@ -11,7 +25,7 @@ export default class UserAPI {
     });
   }
 
-  changePassword(options) {
+  changePassword(options: IChangePassword) {
     return new HTTPTool().put(`${hostForAPI}/user/password`, {
       headers: {
         'content-type': 'application/json',
@@ -20,7 +34,7 @@ export default class UserAPI {
     });
   }
 
-  changeAvatar(form) {
+  changeAvatar(form: FormData) {
     return new HTTPTool().put(`${hostForAPI}/user/profile/avatar`, {
       data: form,
     });
@@ -34,7 +48,7 @@ export default class UserAPI {
     });
   }
 
-  searchUser(searchLogin) {
+  searchUser(searchLogin: string) {
     return new HTTPTool().post(`${hostForAPI}/user/search`, {
       headers: {
         'content-type': 'application/json',

@@ -14,7 +14,7 @@ export default class ChatAPI {
     });
   }
 
-  deleteChat(id) {
+  deleteChat(id: string | number) {
     return new HTTPTool().delete(`${hostForAPI}/chats`, {
       headers: {
         'content-type': 'application/json',
@@ -33,7 +33,7 @@ export default class ChatAPI {
     });
   }
 
-  getToken(chatId) {
+  getToken(chatId: string | number) {
     return new HTTPTool().post(
       `${hostForAPI}/chats/token/${chatId}`,
       {
@@ -44,7 +44,7 @@ export default class ChatAPI {
     );
   }
 
-  getUsers(chatId) {
+  getUsers(chatId: string | number) {
     return new HTTPTool().get(`${hostForAPI}/chats/${chatId}/users`, {
       headers: {
         'content-type': 'application/json',
@@ -52,7 +52,7 @@ export default class ChatAPI {
     });
   }
 
-  addUser(userId, toChatId) {
+  addUser(userId: string | number, toChatId: string | number) {
     return new HTTPTool().put(`${hostForAPI}/chats/users`, {
       headers: {
         'content-type': 'application/json',
@@ -64,7 +64,7 @@ export default class ChatAPI {
     });
   }
 
-  deleteUser(userId, toChatId) {
+  deleteUser(userId: string | number, toChatId: string | number) {
     return new HTTPTool().delete(`${hostForAPI}/chats/users`, {
       headers: {
         'content-type': 'application/json',

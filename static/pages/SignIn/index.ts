@@ -89,17 +89,6 @@ export class SignIn extends Block {
                         ?.value,
                   };
 
-                  /*
-                  avatar: null
-                  display_name: null
-                  email: "test8@yandex.com"
-                  first_name: "Артур"
-                  id: 29738
-                  login: "test8AO"
-                  phone: "+79999999999"
-                  second_name: "Морган"
-
-                  */
                   new AuthAPI()
                     .signIn(options)
                     .then(() => {
