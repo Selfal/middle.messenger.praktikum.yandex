@@ -1,12 +1,22 @@
+import Block from './Block';
+
 class Route {
-  constructor(pathname: string, view, props) {
+  private _pathname: string;
+  private _blockClass: any;
+  private _block: Block | null;
+  private _props: Record<string, unknown>;
+  constructor(
+    pathname: string,
+    view: any,
+    props: Record<string, unknown>,
+  ) {
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;
     this._props = props;
   }
 
-  navigate(pathname) {
+  navigate(pathname: string) {
     if (this.match(pathname)) {
       this._pathname = pathname;
       this.render();
@@ -19,24 +29,26 @@ class Route {
     }
   }
 
-  match(pathname) {
+  match(pathname: string) {
     return isEqual(pathname, this._pathname);
   }
 
   render() {
-    // if (!this._block) {
-    //   this._block = new this._blockClass();
-    //   render(this._props.rootQuery, this._block);
-    //   return;
-    // }
     this._block = new this._blockClass();
     render(this._props.rootQuery, this._block);
     this._block.show();
   }
 }
 export class Router {
-  constructor(rootQuery) {
+  private static __instance: Router;
+  private routes: Route[] | undefined;
+  private history: History | undefined;
+  private _currentRoute: Route | null | undefined;
+  private _rootQuery: string | undefined;
+
+  constructor(rootQuery: string) {
     if (Router.__instance) {
+      // eslint-disable-next-line no-constructor-return
       return Router.__instance;
     }
 
@@ -59,26 +71,28 @@ export class Router {
 
   start() {
     window.onpopstate = ((event: Event) => {
-      this._onRoute(event.currentTarget.location.pathname);
+      const target = event.currentTarget;
+      this._onRoute(target?.location.pathname);
     }).bind(this);
     this._onRoute(window.location.pathname);
   }
 
   _onRoute(pathname: string) {
     const route = this.getRoute(pathname);
-    if (!route) {
+    if (!route && pathname !== 'blank') {
       this.go('/404');
     }
 
     if (this._currentRoute && this._currentRoute !== route) {
       this._currentRoute.leave();
     }
+
     this._currentRoute = route;
-    route.render(route, pathname);
+    route?.render();
   }
 
   go(pathname: string) {
-    this.history.pushState({}, '', pathname);
+    this.history!.pushState({}, '', pathname);
     this._onRoute(pathname);
   }
 
@@ -95,16 +109,16 @@ export class Router {
   }
 }
 
-function isEqual(lhs, rhs) {
+function isEqual(lhs: string, rhs: string) {
   return lhs === rhs;
 }
 
-function render(query, block) {
+function render(query: string, block: Block) {
   const root = document.querySelector(query);
-  while (root.firstChild) {
+  while (root?.firstChild) {
     root.removeChild(root.firstChild);
   }
 
-  root.append(block.getContent());
+  root?.append(block.getContent());
   return root;
 }
