@@ -12,7 +12,8 @@ export class InputMessage extends Block {
       events: {
         ...props.events,
         input: (e: Event) => {
-          this.props.value = e.target.value;
+          const textarea = e.target as HTMLTextAreaElement;
+          this.props.value = textarea.value;
         },
       },
     });
@@ -22,7 +23,7 @@ export class InputMessage extends Block {
     return this.props.value;
   }
 
-  render(): string {
+  render(): HTMLElement {
     const { placeholder = 'Начните ввод"' } = this
       .props as IInputMessage;
 
@@ -32,6 +33,6 @@ export class InputMessage extends Block {
 
     const result = document.createElement('div');
     result.innerHTML = component();
-    return result.firstChild;
+    return result.firstChild as HTMLElement;
   }
 }

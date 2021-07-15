@@ -4,10 +4,10 @@ import Block from '../../utils/Block';
 import { Button } from '../../components/Button/index';
 import { Input } from '../../components/Input/index';
 import validate from '../../utils/validate';
-import { render } from '../../utils/renderDOM';
 import { router } from '../../index';
 import { regExpList } from '../../constants';
 import AuthAPI from '../../api/auth';
+import ISignUp from './interface';
 
 import './style.scss';
 
@@ -29,7 +29,7 @@ export class SignUp extends Block {
                 return item.value;
               },
             },
-            re: regExpList.email,
+            re: regExpList.email as RegExp,
           }),
           new Input({
             label: 'Логин',
@@ -44,7 +44,7 @@ export class SignUp extends Block {
                 return item.value;
               },
             },
-            re: regExpList.login,
+            re: regExpList.login as RegExp,
           }),
           new Input({
             label: 'Телефон',
@@ -59,7 +59,7 @@ export class SignUp extends Block {
                 return item.value;
               },
             },
-            re: regExpList.phone,
+            re: regExpList.phone as RegExp,
           }),
           new Input({
             label: 'Имя',
@@ -74,7 +74,7 @@ export class SignUp extends Block {
                 return item.value;
               },
             },
-            re: regExpList.firstName,
+            re: regExpList.firstName as RegExp,
           }),
           new Input({
             label: 'Фамилия',
@@ -89,7 +89,7 @@ export class SignUp extends Block {
                 return item.value;
               },
             },
-            re: regExpList.lastName,
+            re: regExpList.lastName as RegExp,
           }),
           new Input({
             label: 'Пароль',
@@ -107,7 +107,7 @@ export class SignUp extends Block {
                 return item.value;
               },
             },
-            re: regExpList.newPassword,
+            re: regExpList.newPassword as RegExp,
           }),
           new Input({
             label: 'Повторите пароль',
@@ -132,51 +132,46 @@ export class SignUp extends Block {
             events: {
               click: (e): void => {
                 console.log('test click');
+                const { inputs } = this.props
+                  .childComponents as ISignUp;
                 e.preventDefault();
-                const inputEmail =
-                  this.props.childComponents.inputs[0];
-                const inputLogin =
-                  this.props.childComponents.inputs[1];
-                const inputPhone =
-                  this.props.childComponents.inputs[2];
-                const inputFirstName =
-                  this.props.childComponents.inputs[3];
-                const inputLastName =
-                  this.props.childComponents.inputs[4];
-                const inputPassword =
-                  this.props.childComponents.inputs[5];
-                const inputRepeatPassword =
-                  this.props.childComponents.inputs[6];
+                const inputEmail = inputs[0];
+                const inputLogin = inputs[1];
+                const inputPhone = inputs[2];
+                const inputFirstName = inputs[3];
+                const inputLastName = inputs[4];
+                const inputPassword = inputs[5];
+                const inputRepeatPassword = inputs[6];
 
                 const email: boolean = validate(
                   inputEmail.element.querySelector('input')?.value,
-                  inputEmail.props.re,
+                  inputEmail.props.re as RegExp,
                 );
                 const login: boolean = validate(
                   inputLogin.element.querySelector('input')?.value,
-                  inputLogin.props.re,
+                  inputLogin.props.re as RegExp,
                 );
                 const phone: boolean = validate(
                   inputPhone.element.querySelector('input')?.value,
-                  inputPhone.props.re,
+                  inputPhone.props.re as RegExp,
                 );
                 const firstName: boolean = validate(
                   inputFirstName.element.querySelector('input')
                     ?.value,
-                  inputFirstName.props.re,
+                  inputFirstName.props.re as RegExp,
                 );
                 const lastName: boolean = validate(
                   inputLastName.element.querySelector('input')?.value,
-                  inputLastName.props.re,
+                  inputLastName.props.re as RegExp,
                 );
                 const password: boolean = validate(
                   inputPassword.element.querySelector('input')?.value,
-                  inputPassword.props.re,
+                  inputPassword.props.re as RegExp,
                 );
                 const repeatPassword: boolean = validate(
                   inputRepeatPassword.element.querySelector('input')
                     ?.value,
-                  inputRepeatPassword.props.re,
+                  inputRepeatPassword.props.re as RegExp,
                 );
 
                 if (!email) {
@@ -217,24 +212,21 @@ export class SignUp extends Block {
                   repeatPassword
                 ) {
                   const options = {
-                    first_name:
-                      inputFirstName.element.querySelector('input')
-                        ?.value,
-                    second_name:
-                      inputLastName.element.querySelector('input')
-                        ?.value,
-                    login:
-                      inputLogin.element.querySelector('input')
-                        ?.value,
-                    email:
-                      inputEmail.element.querySelector('input')
-                        ?.value,
-                    password:
-                      inputPassword.element.querySelector('input')
-                        ?.value,
-                    phone:
-                      inputPhone.element.querySelector('input')
-                        ?.value,
+                    first_name: inputFirstName.element.querySelector(
+                      'input',
+                    )?.value as string,
+                    second_name: inputLastName.element.querySelector(
+                      'input',
+                    )?.value as string,
+                    login: inputLogin.element.querySelector('input')
+                      ?.value as string,
+                    email: inputEmail.element.querySelector('input')
+                      ?.value as string,
+                    password: inputPassword.element.querySelector(
+                      'input',
+                    )?.value as string,
+                    phone: inputPhone.element.querySelector('input')
+                      ?.value as string,
                   };
                   console.log(options);
                   new AuthAPI()
@@ -260,57 +252,52 @@ export class SignUp extends Block {
             },
           }),
         ],
-      },
+      } as ISignUp,
     });
   }
 
   render() {
-    const template: string = `div.sign-up.wrapper
-                      header.header 
-                        a(href="/") 
-                          h2.logo Chatao
-                      main.main 
-                        div.auth-form
-                          div.auth-form__header
-                            h2.auth-form__title Создать аккаунт
+    const component = pug.compile(
+      `div.sign-up.wrapper
+    header.header 
+      a(href="/") 
+        h2.logo Chatao
+    main.main 
+      div.auth-form
+        div.auth-form__header
+          h2.auth-form__title Создать аккаунт
 
-                          form.auth-form__body
-                            
-                          div.auth-form__footer 
-                            
-                      footer.footer 
-                        div.footer-links
-                          a.footer__link.link(href="#") Vk
-                          a.footer__link.link(href="#") Telegramm
-                          a.footer__link.link(href="#") GiHub
-`;
+        form.auth-form__body
+          
+        div.auth-form__footer 
+          
+    footer.footer 
+      div.footer-links
+        a.footer__link.link(href="#") Vk
+        a.footer__link.link(href="#") Telegramm
+        a.footer__link.link(href="#") GiHub
+    `,
+    );
 
-    const component: string = pug.compile(template);
-    let result = document.createElement('div');
-    result.innerHTML = component();
-    result = result.firstChild;
+    const { inputs, buttons } = this.props.childComponents as ISignUp;
 
-    for (
-      let i = 0;
-      i < this.props.childComponents.inputs.length;
-      i++
-    ) {
-      result
+    let layout = document.createElement('main');
+    layout.innerHTML = component();
+    layout = layout.firstChild as HTMLElement;
+
+    for (let i = 0; i < inputs.length; i++) {
+      layout
         .querySelector('.auth-form__body')
-        ?.append(this.props.childComponents.inputs[i].getContent());
+        ?.append(inputs[i].getContent());
     }
 
-    for (
-      let i = 0;
-      i < this.props.childComponents.buttons.length;
-      i++
-    ) {
-      console.log(this.props.childComponents.buttons[i]);
-      result
+    for (let i = 0; i < buttons.length; i++) {
+      console.log(buttons[i]);
+      layout
         .querySelector('.auth-form__footer')
-        ?.append(this.props.childComponents.buttons[i].getContent());
+        ?.append(buttons[i].getContent());
     }
 
-    return result;
+    return layout;
   }
 }

@@ -10,7 +10,7 @@ export class Message extends Block {
     super('div', props);
   }
 
-  render() {
+  render(): HTMLElement {
     const imgTmp: string | boolean = this.props.img
       ? `img.message__img(src="${this.props.img}")`
       : false;
@@ -31,6 +31,6 @@ export class Message extends Block {
 
     const test = document.createElement('div');
     test.innerHTML = component();
-    return test.firstChild;
+    return test.firstChild as HTMLElement;
   }
 }

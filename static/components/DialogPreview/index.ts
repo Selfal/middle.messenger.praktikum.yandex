@@ -10,7 +10,7 @@ export class DialogPreview extends Block {
     super('li', props);
   }
 
-  render(): string {
+  render(): HTMLElement {
     const messageInfoTmp: string | boolean = this.props.missedNum
       ? `div.user-item__message-info ${this.props.missedNum}`
       : false;
@@ -34,6 +34,6 @@ export class DialogPreview extends Block {
 
     const test = document.createElement('div');
     test.innerHTML = component();
-    return test.firstChild;
+    return test.firstChild as HTMLElement;
   }
 }

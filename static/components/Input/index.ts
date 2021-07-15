@@ -55,11 +55,11 @@ export class Input extends Block {
     });
   }
 
-  get value() {
-    return this.props.value;
+  get value(): string {
+    return this.props.value as string;
   }
 
-  render() {
+  render(): HTMLElement {
     const {
       label,
       status = 'normal',
@@ -91,7 +91,6 @@ export class Input extends Block {
 
     const test = document.createElement('div');
     test.innerHTML = component();
-    return test.firstChild;
-    // return component(this.props);
+    return test.firstChild as HTMLElement;
   }
 }

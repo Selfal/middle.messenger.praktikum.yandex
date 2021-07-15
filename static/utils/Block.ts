@@ -156,39 +156,38 @@ export default class Block {
     const block = this.render();
     this._removeEvents();
 
-    // Const template = migrateHtmlAtribute(block) as HTMLElement;
-    const template = block;
-    template.getAttributeNames().forEach((name) => {
-      this._element?.setAttribute(
-        name,
-        template.getAttribute(name) || '',
-      );
-    });
+    const template = block as Element;
 
-    const childNodes = <NodeList>template.childNodes;
-    let str: string = '';
-    for (let i = 0; i <= childNodes.length - 1; i++) {
-      const item = <HTMLElement>childNodes[i];
-
-      if (item.outerHTML !== undefined) {
-        str += item.outerHTML;
-      } else if (item.outerHTML === undefined) {
-        str += item.textContent;
+    if (template !== undefined) {
+      const attr = template.attributes;
+      if (attr !== undefined) {
+        for (let i = 0; i < attr.length; i++) {
+          this._element?.setAttribute(
+            attr[i].name,
+            attr[i].value || '',
+          );
+        }
       }
+
+      // template.getAttributeNames().forEach((name: string) => {
+      //   this._element?.setAttribute(
+      //     name,
+      //     template.getAttribute(name) || '',
+      //   );
+      // });
     }
 
-    if (this._element) {
+    if (this._element && template !== undefined) {
       this._element.innerHTML = '';
-      // Console.log('this._element:', this._element);
-      const childrens = Array.prototype.slice.call(
-        template.childNodes,
-      );
+      if (template.childNodes !== undefined) {
+        const childrens = Array.prototype.slice.call(
+          template.childNodes,
+        );
 
-      for (let i = 0; i < childrens.length; i++) {
-        this._element.appendChild(childrens[i]);
+        for (let i = 0; i < childrens.length; i++) {
+          this._element.appendChild(childrens[i]);
+        }
       }
-      // This._element.append(template.children);
-      // this._element = this._element.firstChild;
 
       this._addEvents();
     }
@@ -235,4 +234,11 @@ export default class Block {
   public hide(): void {
     this.getContent().style.display = 'none';
   }
+}
+
+export function renderBlock(query: string, block: Block) {
+  const root = document.querySelector(query);
+  root!.innerHTML = '';
+  root!.appendChild(block.getContent()!);
+  return root;
 }

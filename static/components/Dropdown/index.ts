@@ -10,20 +10,26 @@ export class Dropdown extends Block {
     super('div', props);
   }
 
-  render(): string {
+  render(): HTMLElement {
     const menuItem = this.props.items;
 
     const component = pug.compile(`.dropdown-content`);
     const result = document.createElement('div');
     result.innerHTML = component();
 
-    menuItem.map((item) => {
-      const element = document.createElement('div');
-      element.classList.add('dropdown-content__item');
-      element.textContent = item.name;
-      element.addEventListener('click', item.event);
-      result.querySelector('.dropdown-content')?.append(element);
-    });
-    return result.firstChild;
+    menuItem.map(
+      (item: {
+        name: string;
+        events: Record<string, unknown>;
+      }): HTMLElement => {
+        const element = document.createElement('div');
+        element.classList.add('dropdown-content__item');
+        element.textContent = item.name;
+        element.addEventListener('click', item.event);
+        result.querySelector('.dropdown-content')?.append(element);
+        return element;
+      },
+    );
+    return result.firstChild as HTMLElement;
   }
 }

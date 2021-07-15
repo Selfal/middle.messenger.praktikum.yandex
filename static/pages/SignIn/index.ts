@@ -1,11 +1,11 @@
 import * as pug from 'pug';
 
 import Block from '../../utils/Block';
+import ISignIn from './interface';
 import { Input } from '../../components/Input/index';
 import { Button } from '../../components/Button/index';
 import validate from '../../utils/validate';
 import { router } from '../../index';
-import HTTPTool from '../../utils/HTTPTool';
 import { regExpList } from '../../constants';
 import AuthAPI from '../../api/auth';
 
@@ -29,7 +29,7 @@ export class SignIn extends Block {
                 return item.value;
               },
             },
-            re: regExpList.login,
+            re: regExpList.login as RegExp,
           }),
           new Input({
             label: 'Пароль',
@@ -44,7 +44,7 @@ export class SignIn extends Block {
                 return item.value;
               },
             },
-            re: regExpList.newPassword,
+            re: regExpList.newPassword as RegExp,
           }),
         ],
         buttons: [
@@ -54,18 +54,18 @@ export class SignIn extends Block {
             primary: true,
             events: {
               click: (e: Event) => {
-                const inputEmail =
-                  this.props.childComponents.inputs[0];
-                const inputPassword =
-                  this.props.childComponents.inputs[1];
+                const { inputs } = this.props
+                  .childComponents as ISignIn;
+                const inputEmail = inputs[0];
+                const inputPassword = inputs[1];
                 const email: boolean = validate(
                   inputEmail.element.querySelector('input')?.value,
-                  inputEmail.props.re,
+                  inputEmail.props.re as RegExp,
                 );
 
                 const password: boolean = validate(
                   inputPassword.element.querySelector('input')?.value,
-                  inputPassword.props.re,
+                  inputPassword.props.re as RegExp,
                 );
 
                 if (!email) {
@@ -81,25 +81,13 @@ export class SignIn extends Block {
                 if (email && password) {
                   e.preventDefault();
                   const options = {
-                    login:
-                      inputEmail.element.querySelector('input')
-                        ?.value,
-                    password:
-                      inputPassword.element.querySelector('input')
-                        ?.value,
+                    login: inputEmail.element.querySelector('input')
+                      ?.value as string,
+                    password: inputPassword.element.querySelector(
+                      'input',
+                    )?.value as string,
                   };
 
-                  /*
-                  avatar: null
-                  display_name: null
-                  email: "test8@yandex.com"
-                  first_name: "Артур"
-                  id: 29738
-                  login: "test8AO"
-                  phone: "+79999999999"
-                  second_name: "Морган"
-
-                  */
                   new AuthAPI()
                     .signIn(options)
                     .then(() => {
@@ -185,7 +173,7 @@ export class SignIn extends Block {
             className: '.footer__link.link',
           }),
         ],
-      },
+      } as ISignIn,
     });
   }
 
@@ -204,41 +192,30 @@ export class SignIn extends Block {
 
     let layout = document.createElement('main');
     layout.innerHTML = component();
-    layout = layout.firstChild;
+    layout = layout.firstChild as HTMLElement;
 
-    layout
-      .querySelector('.auth-form')
-      ?.append(this.props.childComponents.inputs[0].getContent());
-    layout
-      .querySelector('.auth-form')
-      ?.append(this.props.childComponents.inputs[1].getContent());
-    layout
-      .querySelector('.auth-form')
-      ?.append(this.props.childComponents.buttons[0].getContent());
-    layout
-      .querySelector('.auth-form')
-      ?.append(this.props.childComponents.buttons[1].getContent());
-    layout
-      .querySelector('.footer-links')
-      ?.append(
-        this.props.childComponents.footerButtons[0].getContent(),
-      );
-    layout
-      .querySelector('.footer-links')
-      ?.append(
-        this.props.childComponents.footerButtons[1].getContent(),
-      );
-    layout
-      .querySelector('.footer-links')
-      ?.append(
-        this.props.childComponents.footerButtons[2].getContent(),
-      );
-    layout
-      .querySelector('.footer-links')
-      ?.append(
-        this.props.childComponents.footerButtons[3].getContent(),
-      );
-    new AuthAPI().getUserInfo().then((data) => {
+    const { inputs, buttons, footerButtons } = this.props
+      .childComponents as ISignIn;
+
+    for (let i = 0; i < inputs.length; i++) {
+      layout
+        .querySelector('.auth-form')
+        ?.append(inputs[i].getContent());
+    }
+
+    for (let i = 0; i < buttons.length; i++) {
+      layout
+        .querySelector('.auth-form')
+        ?.append(buttons[i].getContent());
+    }
+
+    for (let i = 0; i < footerButtons.length; i++) {
+      layout
+        .querySelector('.footer-links')
+        ?.append(footerButtons[i].getContent());
+    }
+
+    new AuthAPI().getUserInfo().then((data: object) => {
       console.log('user', data);
       const userInfo = JSON.parse(data.response);
       localStorage.setItem('email', userInfo.email);
