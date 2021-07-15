@@ -81,6 +81,7 @@ export class Router {
     const route = this.getRoute(pathname);
     if (!route && pathname !== 'blank') {
       this.go('/404');
+      window.location.href = '/404';
     }
 
     if (this._currentRoute && this._currentRoute !== route) {
