@@ -11,6 +11,7 @@ import { router } from '../../index';
 import AuthAPI from '../../api/auth';
 import UserAPI from '../../api/userApi';
 import IProfileSettings from './interface';
+import sanitize from '../../utils/sanitize';
 
 export class ProfileSettings extends Block {
   constructor() {
@@ -217,7 +218,10 @@ export class ProfileSettings extends Block {
 
                   new UserAPI().changeInfo(options).then((data) => {
                     const userInfo = JSON.parse(data.response);
-                    localStorage.setItem('email', userInfo.email);
+                    localStorage.setItem(
+                      'email',
+                      sanitize(userInfo.email),
+                    );
                     localStorage.setItem(
                       'first_name',
                       userInfo.first_name,
@@ -468,9 +472,9 @@ export class ProfileSettings extends Block {
     const component = pug.compile(
       `div.profile-settings.wrapper
     main.main 
-      .name ${localStorage.getItem(
-        'second_name',
-      )} ${localStorage.getItem('first_name')}
+      .name ${sanitize(
+        localStorage.getItem('second_name'),
+      )} ${sanitize(localStorage.getItem('first_name'))}
       form.user-info
       .user-info-bottom `,
     );

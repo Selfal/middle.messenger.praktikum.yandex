@@ -11,6 +11,7 @@ import { Input } from '../../components/Input/index';
 import { Dropdown } from '../../components/Dropdown/index';
 import { router } from '../../index';
 import Block from '../../utils/Block';
+import sanitize from '../../utils/sanitize';
 import './style.scss';
 
 export class Home extends Block {
@@ -45,6 +46,9 @@ export class Home extends Block {
               keydown: (e: Event) => {
                 if (e.key === 'Enter') {
                   e.preventDefault();
+                  if (e.target.value === '') {
+                    return;
+                  }
                   this.props.soket.send(
                     JSON.stringify({
                       content: e.target.value,
@@ -52,6 +56,11 @@ export class Home extends Block {
                     }),
                   );
                   e.target.value = '';
+                  e.target.disabled = true;
+
+                  setTimeout(() => {
+                    e.target.disabled = false;
+                  }, 700);
                 }
               },
             },
@@ -172,7 +181,6 @@ export class Home extends Block {
                 event: () => {
                   const popup =
                     this.props.childComponents.popups.addUser;
-                  console.log(popup);
                   popup.setProps({ active: true });
                 },
               },
@@ -330,8 +338,6 @@ export class Home extends Block {
                       // const messagesArr = this.props.messages;
                       if (Array.isArray(data)) {
                         data.map((item) => {
-                          console.log(item);
-
                           const time = new Date(item.time)
                             .toTimeString()
                             .slice(0, 5);
@@ -415,7 +421,7 @@ export class Home extends Block {
             div.main__header-middle
               div.chat-name ${
                 this.props.activeChatName
-                  ? this.props.activeChatName
+                  ? sanitize(this.props.activeChatName)
                   : ''
               }
             div.main__header-right

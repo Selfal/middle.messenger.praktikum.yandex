@@ -2,6 +2,7 @@ import * as pug from 'pug';
 import './style.scss';
 import { IDialogPreview } from './interface';
 import Block from '../../utils/Block';
+import sanitize from '../../utils/sanitize';
 
 export class DialogPreview extends Block {
   readonly props: IDialogPreview;
@@ -26,9 +27,11 @@ export class DialogPreview extends Block {
     img.user-item__avatar${avatarTmp}
     div.user-item__content
       div.user-item__header
-        div.user-item__name ${this.props.dialogName}
+        div.user-item__name ${sanitize(this.props.dialogName)}
       div.user-item__body
-        div.user-item__last-message ${this.props.lastMessage}
+        div.user-item__last-message ${sanitize(
+          this.props.lastMessage,
+        )}
         ${this.props.missedNum ? messageInfoTmp : ''}
     `);
 

@@ -2,6 +2,7 @@ import * as pug from 'pug';
 import './style.scss';
 import IInputMessage from './interface';
 import Block from '../../utils/Block';
+import sanitize from '../../utils/sanitize';
 
 export class InputMessage extends Block {
   readonly props: IInputMessage;
@@ -13,7 +14,7 @@ export class InputMessage extends Block {
         ...props.events,
         input: (e: Event) => {
           const textarea = e.target as HTMLTextAreaElement;
-          this.props.value = textarea.value;
+          this.props.value = sanitize(textarea.value);
         },
       },
     });
