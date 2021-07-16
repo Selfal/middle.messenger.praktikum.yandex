@@ -2,6 +2,7 @@ import * as pug from 'pug';
 import IInput from './interface';
 import Block from '../../utils/Block';
 import validate from '../../utils/validate';
+import sanitize from '../../utils/sanitize';
 import './style.scss';
 
 export class Input extends Block {
@@ -13,7 +14,7 @@ export class Input extends Block {
       status: props.status,
       placeholder: props.placeholder,
       name: props.name,
-      value: props.value,
+      value: sanitize(props.value),
       warning: props.warning,
       disabled: props.disabled,
       type: props.type,
