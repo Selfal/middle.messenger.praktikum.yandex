@@ -20,9 +20,7 @@ module.exports = {
     },
   },
   devServer: {
-    historyApiFallback: {
-      index: '/dist/index.html',
-    },
+    historyApiFallback: true,
     compress: true,
     port: 3000,
   },
