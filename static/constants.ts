@@ -17,6 +17,8 @@ export const regExpList: Record<
   userName: /^[A-zА-я]{1}[A-zА-я]{2,20}$/,
   phone:
     /^[\\+]?[(]?[0-9]{3}[)]?[-\s\\.]?[0-9]{3}[-\s\\.]?[0-9]{4,6}$/im,
-  oldPassword: /qwerty/,
+  oldPassword: /[A-Za-z0-9]{6,64}/,
   newPassword: /[A-Za-z0-9]{6,64}/,
 };
+
+export const hostForAPI = 'https://ya-praktikum.tech/api/v2';

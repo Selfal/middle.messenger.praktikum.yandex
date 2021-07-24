@@ -1,8 +1,9 @@
-import pug from 'pug';
-import './style.scss';
+import * as pug from 'pug';
 import IInput from './interface';
 import Block from '../../utils/Block';
 import validate from '../../utils/validate';
+import sanitize from '../../utils/sanitize';
+import './style.scss';
 
 export class Input extends Block {
   readonly props: IInput;
@@ -13,7 +14,7 @@ export class Input extends Block {
       status: props.status,
       placeholder: props.placeholder,
       name: props.name,
-      value: props.value,
+      value: sanitize(props.value),
       warning: props.warning,
       disabled: props.disabled,
       type: props.type,
@@ -55,11 +56,11 @@ export class Input extends Block {
     });
   }
 
-  get value() {
-    return this.props.value;
+  get value(): string {
+    return this.props.value as string;
   }
 
-  render() {
+  render(): HTMLElement {
     const {
       label,
       status = 'normal',
@@ -81,14 +82,16 @@ export class Input extends Block {
     }
 
     const component: pug.compileTemplate =
-      pug.compile(`label.input-component
-    span ${label}
+      pug.compile(`label.input-component 
+    ${label ? `span ${label}` : ''}
     input(type="${type}" placeholder="${placeholder}" name="${name}" value="${
         value ? value : ''
       }" disabled=${disabled}).input-component__input${statusClass}
     span.input-component__warning ${status === 'error' ? warning : ''}
     `);
 
-    return component(this.props);
+    const test = document.createElement('div');
+    test.innerHTML = component();
+    return test.firstChild as HTMLElement;
   }
 }

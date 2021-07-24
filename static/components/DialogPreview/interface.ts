@@ -5,5 +5,7 @@ export interface IDialogPreview {
   missedNum?: number;
   active?: boolean;
   avatar?: string;
-  events?: object;
+  events?: Record<string, unknown>;
+  id?: string | number;
+  chatName?: string;
 }

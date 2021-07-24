@@ -1,4 +1,4 @@
-import pug from 'pug';
+import * as pug from 'pug';
 import './style.scss';
 import IButton from './interface';
 import Block from '../../utils/Block';
@@ -10,7 +10,7 @@ export class Button extends Block {
     super('a', props);
   }
 
-  render(): string {
+  render(): HTMLElement {
     const {
       text,
       link = '#',
@@ -18,7 +18,6 @@ export class Button extends Block {
     } = this.props as IButton;
 
     let { className } = this.props as IButton;
-
     if (!className?.startsWith('.')) {
       className = `.${className}`;
     }
@@ -28,6 +27,9 @@ export class Button extends Block {
         primary ? 'button--primary' : 'button--secondary'
       }${className}(href="${link}") ${text}`,
     );
-    return component(this.props);
+
+    const result = document.createElement('div');
+    result.innerHTML = component();
+    return result.firstChild as HTMLElement;
   }
 }

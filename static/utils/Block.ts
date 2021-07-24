@@ -1,5 +1,4 @@
 import EventBus from './EventBus';
-import { migrateHtmlAtribute } from '../utils/migrateHtmlAtribute';
 
 export default class Block {
   static EVENTS = {
@@ -157,28 +156,39 @@ export default class Block {
     const block = this.render();
     this._removeEvents();
 
-    const template = migrateHtmlAtribute(block) as HTMLElement;
-    template.getAttributeNames().forEach((name) => {
-      this._element?.setAttribute(
-        name,
-        template.getAttribute(name) || '',
-      );
-    });
+    const template = block as Element;
 
-    const childNodes = <NodeList>template.childNodes;
-
-    let str: string = '';
-    for (let i = 0; i <= childNodes.length - 1; i++) {
-      const item = <HTMLElement>childNodes[i];
-      if (item.outerHTML !== undefined) {
-        str += item.outerHTML;
-      } else if (item.outerHTML === undefined) {
-        str += item.textContent;
+    if (template !== undefined) {
+      const attr = template.attributes;
+      if (attr !== undefined) {
+        for (let i = 0; i < attr.length; i++) {
+          this._element?.setAttribute(
+            attr[i].name,
+            attr[i].value || '',
+          );
+        }
       }
+
+      // template.getAttributeNames().forEach((name: string) => {
+      //   this._element?.setAttribute(
+      //     name,
+      //     template.getAttribute(name) || '',
+      //   );
+      // });
     }
 
-    if (this._element) {
-      this._element.innerHTML = str;
+    if (this._element && template !== undefined) {
+      this._element.innerHTML = '';
+      if (template.childNodes !== undefined) {
+        const childrens = Array.prototype.slice.call(
+          template.childNodes,
+        );
+
+        for (let i = 0; i < childrens.length; i++) {
+          this._element.appendChild(childrens[i]);
+        }
+      }
+
       this._addEvents();
     }
   }
@@ -217,11 +227,18 @@ export default class Block {
     return componentWrapper;
   }
 
-  public show(type?: 'flex' | 'div'): void {
-    this.getContent().style.display = type ? type : 'block';
+  public show(): void {
+    this.getContent().style.display = 'flex';
   }
 
   public hide(): void {
     this.getContent().style.display = 'none';
   }
+}
+
+export function renderBlock(query: string, block: Block) {
+  const root = document.querySelector(query);
+  root!.innerHTML = '';
+  root!.appendChild(block.getContent()!);
+  return root;
 }

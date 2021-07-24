@@ -11,10 +11,10 @@ body {
     'Noto Sans Osmanya', 'Noto Sans Tamil', 'Noto Sans Telugu',
     'Noto Sans Thai', sans-serif, arial, Tahoma, verdana;
 }
-
-.wrapper {
+.profile-settings.wrapper {
   display: flex;
   height: 100vh;
+  flex-direction: row;
 }
 
 .avatar {
@@ -53,12 +53,13 @@ body {
   align-items: center;
 }
 
-.main {
+.profile-settings.main {
   display: flex;
   flex-direction: column;
   align-items: center;
   flex: 1 0 auto;
   padding-top: 50px;
+  height: 100%;
   background: #fbfcff;
 }
 
@@ -70,25 +71,6 @@ body {
 .name {
   font-weight: 500;
   font-size: 22px;
-}
-
-.input-component {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-  font-size: 13px;
-
-  &__input {
-    border: 1px solid #e6e8e9;
-    border-radius: 5px;
-    padding: 10px 15px;
-    margin-top: 5px;
-    font-size: 14px;
-
-    &:focus {
-      border-color: $blue;
-    }
-  }
 }
 
 .user-info {
@@ -119,5 +101,19 @@ body {
     &:hover {
       color: darken(red, 2%);
     }
+  }
+}
+
+.back-to-chat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #ececec;
+  padding: 0 10px;
+
+  .button-only-icon__icon {
+    width: 30px;
+    height: 30px;
+    fill: #3369f3;
   }
 }

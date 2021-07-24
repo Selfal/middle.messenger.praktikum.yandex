@@ -7,7 +7,7 @@ export default function validate(
   }
 
   const result: boolean = Boolean(
-    re ? re.test(String(value).toLowerCase()) : value,
+    re ? re.test(String(value)) : value,
   );
   return result;
 }

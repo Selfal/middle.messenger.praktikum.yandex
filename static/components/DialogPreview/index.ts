@@ -1,16 +1,17 @@
-import pug from 'pug';
+import * as pug from 'pug';
 import './style.scss';
 import { IDialogPreview } from './interface';
 import Block from '../../utils/Block';
+import sanitize from '../../utils/sanitize';
 
 export class DialogPreview extends Block {
   readonly props: IDialogPreview;
 
   constructor(props: IDialogPreview) {
-    super('div', props);
+    super('li', props);
   }
 
-  render(): string {
+  render(): HTMLElement {
     const messageInfoTmp: string | boolean = this.props.missedNum
       ? `div.user-item__message-info ${this.props.missedNum}`
       : false;
@@ -20,16 +21,22 @@ export class DialogPreview extends Block {
 
     const component: pug.compileTemplate = pug.compile(`li.user-item${
       this.props.active ? '.user-item--active' : ''
-    }
+    }(data-id="${this.props.id}" data-chatname="${
+      this.props.chatName
+    }" data-chatavatar="${this.props.avatar}")
     img.user-item__avatar${avatarTmp}
     div.user-item__content
       div.user-item__header
-        div.user-item__name ${this.props.dialogName}
-        div.user-item__time ${this.props.dateLastMessage}
+        div.user-item__name ${sanitize(this.props.dialogName)}
       div.user-item__body
-        div.user-item__last-message ${this.props.lastMessage}
+        div.user-item__last-message ${sanitize(
+          this.props.lastMessage,
+        )}
         ${this.props.missedNum ? messageInfoTmp : ''}
     `);
-    return component(this.props);
+
+    const test = document.createElement('div');
+    test.innerHTML = component();
+    return test.firstChild as HTMLElement;
   }
 }

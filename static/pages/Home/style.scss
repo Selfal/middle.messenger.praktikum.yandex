@@ -10,12 +10,13 @@ body {
     'Noto Sans Thai', sans-serif, arial, Tahoma, verdana;
 }
 
-.wrapper {
+.home.wrapper {
   display: flex;
+  flex-direction: row;
   height: 100vh;
 }
 
-.button {
+.button-only-icon {
   display: flex;
   background: inherit;
   border: none;
@@ -71,6 +72,8 @@ body {
   &__header {
     display: flex;
     align-items: center;
+    width: 100%;
+    box-sizing: border-box;
     padding: 10px;
     background: $white;
     border-bottom: 1px solid #ececec;
@@ -95,8 +98,10 @@ body {
 
   &__body {
     display: flex;
-    flex-direction: column;
     flex-grow: 3;
+    flex-direction: column-reverse;
+    width: 100%;
+    box-sizing: border-box;
     padding: 10px 20px 10px 10px;
     overflow: auto;
 
@@ -109,6 +114,8 @@ body {
     display: flex;
     align-items: center;
     background: $white;
+    width: 100%;
+    box-sizing: border-box;
     border-top: 1px solid#ececec;
     padding: 0 10px;
   }
@@ -149,24 +156,6 @@ body {
   }
 }
 
-.message-input {
-  width: 100%;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  padding: 7px 10px;
-  font-size: 14px;
-  background: $white;
-  box-sizing: border-box;
-  resize: none;
-  height: 30px;
-  max-height: 5em;
-
-  &:focus {
-    background: #e9f9ff;
-  }
-}
-
 .dropdown {
   position: relative;
 }
@@ -192,4 +181,49 @@ body {
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+.popup-create-chat-wrapper {
+  display: none;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  &--active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.popup-create-chat-body {
+  background: #fff;
+  width: 50vw;
+  max-width: 350px;
+  border-radius: 5px;
+  box-shadow: 4px 8px 16px 0px rgb(34 60 80 / 20%);
+
+  &__title {
+    margin: 0 auto;
+    margin-top: 15px;
+    font-size: 20px;
+    width: 70%;
+    text-align: center;
+  }
+
+  &__input {
+    width: 80%;
+    margin: 15px auto;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
 }

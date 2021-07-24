@@ -4,4 +4,5 @@ export default interface IMessage {
   messageText?: string;
   img?: string;
   time?: string;
+  events?: Record<string, unknown>;
 }
