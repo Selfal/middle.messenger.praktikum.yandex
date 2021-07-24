@@ -7,9 +7,9 @@
     "watch": "webpack serve --mode=development --progress",
     "build": "webpack build",
     "start": "concurrently \"webpack build\" \"node ./server.js\"",
-    "eslint": "eslint ./static/**/*.ts",
-    "stylelint": "stylelint './static/**/*.scss' --fix",
-    "prettier": "prettier ./static",
+    "eslint": "eslint ./src/**/*.ts",
+    "stylelint": "stylelint './src/**/*.scss' --fix",
+    "prettier": "prettier ./src",
     "test": "TS_NODE_TRANSPILE_ONLY=1 mocha -r jsdom-global/register"
   },
   "husky": {

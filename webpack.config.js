@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './static/index.ts',
+  entry: './src/index.ts',
   mode: process.env.NODE_ENV,
   output: {
     filename: 'index.js',
@@ -47,11 +47,11 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: path.resolve(__dirname, 'static/index.html'),
+      template: path.resolve(__dirname, 'src/index.html'),
       nodeModules: false,
     }),
     new CopyPlugin({
-      patterns: [{ from: 'static/assets', to: 'assets' }],
+      patterns: [{ from: 'src/assets', to: 'assets' }],
     }),
     new webpack.ProvidePlugin({
       process: 'process/browser',
