@@ -4,10 +4,10 @@ import IMessage from './interface';
 import Block from '../../utils/Block';
 import sanitize from '../../utils/sanitize';
 export class Message extends Block {
-  readonly props: IMessage;
-
   constructor(props: IMessage) {
-    super('div', props);
+    super('div', {
+      ...props,
+    });
   }
 
   render(): HTMLElement {

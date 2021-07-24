@@ -6,8 +6,8 @@ const PORT = 3000;
 
 app.use(express.static(__dirname + '/dist'));
 
-app.get('/', (request, response) => {
-  response.sendFile('index.html');
+app.get('/*', (request, response) => {
+  response.sendFile('index.html', { root: __dirname + '/dist' });
 });
 
 app.listen(PORT, () => {

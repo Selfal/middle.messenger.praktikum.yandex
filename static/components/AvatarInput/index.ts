@@ -4,10 +4,10 @@ import IAvatarInput from './interface';
 import Block from '../../utils/Block';
 
 export class AvatarInput extends Block {
-  readonly props: IAvatarInput;
-
   constructor(props: IAvatarInput) {
-    super('label', props);
+    super('label', {
+      ...props,
+    });
   }
 
   render(): HTMLElement {

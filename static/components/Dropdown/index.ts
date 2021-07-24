@@ -4,10 +4,10 @@ import IDropdown from './interface';
 import Block from '../../utils/Block';
 
 export class Dropdown extends Block {
-  readonly props: IDropdown;
-
   constructor(props: IDropdown) {
-    super('div', props);
+    super('div', {
+      ...props,
+    });
   }
 
   render(): HTMLElement {

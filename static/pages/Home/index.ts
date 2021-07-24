@@ -197,6 +197,7 @@ export class Home extends Block {
                 event: () => {
                   const popup =
                     this.props.childComponents.popups.createChat;
+                  console.log(popup);
                   popup.setProps({ active: true });
                 },
               },

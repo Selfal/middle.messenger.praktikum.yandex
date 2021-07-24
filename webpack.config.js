@@ -24,7 +24,7 @@ module.exports = {
       index: '/dist/index.html',
     },
     compress: true,
-    port: 3000,
+    port: 3001,
   },
   module: {
     rules: [
