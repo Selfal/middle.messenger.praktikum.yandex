@@ -4,14 +4,18 @@
   "description": "### Откройте pull request в ветку main из ветки, где вы разрабатывали проект, и добавьте ссылку на этот pr в README.md в ветке main. Название pull request может быть любое.",
   "main": "index.js",
   "scripts": {
-    "watch": "parcel watch build ./static/**/*.html",
-    "build": "parcel build ./static/**/*.html",
-    "start": "concurrently \"parcel build ./static/**/*.html\" \"node ./server.js\"",
-    "dev": "npm run build && parcel ./static/index.html --port 3000 --open",
+    "watch": "webpack serve --mode=development --progress",
+    "build": "webpack build",
+    "start": "concurrently \"webpack build\" \"node ./server.js\"",
     "eslint": "eslint ./static/**/*.ts",
     "stylelint": "stylelint './static/**/*.scss' --fix",
     "prettier": "prettier ./static",
     "test": "TS_NODE_TRANSPILE_ONLY=1 mocha -r jsdom-global/register"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run eslint && npm run test"
+    }
   },
   "repository": {
     "type": "git",
@@ -50,6 +54,7 @@
     "express": "^4.17.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.2",
+    "husky": "^7.0.1",
     "jsdom": "^14.1.0",
     "jsdom-global": "3.0.2",
     "mini-css-extract-plugin": "^2.1.0",
