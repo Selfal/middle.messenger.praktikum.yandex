@@ -3,8 +3,9 @@
 Figma: https://www.figma.com/file/v4ByQpTajwEHITYEQo4emI/Untitled?node-id=8%3A78
 
 Netlify: https://60effdf1f07f25000807ec1a--inspiring-mestorf-5ea442.netlify.app/
+Heroku: http://chatao.herokuapp.com/
 
-PR Sprint_3: https://github.com/Selfal/middle.messenger.praktikum.yandex/pull/4
+PR Sprint_4: https://github.com/Selfal/middle.messenger.praktikum.yandex/pull/5
 
 ## Установка
 
