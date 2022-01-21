@@ -4,8 +4,6 @@ import IPopupCreateChat from './interface';
 import Block from '../../utils/Block';
 
 export class PopupCreateChat extends Block {
-  readonly props: IPopupCreateChat;
-
   constructor(props: IPopupCreateChat) {
     super('div', {
       ...props,

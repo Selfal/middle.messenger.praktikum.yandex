@@ -61,6 +61,7 @@ export default class Block {
   }
 
   private _componentDidMount(): void {
+    console.log(this);
     this.componentDidMount();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
@@ -84,6 +85,7 @@ export default class Block {
     oldProps: Record<string, any>,
     newProps: Record<string, any>,
   ): boolean {
+    // console.log(oldProps);
     if (oldProps !== newProps) {
       return true;
     }

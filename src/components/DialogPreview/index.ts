@@ -5,10 +5,10 @@ import Block from '../../utils/Block';
 import sanitize from '../../utils/sanitize';
 
 export class DialogPreview extends Block {
-  readonly props: IDialogPreview;
-
   constructor(props: IDialogPreview) {
-    super('li', props);
+    super('li', {
+      ...props,
+    });
   }
 
   render(): HTMLElement {

@@ -6,8 +6,6 @@ import sanitize from '../../utils/sanitize';
 import './style.scss';
 
 export class Input extends Block {
-  readonly props: IInput;
-
   constructor(props: IInput) {
     super('label', {
       label: props.label,

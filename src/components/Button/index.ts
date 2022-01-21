@@ -4,10 +4,10 @@ import IButton from './interface';
 import Block from '../../utils/Block';
 
 export class Button extends Block {
-  readonly props: IButton;
-
   constructor(props: IButton) {
-    super('a', props);
+    super('a', {
+      ...props,
+    });
   }
 
   render(): HTMLElement {

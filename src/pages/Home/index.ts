@@ -197,6 +197,7 @@ export class Home extends Block {
                 event: () => {
                   const popup =
                     this.props.childComponents.popups.createChat;
+                  console.log(popup);
                   popup.setProps({ active: true });
                 },
               },
@@ -461,7 +462,6 @@ export class Home extends Block {
         ?.append(dialogsPreview[i].getContent());
     }
 
-    layout.querySelector('.main__body')?.innerHTML = '';
     for (let i = 0; i < messages.length; i++) {
       layout
         .querySelector('.main__body')
